@@ -1,0 +1,108 @@
+(
+o = Server.default.options;
+o.outDevice_("MME : Högtalare (Razer Surround Audio)");
+o.numOutputBusChannels = 8;
+o.numOutputBusChannels;
+)
+s.boot;
+(
+~surround = Bus.audio(s,8);
+~surround.index;
+o.numOutputBusChannels = ~surround.index+8;
+)
+
+(
+SynthDef(\surroundmod, {
+	arg freq=200, rate=1, pan=0, gate=0, reverb=0.5, amp=0.3;
+	var sig, resfreq, env, reverbed;
+	env = EnvGen.kr(
+		Env.adsr(5.0,0.0,2.0,5.0),
+		gate,
+		doneAction:0
+	);
+	sig = Saw.ar(freq);
+	resfreq = SinOsc.kr(rate) * 200 + 500;
+	sig = RLPF.ar(sig, resfreq,0.5);
+	sig = FreeVerb.ar(sig, reverb, 0.5, 0.8);
+	//sig = GVerb.ar(sig, 200, 5);
+	//reverbed = sig;
+	//4.do({ reverbed = AllpassC.ar(reverbed, 0.6, { Rand(0.001,0.6) }, 6)});
+	//sig = reverbed*1.0;
+	sig = PanAz.ar(7, sig, pan,0.2,3,0);
+	//LFSaw.kr(pan)
+	//Out.ar(0, sig);
+	sig = sig * amp * env;
+	Out.ar(~surround, sig);
+
+	Out.ar(2, In.ar(~surround.index, 1));
+	Out.ar(1, In.ar(~surround.index+1, 1));
+	Out.ar(5, In.ar(~surround.index+2, 1));
+	Out.ar(7, In.ar(~surround.index+3, 1));
+	Out.ar(6, In.ar(~surround.index+4, 1));
+	Out.ar(4, In.ar(~surround.index+5, 1));
+	Out.ar(0, In.ar(~surround.index+6, 1));
+}).add;
+)
+
+//
+
+(
+SynthDef("mod", {
+	arg freq, rate, pan=0,gate=0, reverb, amp=0.7, out=0;
+	var sig, resfreq, env, reverbed;
+	env = EnvGen.kr(
+		Env.adsr(5.0,0.0,1.0,2.0),
+		gate,
+		doneAction:0
+	);
+	sig = (Saw.ar(freq) + SinOsc.ar(freq*2,0,0.2) + SinOsc.ar(freq*4,0,0.1))/3;
+	resfreq = SinOsc.kr(rate) * 200 + 400;
+	sig = RLPF.ar(sig, resfreq, 0.2);
+	sig = FreeVerb.ar(sig, reverb, 0.5, 0.1);
+	//reverbed = sig;
+	//1.do({ reverbed = AllpassC.ar(reverbed, 0.1, { Rand(0.001,0.6) }.dup, 6)});
+	//sig = sig + (reverbed*0.5);
+	sig = Pan2.ar(sig,pan,0.4);
+	//sig = Splay.ar(sig,0,0.5,pan);
+	//sig = PanAz.ar(7, sig, LFSaw.kr(pan/5),1,4,0);
+	sig = sig * amp * env;
+	Out.ar(0, sig);
+}).add;
+)
+
+SynthDef("poof", {
+	arg freq=400, pan=0, out=0;
+	var sig, env;
+	env = EnvGen.kr(
+		Env.new([0,1,0],[0,1],[0,-4]),
+		doneAction:0
+	);
+	sig = PinkNoise.ar(1);
+
+	sig = Pan2.ar(sig,pan);
+	sig = sig * env;
+		sig = (BPF.ar(sig, freq, 0.03) * 10)+ (BPF.ar(sig, freq*2, 0.01) *1) + (BPF.ar(sig, freq*4, 0.01) * 0.5);
+	//sig = HPF.ar(sig,200);
+	//sig!2;
+	Out.ar(out, sig);
+}).add;
+
+SynthDef.new(\wind, {
+	arg amp;
+	var sig, env;
+	env = EnvGen.kr(
+		Env.new([0,1,1,0],[1,1000,1],[1,-1]),
+		doneAction:2
+	);
+	sig = BrownNoise.ar(amp);
+	sig = LPF.ar(sig, Vibrato.kr(1000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
+	sig = LPF.ar(sig, Vibrato.kr(5000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
+	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
+	sig = HPF.ar(sig, 20);
+	sig = sig * env;
+	sig = FreeVerb.ar(sig, 0.54, 1.0, 1.0);
+	sig = Pan2.ar(sig,0);
+	Out.ar(0,sig);
+}).add;
+
+
