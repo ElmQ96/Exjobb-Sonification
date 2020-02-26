@@ -16,15 +16,16 @@ OSCdef.new(\mercury,
 		var clampedAmp = (3*~diameterMercury)/msg[1];
 		("mercuryDist:" + msg[1]);
 		if(msg[1]<(20*~diameterMercury),
-			{~mercury.set(\gate, 1)},
-			{~mercury.set(\gate, 0)}
+			{~mercuryP.set(\gate, 1)},
+			{~mercuryP.set(\gate, 0)}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
 			{clampedAmp = (3*~diameterMercury)/msg[1]});
-		~mercury.set(\amp, clampedAmp);
-		~mercury.set(\reverb, 1-clampedAmp);
-		~mercury.set(\pan, msg[2]);
+		~mercuryP.set(\amp, clampedAmp);
+		~mercuryP.set(\reverb, 1-clampedAmp);
+		~mercuryP.set(\pan, -1*(msg[2]/pi));
+		~mercuryS.set(\pan, -1*(msg[2]/pi));
 	},'/Mercury'
     )
 )
@@ -35,15 +36,16 @@ OSCdef.new(\venus,
 		var clampedAmp = (3*~diameterVenus)/msg[1];
 		("venusDist:" + msg[1]);
 		if(msg[1]<(20*~diameterVenus),
-			{~venus.set(\gate, 1)},
-			{~venus.set(\gate, 0)}
+			{~venusP.set(\gate, 1)},
+			{~venusP.set(\gate, 0)}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
 			{clampedAmp = (3*~diameterVenus)/msg[1]});
-		~venus.set(\amp, clampedAmp);
-		~venus.set(\reverb, 1-clampedAmp);
-		~venus.set(\pan, msg[2]);
+		~venusP.set(\amp, clampedAmp);
+		~venusP.set(\reverb, 1-clampedAmp);
+		~venusP.set(\pan, -1*(msg[2]/pi));
+		~venusS.set(\pan, -1*(msg[2]/pi));
 	},'/Venus'
     )
 )
@@ -51,18 +53,19 @@ OSCdef.new(\venus,
 OSCdef.new(\earth,
 	{
 		arg msg;
-		var clampedAmp = (3*~diameterEarth)/msg[1];
+		var clampedAmp = (10*~diameterEarth)/msg[1];
 		("earthAngle:" + msg[2]).postln;
-		if(msg[1]<(20*~diameterEarth),
-			{~earth.set(\gate, 1)},
-			{~earth.set(\gate, 0)}
+		if(msg[1]<(100*~diameterEarth),
+			{~earthP.set(\gate, 1)},
+			{~earthP.set(\gate, 0)}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
-			{clampedAmp = (3*~diameterEarth)/msg[1]});
-		~earth.set(\amp, clampedAmp);
-		~earth.set(\reverb, 1-clampedAmp);
-		~earth.set(\pan, msg[2]);
+			{clampedAmp = (10*~diameterEarth)/msg[1]});
+		~earthP.set(\amp, clampedAmp);
+		~earthP.set(\reverb, 1-clampedAmp);
+		~earthP.set(\pan, -1*(msg[2]/pi));
+		~earthS.set(\pan, -1*(msg[2]/pi));
 
 	},'/Earth'
     )
@@ -74,15 +77,16 @@ OSCdef.new(\mars,
 		var clampedAmp = (3*~diameterMars)/msg[1];
 		("marsDist:" + msg[1]);
 		if(msg[1]<(20*~diameterMars),
-			{~mars.set(\gate, 1)},
-			{~mars.set(\gate, 0)}
+			{~marsP.set(\gate, 1)},
+			{~marsP.set(\gate, 0)}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
 			{clampedAmp = (3*~diameterMars)/msg[1]});
-		~mars.set(\amp, clampedAmp);
-		~mars.set(\reverb, 1-clampedAmp);
-		~mars.set(\pan, msg[2]);
+		~marsP.set(\amp, clampedAmp);
+		~marsP.set(\reverb, 1-clampedAmp);
+		~marsP.set(\pan, -1*(msg[2]/pi));
+		~marsS.set(\pan, -1*(msg[2]/pi));
 	},'/Mars'
     )
 )
@@ -135,7 +139,7 @@ OSCdef.new(\focus,
 		arg msg;
 		//func
 		var focus = msg[1];
-		//("FOCUS:" + msg[1]).postln;
+		("FOCUS:" + msg[1]).postln;
 		//case
 			//{ focus == 'Mercury' } { \no }
 			//{ focus == 'Venus' } { \wrong }
