@@ -19,7 +19,7 @@ x = {
 		doneAction:0
 	);
 	sig = PinkNoise.ar(1);
-	sig = BPF.ar(sig, 400, 0.02) * 10;
+	sig = BPF.ar(sig, 100, 0.02) * 10;
 	sig = sig * env;
 	sig!2;
 }.play

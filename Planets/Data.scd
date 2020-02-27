@@ -18,10 +18,10 @@ var mul = 1.0;
 ~diameterEarth = 12756;
 ~diameterMars = 6792;
 
-~diameterJupiter = 142.984;
-~diameterSaturn = 120.536;
-~diameterUranus = 51.118;
-~diameterNeptune = 49.528;
+~diameterJupiter = 142984;
+~diameterSaturn = 120536;
+~diameterUranus = 51118;
+~diameterNeptune = 49528;
 
 //orbital period (1 month/second), (1/12)-0.02
 ~orbitMercury = 0.137888899;

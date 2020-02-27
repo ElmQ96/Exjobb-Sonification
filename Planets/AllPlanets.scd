@@ -2,28 +2,27 @@
 (~mercuryP = Synth.new(\surroundmod, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, 0,
+		\pan, ~mercuryPos,
 		\reverb, 0.5]);
 
 ~venusP = Synth.new(\surroundmod, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
-		\pan, 0,
+		\pan, ~venusPos,
 		\reverb, 0.5]);
 
 ~earthP = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, 0,
+		\pan, ~earthPos,
 		\reverb, 0.5]);
 
 ~marsP = Synth.new(\surroundmod, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
-		\pan, 0,
+		\pan, ~marsPos,
 		\reverb, 0.5]);
 )
-
 
 ~mercuryP.set(\gate, 1)
 ~mercuryP.set(\gate, 0)
@@ -41,98 +40,29 @@
 ~marsP.set(\gate, 0)
 
 
-
-//No Surround
-(~mercury = Synth.new(\mod, [
-		\freq, ~massMercury,
-		\rate, ~invrotationMercury,
-		\pan, 0,
-		\reverb, 0.5]);
-
-~venus = Synth.new(\mod, [
-		\freq, ~massVenus,
-		\rate, ~invrotationVenus,
-		\pan, 0,
-		\reverb, 0.5]);
-
-~earth = Synth.new(\mod, [
-		\freq, ~massEarth,
-		\rate, ~invrotationEarth,
-		\pan, 0,
-		\reverb, 0.5]);
-
-~mars = Synth.new(\mod, [
-		\freq, ~massMars,
-		\rate, ~invrotationMars,
-		\pan, 0,
-		\reverb, 0.5]);
-)
-
-
-
-
-(~jupiter = Synth.new(\mod, [
-		\freq, ~massJupiter,
-		\rate, ~invrotationJupiter,
-		\pan, 0.2,
-		\reverb, 0.5]);
-)
-(~saturn = Synth.new(\mod, [
-		\freq, ~massSaturn,
-		\rate, ~invrotationSaturn,
-		\pan, 0.5,
-		\reverb, 0.5]);
-)
-(~uranus = Synth.new(\mod, [
-		\freq, ~massUranus,
-		\rate, ~invrotationUranus,
-		\pan, 0.8,
-		\reverb, 0.5]);
-)
-(~neptune = Synth.new(\mod, [
-		\freq, ~massNeptune,
-		\rate, ~invrotationNeptune,
-		\pan, 1,
-		\reverb, 0.5]);
-)
-
-(~sun = Synth.new(\mod, [
-		\freq, 50,
-		\rate, ~invrotationSun,
-		\pan, 0,
-		\reverb, 0.5]);
-)
-
-
-~earth.set(\gate, 1)
-~earth.set(\gate, 0)
-
-
-
-
 //Solar system View
 (~mercuryS = Synth.new(\surroundmod, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, 0,
+		\pan, ~mercuryPos,
 		\reverb, 0.5]);
 
 ~venusS = Synth.new(\surroundmod, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
-		\pan, 0,
+		\pan, ~venusPos,
 		\reverb, 0.5]);
 
 ~earthS = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, 0,
+		\pan, ~earthPos,
 		\reverb, 0.5]);
 
 ~marsS = Synth.new(\surroundmod, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
-		\pan, 0,
+		\pan, ~marsPos,
 		\reverb, 0.5]);
 )
 
@@ -145,39 +75,67 @@
 ~earthS.set(\gate, 1)
 ~earthS.set(\gate, 0)
 
+~marsS.set(\gate, 1)
+~marsS.set(\gate, 0)
 
-//Poof
-(~mercuryPoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
+//Poof, needs a common finish line
+(
+~mercuryPoof = Synth.new(\poof, [
 		\freq, ~massMercury,
-		\dur, 1000,
-		\pan, -1
-).play
-)
-(~venusPoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
+		\rate, 100,
+		\pan, ~mercuryPos]);
+
+~venusPoof = Synth.new(\poof, [
 		\freq, ~massVenus,
-		\dur, 1000,
-		\pan, -0.7
-).play
-)
-(~earthPoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
+		\rate, 100,
+		\pan, ~venusPos]);
+
+~earthPoof = Synth.new(\poof, [
 		\freq, ~massEarth,
-		\dur, ~rotationEarth,
-		\pan, -0.4
-).play
-)
-(~marsPoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
+		\rate, ~invrotationEarth,
+		\pan, ~earthPos]);
+
+~marsPoof = Synth.new(\poof, [
 		\freq, ~massMars,
-		\dur, ~rotationMars,
-		\pan, -0.1
-).play
+		\rate, ~invrotationMars,
+		\pan, ~marsPos]);
+)
+
+~mercuryPoof.set(\gate, 1);
+~mercuryPoof.set(\gate, 0);
+
+~venusPoof.set(\gate, 1);
+~venusPoof.set(\gate, 0);
+
+~earthPoof.set(\gate, 1);
+~earthPoof.set(\gate, 0);
+
+~marsPoof.set(\gate, 1);
+~marsPoof.set(\gate, 0);
+
+(
+~jupiterPoof = Synth.new(\poof, [
+		\freq, ~massJupiter,
+		\rate, ~invrotationJupiter,
+		\pan, ~orbitJupiter]);
+~saturnPoof = Synth.new(\poof, [
+		\freq, ~massSaturn,
+		\rate, ~invrotationSaturn,
+		\pan, ~orbitSaturn]);
+~uranusPoof = Synth.new(\poof, [
+		\freq, ~massUranus,
+		\rate, ~invrotationUranus,
+		\pan, ~orbitUranus]);
+~neptunePoof = Synth.new(\poof, [
+		\freq, ~massneptune,
+		\rate, ~invrotationneptune,
+		\pan, ~orbitneptune]);
+)
+
+
+
+
+
 )
 (~jupiterPoof =Pbind(
 		\type, \note,
@@ -211,7 +169,3 @@
 		\pan, 1.0
 ).play
 )
-
-
-
-

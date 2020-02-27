@@ -7,8 +7,8 @@ o.numOutputBusChannels;
 s.boot;
 (
 ~surround = Bus.audio(s,8);
-~surround.index;
 o.numOutputBusChannels = ~surround.index+8;
+~surround.index;
 )
 
 (
@@ -28,9 +28,9 @@ SynthDef(\surroundmod, {
 	//reverbed = sig;
 	//4.do({ reverbed = AllpassC.ar(reverbed, 0.6, { Rand(0.001,0.6) }, 6)});
 	//sig = reverbed*1.0;
-	sig = PanAz.ar(7, sig, pan,0.2,3,0);
 	//LFSaw.kr(pan)
 	//Out.ar(0, sig);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surround, sig);
 
@@ -70,22 +70,36 @@ SynthDef("mod", {
 }).add;
 )
 
+(
 SynthDef("poof", {
-	arg freq=400, pan=0, out=0;
-	var sig, env;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.5, gate=0;
+	var sig, env, t_gate=0;
+
+	t_gate = gate * LFPulse.ar(rate,0.99);
 	env = EnvGen.kr(
-		Env.new([0,1,0],[0,1],[0,-4]),
+		Env.perc(0.01),
+		t_gate,
 		doneAction:0
 	);
+
 	sig = PinkNoise.ar(1);
 
-	sig = Pan2.ar(sig,pan);
-	sig = sig * env;
-		sig = (BPF.ar(sig, freq, 0.03) * 10)+ (BPF.ar(sig, freq*2, 0.01) *1) + (BPF.ar(sig, freq*4, 0.01) * 0.5);
+	sig = (BPF.ar(sig, freq, 0.02) * 10)+ (BPF.ar(sig, freq*2, 0.01) *1) + (BPF.ar(sig, freq*4, 0.01) * 0.5);
 	//sig = HPF.ar(sig,200);
 	//sig!2;
-	Out.ar(out, sig);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
+	sig = sig * amp * env;
+	Out.ar(~surround, sig);
+
+	Out.ar(2, In.ar(~surround.index, 1));
+	Out.ar(1, In.ar(~surround.index+1, 1));
+	Out.ar(5, In.ar(~surround.index+2, 1));
+	Out.ar(7, In.ar(~surround.index+3, 1));
+	Out.ar(6, In.ar(~surround.index+4, 1));
+	Out.ar(4, In.ar(~surround.index+5, 1));
+	Out.ar(0, In.ar(~surround.index+6, 1));
 }).add;
+)
 
 SynthDef.new(\wind, {
 	arg amp;
@@ -106,3 +120,11 @@ SynthDef.new(\wind, {
 }).add;
 
 
+SynthDef.new(\gravity, {
+	arg freq, gravity;
+    var t, sf;
+	//sf = K2A.ar(LFPulse.kr(0.5).poll > 0.5) > 0;
+	sf = LFPulse.ar(0.1,0.99).poll;
+    t = TBall.ar(sf, gravity,0,0.01);
+    Ringz.ar(t * 5, freq, 0.5)!2;
+}).add;
