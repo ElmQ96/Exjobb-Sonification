@@ -78,42 +78,31 @@
 ~marsS.set(\gate, 1)
 ~marsS.set(\gate, 0)
 
-//Poof, needs a common finish line
+//Poof
 (
 ~mercuryPoof = Synth.new(\poof, [
 		\freq, ~massMercury,
-		\rate, 100,
-		\pan, ~mercuryPos]);
-
+		\rate, ~invrotationMercury,
+		\pan, ~orbitMars]);
+//)
+//(
 ~venusPoof = Synth.new(\poof, [
 		\freq, ~massVenus,
-		\rate, 100,
-		\pan, ~venusPos]);
-
+		\rate, ~invrotationVenus,
+		\pan, ~orbitVenus]);
+//)
+//(
 ~earthPoof = Synth.new(\poof, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, ~earthPos]);
-
+		\pan, ~orbitEarth]);
+//)
+//(
 ~marsPoof = Synth.new(\poof, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
-		\pan, ~marsPos]);
-)
+		\pan, ~orbitMars]);
 
-~mercuryPoof.set(\gate, 1);
-~mercuryPoof.set(\gate, 0);
-
-~venusPoof.set(\gate, 1);
-~venusPoof.set(\gate, 0);
-
-~earthPoof.set(\gate, 1);
-~earthPoof.set(\gate, 0);
-
-~marsPoof.set(\gate, 1);
-~marsPoof.set(\gate, 0);
-
-(
 ~jupiterPoof = Synth.new(\poof, [
 		\freq, ~massJupiter,
 		\rate, ~invrotationJupiter,
@@ -127,45 +116,31 @@
 		\rate, ~invrotationUranus,
 		\pan, ~orbitUranus]);
 ~neptunePoof = Synth.new(\poof, [
-		\freq, ~massneptune,
-		\rate, ~invrotationneptune,
-		\pan, ~orbitneptune]);
-)
-
-
-
-
-
-)
-(~jupiterPoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
-		\freq, ~massJupiter,
-		\dur, 0.4,
-		\pan, 0.2
-).play
-)
-(~saturnPoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
-		\freq, ~massSaturn,
-		\dur, ~rotationSaturn,
-		\pan, 0.5
-).play
-)
-(~uranusPoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
-		\freq, ~massUranus,
-		\dur, ~rotationUranus,
-		\pan, 0.7
-).play
-)
-(~neptunePoof =Pbind(
-		\type, \note,
-		\instrument, \poof,
 		\freq, ~massNeptune,
-		\dur, ~rotationNeptune,
-		\pan, 1.0
-).play
+		\rate, ~invrotationneptune,
+		\pan, ~orbitNeptune]);
 )
+
+~mercuryPoof.set(\gate, 1);
+~venusPoof.set(\gate, 1);
+~earthPoof.set(\gate, 1);
+~marsPoof.set(\gate, 1);
+
+~jupiterPoof.set(\gate, 1);
+~saturnPoof.set(\gate, 1);
+~uranusPoof.set(\gate, 1);
+~neptunePoof.set(\gate, 1);
+
+~mercuryPoof.set(\gate, 0);
+~venusPoof.set(\gate, 0);
+~earthPoof.set(\gate, 0);
+~marsPoof.set(\gate, 0);
+
+~jupiterPoof.set(\gate, 0);
+~saturnPoof.set(\gate, 0);
+~uranusPoof.set(\gate, 0);
+~neptunePoof.set(\gate, 0);
+
+
+
+

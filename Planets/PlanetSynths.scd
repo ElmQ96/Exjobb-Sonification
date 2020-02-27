@@ -4,7 +4,7 @@ o.outDevice_("MME : Högtalare (Razer Surround Audio)");
 o.numOutputBusChannels = 8;
 o.numOutputBusChannels;
 )
-s.boot;
+s.reboot;
 (
 ~surround = Bus.audio(s,8);
 o.numOutputBusChannels = ~surround.index+8;
@@ -70,27 +70,29 @@ SynthDef("mod", {
 }).add;
 )
 
+Env.adsr(0.05,0.5,0.3,0.5).plot;
+
 (
 SynthDef("poof", {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.5, gate=0;
 	var sig, env, t_gate=0;
 
-	t_gate = gate * LFPulse.ar(rate,0.99);
+	t_gate = gate * LFPulse.ar(rate);
 	env = EnvGen.kr(
-		Env.perc(0.01),
+		Env.adsr(0.05,0.5,0.3,0.5),
 		t_gate,
 		doneAction:0
 	);
 
 	sig = PinkNoise.ar(1);
 
-	sig = (BPF.ar(sig, freq, 0.02) * 10)+ (BPF.ar(sig, freq*2, 0.01) *1) + (BPF.ar(sig, freq*4, 0.01) * 0.5);
+	sig = (BPF.ar(sig, freq*2, 0.01) * 40); //+ (BPF.ar(sig, freq*, 0.01) *5); //+ (BPF.ar(sig, freq*4, 0.01) * 0.5);
 	//sig = HPF.ar(sig,200);
 	//sig!2;
 	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
 	sig = sig * amp * env;
+	//Out.ar(out,sig);
 	Out.ar(~surround, sig);
-
 	Out.ar(2, In.ar(~surround.index, 1));
 	Out.ar(1, In.ar(~surround.index+1, 1));
 	Out.ar(5, In.ar(~surround.index+2, 1));

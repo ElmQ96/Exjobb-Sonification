@@ -23,23 +23,36 @@ var mul = 1.0;
 ~diameterUranus = 51118;
 ~diameterNeptune = 49528;
 
-//orbital period (1 month/second), (1/12)-0.02
+/*orbital period (1 month/second), (1/12)-0.02
 ~orbitMercury = 0.137888899;
 ~orbitVenus = 0.1109850384;
 ~orbitEarth = 0.08333330167;
-~orbitMars = 0.02;
+~orbitMars = 0.02;*/
+
+//orbital period, Earth ratio, (1 month/second)
+~orbitMercury = 0.34578146611;
+~orbitVenus = 0.13550135501;
+~orbitEarth = 0.08333330167;
+~orbitMars = 0.04432624113;
+
+~orbitJupiter = 0.00700280112;
+~orbitSaturn = 0.00283446712;
+~orbitUranus = 0.00099561927;
+~orbitNeptune = 0.00050906129;
+
 
 //Axis-Rotation (24 hours/second), 0.4-1
-~rotationMercury = 0;
-~rotationVenus = 0; //-
+//Length of day
+~rotationMercury = 175.9;
+~rotationVenus = 116.8; //-
 ~rotationEarth = 1;
 ~rotationMars = 1.03;
-~rotationJupiter = 0.4;
-~rotationSaturn = 0.4342857143;
-~rotationUranus = 0.7128571429;
-~rotationNeptune = 0.6657142857;
+~rotationJupiter = 0.414;
+~rotationSaturn = 0.444;
+~rotationUranus = 0.718; //-
+~rotationNeptune = 0.671;
 
-//Inverted Axis-Rotation (24 hours/second)
+/*Inverted Axis-Rotation (24 hours/second)
 ~invrotationSun = 2.732212581;
 ~invrotationMercury = 0;
 ~invrotationVenus = 0; //-
@@ -48,7 +61,17 @@ var mul = 1.0;
 ~invrotationJupiter = 5;
 ~invrotationSaturn = 4.771428571;
 ~invrotationUranus = 2.914285714;
-~invrotationNeptune = 3.228571429;
+~invrotationNeptune = 3.228571429;*/
+
+//ratio earth (1/rotationRatio),(24hrs/sec)
+~invrotationMercury = 0.00568504832;
+~invrotationVenus = 0.00856164383; //-
+~invrotationEarth = 1;
+~invrotationMars = 0.9708737864;
+~invrotationJupiter = 2.4154589372;
+~invrotationSaturn = 2.25225225225;
+~invrotationUranus = 1.39275766017;
+~invrotationNeptune = 1.49031296572;
 
 
 //Gravity (g), relation to Earth
@@ -56,6 +79,16 @@ var mul = 1.0;
 ~gravityVenus = 0.907;
 ~gravityEarth = 1;
 ~gravityMars = 0.377;
+
+~mercuryPos = 0;
+~venusPos = 0;
+~earthPos = 0;
+~marsPos = 0;
+~jupiterPos = 0;
+~saturnPos = 0;
+~uranusPos = 0;
+~neptunePos = 0;
+
 )
 
 
@@ -89,3 +122,19 @@ var mul = 1.0;
 //~massSaturn = 73.42;//D2
 //~massUranus = 82.41;//E2
 //~massNeptune = 87.31;//F2
+
+
+/*Mass Earth ratio,Hz
+~massMercury = 4698.63 //4731, D8
+~massVenus =  329.63 //321, E4
+~massEarth = 261.63; //C4
+~massMars = 2489.02  //2445, D7-E7, D#
+
+~massJupiter =  //0.82, nothing
+~massSaturn =  // 2.74
+~massUranus = 18.35 // 18, D0
+~massNeptune =16.35  //15.3, C0*/
+
+
+
+

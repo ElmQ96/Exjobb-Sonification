@@ -28,8 +28,9 @@ OSCdef.new(\mercury,
 		~mercuryP.set(\reverb, 1-clampedAmp);
 
 		~mercuryPos = -1*(msg[2]/pi);
-		//~mercuryP.set(\pan, -1*(msg[2]/pi));
-		//~mercuryS.set(\pan, -1*(msg[2]/pi));
+		~mercuryP.set(\pan, ~mercuryPos));
+		~mercuryS.set(\pan, ~mercuryPos));
+		~mercuryPoof.set(\pan, ~mercuryPos));
 
 	},'/Mercury'
     )
@@ -51,6 +52,9 @@ OSCdef.new(\venus,
 		~venusP.set(\reverb, 1-clampedAmp);
 
 		~venusPos = -1*(msg[2]/pi);
+		~venusP.set(\pan, ~venusPos));
+		~venusS.set(\pan, ~venusPos));
+		~venusPoof.set(\pan, ~venusPos));
 
 	},'/Venus'
     )
@@ -72,6 +76,9 @@ OSCdef.new(\earth,
 		~earthP.set(\reverb, 1-clampedAmp);
 
 		~earthPos = -1*(msg[2]/pi);
+		~earthP.set(\pan, ~earthPos));
+		~earthS.set(\pan, ~earthPos));
+		~earthPoof.set(\pan, ~earthPos));
 
 	},'/Earth'
     )
@@ -93,6 +100,9 @@ OSCdef.new(\mars,
 		~marsP.set(\reverb, 1-clampedAmp);
 
 		~marsPos = -1*(msg[2]/pi);
+		~marsP.set(\pan, ~marsPos));
+		~marsS.set(\pan, ~marsPos));
+		~marsPoof.set(\pan, ~marsPos));
 
 	},'/Mars'
     )
