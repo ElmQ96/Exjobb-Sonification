@@ -9,8 +9,6 @@ s.meter;
 //msg[2] = angle (pan)
 //msg[3] = Focus (gate)
 
-
-
 (
 OSCdef.new(\mercury,
 	{
@@ -28,14 +26,14 @@ OSCdef.new(\mercury,
 		~mercuryP.set(\reverb, 1-clampedAmp);
 
 		~mercuryPos = -1*(msg[2]/pi);
-		~mercuryP.set(\pan, ~mercuryPos));
-		~mercuryS.set(\pan, ~mercuryPos));
-		~mercuryPoof.set(\pan, ~mercuryPos));
+		~mercuryP.set(\pan, ~mercuryPos);
+		~mercuryS.set(\pan, ~mercuryPos);
+		~mercuryPoof.set(\pan, ~mercuryPos);
 
 	},'/Mercury'
-    )
-)
-(
+    );
+
+
 OSCdef.new(\venus,
 	{
 		arg msg;
@@ -52,14 +50,13 @@ OSCdef.new(\venus,
 		~venusP.set(\reverb, 1-clampedAmp);
 
 		~venusPos = -1*(msg[2]/pi);
-		~venusP.set(\pan, ~venusPos));
-		~venusS.set(\pan, ~venusPos));
-		~venusPoof.set(\pan, ~venusPos));
+		~venusP.set(\pan, ~venusPos);
+		~venusS.set(\pan, ~venusPos);
+		~venusPoof.set(\pan, ~venusPos);
 
 	},'/Venus'
-    )
-)
-(
+    );
+
 OSCdef.new(\earth,
 	{
 		arg msg;
@@ -76,14 +73,13 @@ OSCdef.new(\earth,
 		~earthP.set(\reverb, 1-clampedAmp);
 
 		~earthPos = -1*(msg[2]/pi);
-		~earthP.set(\pan, ~earthPos));
-		~earthS.set(\pan, ~earthPos));
-		~earthPoof.set(\pan, ~earthPos));
+		~earthP.set(\pan, ~earthPos);
+		~earthS.set(\pan, ~earthPos);
+		~earthPoof.set(\pan, ~earthPos);
 
 	},'/Earth'
-    )
-)
-(
+    );
+
 OSCdef.new(\mars,
 	{
 		arg msg;
@@ -100,13 +96,47 @@ OSCdef.new(\mars,
 		~marsP.set(\reverb, 1-clampedAmp);
 
 		~marsPos = -1*(msg[2]/pi);
-		~marsP.set(\pan, ~marsPos));
-		~marsS.set(\pan, ~marsPos));
-		~marsPoof.set(\pan, ~marsPos));
+		~marsP.set(\pan, ~marsPos);
+		~marsS.set(\pan, ~marsPos);
+		~marsPoof.set(\pan, ~marsPos);
 
 	},'/Mars'
-    )
+    );
+
+OSCdef.new(\focus,
+	{
+		arg msg;
+		//func
+		var focus = msg[1];
+		("FOCUS:" + msg[1]).postln;
+		//case
+			//{ focus == 'Mercury' } { \no }
+			//{ focus == 'Venus' } { \wrong }
+			//{ focus == 'Earth } { \wrong }
+			//{ focus == 'Mars' } { \wrong }
+			//{ focus == 'Jupiter' } { \wrong }
+			//{ focus == 'Saturn' } { \true }
+			//{ focus == 'Uranus' } { \wrong }
+			//{ focus == 'Neptune' } { \wrong }
+
+		if(focus == 'Sun',
+			{~mercuryPoof.set(\gate, 1);
+			 ~venusPoof.set(\gate, 1);
+			 ~earthPoof.set(\gate, 1);
+			 ~marsPoof.set(\gate, 1);
+
+			},
+			{~mercuryPoof.set(\gate, 0);
+			 ~venusPoof.set(\gate, 0);
+			 ~earthPoof.set(\gate, 0);
+			 ~marsPoof.set(\gate, 0);
+			}
+		)
+
+	},'/focus'
+    );
 )
+
 /*
 (
 OSCdef.new(\jupiter,
@@ -150,37 +180,3 @@ OSCdef.new(\neptune,
     )
 )
 */
-(
-OSCdef.new(\focus,
-	{
-		arg msg;
-		//func
-		var focus = msg[1];
-		("FOCUS:" + msg[1]).postln;
-		//case
-			//{ focus == 'Mercury' } { \no }
-			//{ focus == 'Venus' } { \wrong }
-			//{ focus == 'Earth } { \wrong }
-			//{ focus == 'Mars' } { \wrong }
-			//{ focus == 'Jupiter' } { \wrong }
-			//{ focus == 'Saturn' } { \true }
-			//{ focus == 'Uranus' } { \wrong }
-			//{ focus == 'Neptune' } { \wrong }
-
-		if(focus == 'Sun',
-			{~mercuryPoof.set(\gate, 1);
-			 ~venusPoof.set(\gate, 1);
-			 ~earthPoof.set(\gate, 1);
-			 ~marsPoof.set(\gate, 1);
-
-			},
-			{~mercuryPoof.set(\gate, 0);
-			 ~venusPoof.set(\gate, 0);
-			 ~earthPoof.set(\gate, 0);
-			 ~marsPoof.set(\gate, 0);
-			}
-		)
-
-	},'/focus'
-    )
-)

@@ -2,7 +2,7 @@
 (~mercuryP = Synth.new(\surroundmod, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, ~mercuryPos,
+		\pan, ~orbitMercury,
 		\reverb, 0.5]);
 
 ~venusP = Synth.new(\surroundmod, [
@@ -22,64 +22,8 @@
 		\rate, ~invrotationMars,
 		\pan, ~marsPos,
 		\reverb, 0.5]);
-)
-
-~mercuryP.set(\gate, 1)
-~mercuryP.set(\gate, 0)
-
-~venusP.set(\gate, 1)
-~venusP.set(\gate, 0)
-
-~earthP.set(\gate, 1)
-~earthP.set(\gate, 0)
-
-~earthP.set(\reverb, 0.9)
 
 
-~marsP.set(\gate, 1)
-~marsP.set(\gate, 0)
-
-
-//Solar system View
-(~mercuryS = Synth.new(\surroundmod, [
-		\freq, ~massMercury,
-		\rate, ~invrotationMercury,
-		\pan, ~mercuryPos,
-		\reverb, 0.5]);
-
-~venusS = Synth.new(\surroundmod, [
-		\freq, ~massVenus,
-		\rate, ~invrotationVenus,
-		\pan, ~venusPos,
-		\reverb, 0.5]);
-
-~earthS = Synth.new(\surroundmod, [
-		\freq, ~massEarth,
-		\rate, ~invrotationEarth,
-		\pan, ~earthPos,
-		\reverb, 0.5]);
-
-~marsS = Synth.new(\surroundmod, [
-		\freq, ~massMars,
-		\rate, ~invrotationMars,
-		\pan, ~marsPos,
-		\reverb, 0.5]);
-)
-
-~mercuryS.set(\gate, 1)
-~mercuryS.set(\gate, 0)
-
-~venusS.set(\gate, 1)
-~venusS.set(\gate, 0)
-
-~earthS.set(\gate, 1)
-~earthS.set(\gate, 0)
-
-~marsS.set(\gate, 1)
-~marsS.set(\gate, 0)
-
-//Poof
-(
 ~mercuryPoof = Synth.new(\poof, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
@@ -119,7 +63,59 @@
 		\freq, ~massNeptune,
 		\rate, ~invrotationneptune,
 		\pan, ~orbitNeptune]);
+
+
+//Solar system View
+~mercuryS = Synth.new(\surroundmod, [
+		\freq, ~massMercury,
+		\rate, ~invrotationMercury,
+		\pan, ~mercuryPos,
+		\reverb, 0.5]);
+
+~venusS = Synth.new(\surroundmod, [
+		\freq, ~massVenus,
+		\rate, ~invrotationVenus,
+		\pan, ~venusPos,
+		\reverb, 0.5]);
+
+~earthS = Synth.new(\surroundmod, [
+		\freq, ~massEarth,
+		\rate, ~invrotationEarth,
+		\pan, ~earthPos,
+		\reverb, 0.5]);
+
+~marsS = Synth.new(\surroundmod, [
+		\freq, ~massMars,
+		\rate, ~invrotationMars,
+		\pan, ~marsPos,
+		\reverb, 0.5]);
 )
+
+
+~mercuryP.set(\gate, 1)
+~mercuryP.set(\gate, 0)
+
+~venusP.set(\gate, 1)
+~venusP.set(\gate, 0)
+
+~earthP.set(\gate, 1)
+~earthP.set(\gate, 0)
+~earthP.set(\reverb, 0.9)
+
+~marsP.set(\gate, 1)
+~marsP.set(\gate, 0)
+
+~mercuryS.set(\gate, 1)
+~mercuryS.set(\gate, 0)
+
+~venusS.set(\gate, 1)
+~venusS.set(\gate, 0)
+
+~earthS.set(\gate, 1)
+~earthS.set(\gate, 0)
+
+~marsS.set(\gate, 1)
+~marsS.set(\gate, 0)
 
 ~mercuryPoof.set(\gate, 1);
 ~venusPoof.set(\gate, 1);
