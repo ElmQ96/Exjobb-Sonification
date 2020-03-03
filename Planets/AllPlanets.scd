@@ -1,29 +1,76 @@
 //Planetary View
-(~mercuryP = Synth.new(\surroundmod, [
+(
+
+~reroute = Synth.new(\reroute, [\bus,~surroundBus]);
+
+~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus]);
+
+)
+
+//Planetary View
+~mercuryP = Synth.new(\surroundmod, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
 		\pan, ~orbitMercury,
 		\reverb, 0.5]);
 
+Synth.new(\wind, [\amp, 0.5]);
 ~venusP = Synth.new(\surroundmod, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
 		\pan, ~venusPos,
 		\reverb, 0.5]);
 
+
+(
+~earthwind = Synth.new(\wind, [\amp, 0.2]);
 ~earthP = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
 		\pan, ~earthPos,
 		\reverb, 0.5]);
 
+~moonPoof = Synth.new(\poof, [
+		\freq, ~massMoon,
+		\rate, ~invrotationMoon,
+		\pan, ~orbitMoon]);
+
+~earthWind.set(\gate, 1);
+~moonPoof.set(\gate, 1);
+~earthP.set(\gate, 1)
+
+)
+
+(
+~marsWind = Synth.new(\wind, [\amp, 0.3]);
 ~marsP = Synth.new(\surroundmod, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
 		\pan, ~marsPos,
 		\reverb, 0.5]);
 
+~phobosPoof = Synth.new(\poof, [
+		\freq, ~massPhobos,
+		\rate, ~invrotationPhobos,
+		\pan, ~orbitPhobos]);
 
+~deimosPoof = Synth.new(\poof, [
+		\freq, ~massDeimos,
+		\rate, ~invrotationDeimos,
+		\pan, ~orbitDeimos]);
+
+~marsWind.set(\gate, 1);
+~marsP.set(\gate, 1);
+~phobosPoof.set(\gate, 1);
+~deimosPoof.set(\gate, 1);
+)
+
+~marsWind.set(\gate, 0);
+~phobosPoof.set(\gate, 0);
+~deimosPoof.set(\gate, 0);
+
+
+( //Solar System View
 ~mercuryPoof = Synth.new(\poof, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
@@ -91,6 +138,19 @@
 		\reverb, 0.5]);
 )
 
+(
+
+~reroute = Synth.new(\reroute, [\bus,~surroundBus]);
+
+~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus]);
+
+~earthPoof = Synth.new(\poof, [
+		\freq, ~massEarth,
+		\rate, ~invrotationEarth,
+		\pan, ~orbitEarth]);
+)
+
+~earthPoof.set(\gate, 1);
 
 ~mercuryP.set(\gate, 1)
 ~mercuryP.set(\gate, 0)

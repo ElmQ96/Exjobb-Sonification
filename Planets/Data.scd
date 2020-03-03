@@ -13,6 +13,11 @@ var mul = 1.0;
 ~massUranus = 130.81*mul; //C3
 ~massNeptune =  123.47*mul; //B2
 
+//not scaled
+~massMoon = 659.25; //E5
+~massPhobos = 783.99; //G5
+~massDeimos = 987.77;
+
 ~diameterMercury = 4879;
 ~diameterVenus = 12104;
 ~diameterEarth = 12756;
@@ -35,6 +40,11 @@ var mul = 1.0;
 ~orbitEarth = 0.08333330167;
 ~orbitMars = 0.04432624113;
 
+//1 day/second
+~orbitMoon = 0.03663003663;
+~orbitPhobos = 3.13568091311;
+~orbitDeimos = 0.79211685307;
+
 ~orbitJupiter = 0.00700280112;
 ~orbitSaturn = 0.00283446712;
 ~orbitUranus = 0.00099561927;
@@ -47,6 +57,12 @@ var mul = 1.0;
 ~rotationVenus = 116.8; //-
 ~rotationEarth = 1;
 ~rotationMars = 1.03;
+
+//tidally locked
+~rotationMoon = 0;
+~rotationPhobos = 0;
+~rotationDeimos = 0;
+
 ~rotationJupiter = 0.414;
 ~rotationSaturn = 0.444;
 ~rotationUranus = 0.718; //-
@@ -68,6 +84,12 @@ var mul = 1.0;
 ~invrotationVenus = 0.00856164383; //-
 ~invrotationEarth = 1;
 ~invrotationMars = 0.9708737864;
+
+//tidally locked
+~invrotationMoon = 0;
+~invrotationPhobos = 0;
+~invrotationDeimos = 0;
+
 ~invrotationJupiter = 2.4154589372;
 ~invrotationSaturn = 2.25225225225;
 ~invrotationUranus = 1.39275766017;
@@ -131,7 +153,7 @@ var mul = 1.0;
 ~massMars = 2489.02  //2445, D7-E7, D#
 
 ~massJupiter =  //0.82, nothing
-~massSaturn =  // 2.74
+~massSaturn =  //2.74
 ~massUranus = 18.35 // 18, D0
 ~massNeptune =16.35  //15.3, C0*/
 
