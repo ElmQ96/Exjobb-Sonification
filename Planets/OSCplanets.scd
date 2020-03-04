@@ -33,7 +33,7 @@ OSCdef.new(\mercury,
 		~posMercury = -1*(msg[2]/pi);
 
 		~mercuryP.set(\pan, ~posMercury);
-		~mercuryG.set(\pan, ~posMercury)
+		~mercuryG.set(\pan, ~posMercury);
 
 		~mercuryS.set(\pan, ~posMercury);
 		~mercuryPoof.set(\pan, ~posMercury);
@@ -103,7 +103,7 @@ OSCdef.new(\earth,
 		~earthG.set(\pan, ~posEarth);
 		~earthW.set(\pan, ~posEarth);
 
-		~moonP.set(\pan, ~posMoon)
+		~moonP.set(\pan, ~posMoon);
 
 		~earthS.set(\pan, ~posEarth);
 		~earthPoof.set(\pan, ~posEarth);

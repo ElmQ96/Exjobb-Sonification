@@ -11,13 +11,14 @@
 ~mercuryP = Synth.new(\surroundmod, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, ~posMercury,
+		\pan, ~orbitMercury,
 		\reverb, 0.5]);
 
 ~mercuryG = Synth.new(\gravity, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\gravity, ~gravityMercury]);
+		\gravity, ~gravityMercury,
+		\pan, ~orbitMercury]);
 
 ~mercuryP.set(\gate, 1);
 ~mercuryG.set(\gate, 1);
@@ -27,16 +28,18 @@
 ~venusP = Synth.new(\surroundmod, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
-		\pan, ~posVenus,
+		\pan, ~orbitVenus,
 		\reverb, 0.5]);
 
 ~venusG = Synth.new(\gravity, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
 		\gravity, ~gravityVenus,
-		\pan, ~posVenus]);
+		\pan, ~orbitVenus]);
 
-~venusW = Synth.new(\wind, [\amp, 0.4]);
+~venusW = Synth.new(\wind, [
+		\amp, 0.4,
+		\pan, ~orbitVenus]);
 
 ~venusP.set(\gate, 1);
 ~venusG.set(\gate, 1);
@@ -47,22 +50,23 @@
 ~earthP = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, ~posEarth,
+		\pan, ~orbitEarth,
 		\reverb, 0.5]);
 
 ~earthG = Synth.new(\gravity, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
 		\gravity, ~gravityEarth,
-		\pan, ~posEarth]);
+		\pan, ~orbitEarth]);
 
-~earthW = Synth.new(\wind, [\amp, 0.2]);
+~earthW = Synth.new(\wind, [
+		\amp, 0.2,
+		\pan, ~orbitEarth]);
 
 ~moonP = Synth.new(\poof, [
-		\amp, 0.3,
 		\freq, ~massMoon,
 		\rate, ~invrotationMoon,
-		\pan, ~orbitMoon]);
+		\pan, ~orbitEarth]); //~orbitMoon
 
 ~earthP.set(\gate, 1);
 ~earthG.set(\gate, 1);
@@ -74,26 +78,28 @@
 ~marsP = Synth.new(\surroundmod, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
-		\pan, ~posMars,
+		\pan, ~orbitMars,
 		\reverb, 0.5]);
 
-~marsW = Synth.new(\wind, [\amp, 0.3]);
+~marsW = Synth.new(\wind, [
+		\amp, 0.05,
+		\pan, ~orbitMars]);
 
 ~marsG = Synth.new(\gravity, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
 		\gravity, ~gravityMars,
-		\pan, ~posMars]);
+		\pan, ~orbitMars]);
 
 ~phobosP = Synth.new(\poof, [
 		\freq, ~massPhobos,
 		\rate, ~invrotationPhobos,
-		\pan, ~orbitPhobos]);
+		\pan, ~orbitMars]); //~orbitPhobos
 
 ~deimosP = Synth.new(\poof, [
 		\freq, ~massDeimos,
 		\rate, ~invrotationDeimos,
-		\pan, ~orbitDeimos]);
+		\pan, ~orbitMars]); //~orbitDeimos
 
 ~marsP.set(\gate, 1);
 ~marsG.set(\gate, 1);
@@ -233,7 +239,3 @@
 ~saturnPoof.set(\gate, 0);
 ~uranusPoof.set(\gate, 0);
 ~neptunePoof.set(\gate, 0);
-
-
-
-

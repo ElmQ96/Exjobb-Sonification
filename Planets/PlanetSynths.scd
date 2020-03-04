@@ -16,17 +16,16 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 
 (
 SynthDef.new(\reverb, {
-	arg in, out=0, amp= 0.5;
+	arg in, out=0, amp = 0.1;
 	var sig, reverbed;
 	sig = In.ar(~surroundBus.index,7);
 	sig = FreeVerb.ar(sig,0.8,1.0,1.0);
 	//4.do({ sig = AllpassC.ar(sig, 0.6, { Rand(0.001,0.6) }, 6)});
-	sig = {AllpassC.ar(sig, 0.2, Rand(0.001,0.6), 0.5)}!8;
-
+	sig = {AllpassN.ar(sig, 0.2, Rand(0.001,0.6), 0.3)}!7;
+	//sig = AllpassN.ar(sig, 0.2, {Rand(0.001,0.6)}!7, 0.3);
 	//(10.do({ sig = AllpassC.ar(sig, 0.2, { Rand(0.001,0.2) }, 0.3)}!7));
 
-
-	//sig = LPF.ar(sig,500);
+	sig = sig * amp;
 	Out.ar(~reverbBus,sig);
 }).add;
 
@@ -34,7 +33,7 @@ SynthDef.new(\reverb, {
 SynthDef.new(\reroute, {
 	arg sigbus, rebus, sigmix=1.0, remix=0.1;
 
-	Out.ar(2, (sigmix*In.ar(~surroundBus.index, 1))+ (remix*In.ar(~reverbBus.index, 1)));
+	Out.ar(2, (sigmix*In.ar(~surroundBus.index, 1))   + (remix*In.ar(~reverbBus.index, 1)));
 	Out.ar(1, (sigmix*In.ar(~surroundBus.index+1, 1)) + (remix*In.ar(~reverbBus.index+1, 1)));
 	Out.ar(5, (sigmix*In.ar(~surroundBus.index+2, 1)) + (remix*In.ar(~reverbBus.index+2, 1)));
 	Out.ar(7, (sigmix*In.ar(~surroundBus.index+3, 1)) + (remix*In.ar(~reverbBus.index+3, 1)));
@@ -61,13 +60,13 @@ SynthDef(\surroundmod, {
 	//sig = reverbed*1.0;
 	//LFSaw.kr(pan)
 	//Out.ar(0, sig);
-	sig = PanAz.ar(7, sig, pan,0.2,3,0);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
 
 SynthDef("poof", {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.5, gate=0;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.1, gate=0;
 	var sig, env, t_gate=0;
 
 	t_gate = gate * LFPulse.ar(rate);
@@ -83,7 +82,7 @@ SynthDef("poof", {
 	//sig = HPF.ar(sig,200);
 	//sig!2;
 	//LFSaw.kr(pan)
-	sig = PanAz.ar(7, sig, pan,0.2,3,0);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -102,7 +101,7 @@ SynthDef.new(\wind, {
 	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
 	sig = HPF.ar(sig, 20);
 	sig = FreeVerb.ar(sig, 0.50, 1.0, 1.0);
-	sig = PanAz.ar(7, sig, pan,0.8,3,0);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -119,7 +118,7 @@ SynthDef.new(\gravity, {
 	sf = LFPulse.ar(rate/2,0.9999);
     t = TBall.ar(sf, gravity,0,0.01);
     sig = Ringz.ar(t * 5, freq, 0.5);
-	sig = PanAz.ar(7, sig, pan,0.8,3,0);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
