@@ -43,6 +43,88 @@ SynthDef.new(\reroute, {
 	Out.ar(0, (sigmix*In.ar(~surroundBus.index+6, 1)) + (remix*In.ar(~reverbBus.index+6, 1)));
 }).add;
 
+SynthDef(\surroundmod, {
+	arg freq=200, rate=1, pan=0, gate=0, reverb=0.5, amp=0.3;
+	var sig, resfreq, env, reverbed;
+	env = EnvGen.kr(
+		Env.adsr(5.0,0.0,1.0,5.0),
+		gate,
+		doneAction:0
+	);
+	sig = Saw.ar(freq);
+	resfreq = SinOsc.kr(rate) * 200 + 500;
+	sig = RLPF.ar(sig, resfreq,0.5);
+	//sig = FreeVerb.ar(sig, reverb, 0.5, 0.8);
+	//sig = GVerb.ar(sig, 200, 5);
+	//reverbed = sig;
+	//4.do({ reverbed = AllpassC.ar(reverbed, 0.6, { Rand(0.001,0.6) }, 6)});
+	//sig = reverbed*1.0;
+	//LFSaw.kr(pan)
+	//Out.ar(0, sig);
+	sig = PanAz.ar(7, sig, pan,0.2,3,0);
+	sig = sig * amp * env;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+SynthDef("poof", {
+	arg freq=400, rate=1, pan=0, out=0, amp=0.5, gate=0;
+	var sig, env, t_gate=0;
+
+	t_gate = gate * LFPulse.ar(rate);
+	env = EnvGen.kr(
+		Env.adsr(0.05,0.5,0.3,0.5),
+		t_gate,
+		doneAction:0
+	);
+
+	sig = PinkNoise.ar(1);
+
+	sig = (BPF.ar(sig, freq*2, 0.01) * 40); //+ (BPF.ar(sig, freq*, 0.01) *5); //+ (BPF.ar(sig, freq*4, 0.01) * 0.5);
+	//sig = HPF.ar(sig,200);
+	//sig!2;
+	//LFSaw.kr(pan)
+	sig = PanAz.ar(7, sig, pan,0.2,3,0);
+	sig = sig * amp * env;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+SynthDef.new(\wind, {
+	arg amp, gate, pan=0;
+	var sig, env;
+	env = EnvGen.kr(
+		Env.adsr(0.5,0.0,1.0,1.0),
+		gate,
+		doneAction:0
+	);
+	sig = PinkNoise.ar(amp);
+	sig = LPF.ar(sig, Vibrato.kr(1000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
+	sig = LPF.ar(sig, Vibrato.kr(5000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
+	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
+	sig = HPF.ar(sig, 20);
+	sig = FreeVerb.ar(sig, 0.50, 1.0, 1.0);
+	sig = PanAz.ar(7, sig, pan,0.8,3,0);
+	sig = sig * amp * env;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+SynthDef.new(\gravity, {
+	arg amp=0.3,freq=200, gravity=1, gate=0, rate, pan=0, out=0;
+    var t, sf, env, sig, t_gate;
+	env = EnvGen.kr(
+		Env.adsr(0.05,0.0,1.0,0.5),
+		gate,
+		doneAction:0
+	);
+	//sf = K2A.ar(LFPulse.kr(0.5).poll > 0.5) > 0;
+	sf = LFPulse.ar(rate/2,0.9999);
+    t = TBall.ar(sf, gravity,0,0.01);
+    sig = Ringz.ar(t * 5, freq, 0.5);
+	sig = PanAz.ar(7, sig, pan,0.8,3,0);
+	sig = sig * amp * env;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+)
 
 
 /*(
@@ -67,88 +149,6 @@ Out.ar(7, In.ar(~surroundBus.index+3, 1));
 Out.ar(6, In.ar(~surroundBus.index+4, 1));
 Out.ar(4, In.ar(~surroundBus.index+5, 1));
 Out.ar(0, In.ar(~surroundBus.index+6, 1));*/
-
-SynthDef(\surroundmod, {
-	arg freq=200, rate=1, pan=0, gate=0, reverb=0.5, amp=0.3;
-	var sig, resfreq, env, reverbed;
-	env = EnvGen.kr(
-		Env.adsr(5.0,0.0,1.0,5.0),
-		gate,
-		doneAction:0
-	);
-	sig = Saw.ar(freq);
-	resfreq = SinOsc.kr(1/rate) * 200 + 500;
-	sig = RLPF.ar(sig, resfreq,0.5);
-	//sig = FreeVerb.ar(sig, reverb, 0.5, 0.8);
-	//sig = GVerb.ar(sig, 200, 5);
-	//reverbed = sig;
-	//4.do({ reverbed = AllpassC.ar(reverbed, 0.6, { Rand(0.001,0.6) }, 6)});
-	//sig = reverbed*1.0;
-	//LFSaw.kr(pan)
-	//Out.ar(0, sig);
-	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	sig = sig * amp * env;
-
-	Out.ar(~surroundBus, sig);
-}).add;
-
-SynthDef("poof", {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.5, gate=0;
-	var sig, env, t_gate=0;
-
-	t_gate = gate * LFPulse.ar(rate);
-	env = EnvGen.kr(
-		Env.adsr(0.05,0.5,0.3,0.5),
-		t_gate,
-		doneAction:0
-	);
-
-	sig = PinkNoise.ar(1);
-
-	sig = (BPF.ar(sig, freq*2, 0.01) * 40); //+ (BPF.ar(sig, freq*, 0.01) *5); //+ (BPF.ar(sig, freq*4, 0.01) * 0.5);
-	//sig = HPF.ar(sig,200);
-	//sig!2;
-	//LFSaw.kr(pan)
-	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	sig = sig * amp * env;
-	//Out.ar(out,sig);
-	Out.ar(~surroundBus, sig);
-}).add;
-)
-
-
-
-(
-SynthDef.new(\wind, {
-	arg amp, gate;
-	var sig, env;
-	env = EnvGen.kr(
-		Env.adsr(0.5,0.0,1.0,1.0),
-		gate,
-		doneAction:0
-	);
-	sig = PinkNoise.ar(amp);
-	sig = LPF.ar(sig, Vibrato.kr(1000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
-	sig = LPF.ar(sig, Vibrato.kr(5000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
-	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
-	sig = HPF.ar(sig, 20);
-	sig = FreeVerb.ar(sig, 0.50, 1.0, 1.0);
-	sig = Pan2.ar(sig,0);
-	sig = sig * env;
-	Out.ar(0,sig);
-}).add;
-)
-
-(
-SynthDef.new(\gravity, {
-	arg freq, gravity;
-    var t, sf;
-	//sf = K2A.ar(LFPulse.kr(0.5).poll > 0.5) > 0;
-	sf = LFPulse.ar(0.1,0.99).poll;
-    t = TBall.ar(sf, gravity,0,0.01);
-    Ringz.ar(t * 5, freq, 0.5)!2;
-}).add;
-)
 
 (
 SynthDef("mod", {

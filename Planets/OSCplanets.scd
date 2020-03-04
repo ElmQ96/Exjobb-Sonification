@@ -7,7 +7,9 @@ s.meter;
 
 //msg[1] = distance (amp)
 //msg[2] = angle (pan)
-//msg[3] = Focus (gate)
+//msg[3] = time (days/s)
+//msg[4] = 1st moon
+//msg[5] = 2nd moon
 
 (
 OSCdef.new(\mercury,
@@ -16,8 +18,11 @@ OSCdef.new(\mercury,
 		var clampedAmp = (3*~diameterMercury)/msg[1];
 		("mercuryDist:" + msg[1]);
 		if(msg[1]<(20*~diameterMercury),
-			{~mercuryP.set(\gate, 1)},
-			{~mercuryP.set(\gate, 0)}
+			{~mercuryP.set(\gate, 1);
+			 ~mercuryG.set(\gate, 1);
+			},
+			{~mercuryP.set(\gate, 0);
+			 ~mercuryG.set(\gate, 0);}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
@@ -25,10 +30,13 @@ OSCdef.new(\mercury,
 		~mercuryP.set(\amp, clampedAmp);
 		~mercuryP.set(\reverb, 1-clampedAmp);
 
-		~mercuryPos = -1*(msg[2]/pi);
-		~mercuryP.set(\pan, ~mercuryPos);
-		~mercuryS.set(\pan, ~mercuryPos);
-		~mercuryPoof.set(\pan, ~mercuryPos);
+		~posMercury = -1*(msg[2]/pi);
+
+		~mercuryP.set(\pan, ~posMercury);
+		~mercuryG.set(\pan, ~posMercury)
+
+		~mercuryS.set(\pan, ~posMercury);
+		~mercuryPoof.set(\pan, ~posMercury);
 
 	},'/Mercury'
     );
@@ -40,8 +48,13 @@ OSCdef.new(\venus,
 		var clampedAmp = (3*~diameterVenus)/msg[1];
 		("venusDist:" + msg[1]);
 		if(msg[1]<(20*~diameterVenus),
-			{~venusP.set(\gate, 1)},
-			{~venusP.set(\gate, 0)}
+			{~venusP.set(\gate, 1);
+			 ~venusG.set(\gate, 1);
+			 ~venusW.set(\gate, 1);
+			},
+			{~venusP.set(\gate, 0);
+			 ~venusG.set(\gate, 0);
+			 ~venusW.set(\gate, 0);}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
@@ -49,10 +62,14 @@ OSCdef.new(\venus,
 		~venusP.set(\amp, clampedAmp);
 		~venusP.set(\reverb, 1-clampedAmp);
 
-		~venusPos = -1*(msg[2]/pi);
-		~venusP.set(\pan, ~venusPos);
-		~venusS.set(\pan, ~venusPos);
-		~venusPoof.set(\pan, ~venusPos);
+		~posVenus = -1*(msg[2]/pi);
+
+		~venusP.set(\pan, ~posVenus);
+		~venusG.set(\pan, ~posVenus);
+		~venusW.set(\pan, ~posVenus);
+
+		~venusS.set(\pan, ~posVenus);
+		~venusPoof.set(\pan, ~posVenus);
 
 	},'/Venus'
     );
@@ -63,8 +80,15 @@ OSCdef.new(\earth,
 		var clampedAmp = (10*~diameterEarth)/msg[1];
 		("earthAngle:" + msg[2]).postln;
 		if(msg[1]<(100*~diameterEarth),
-			{~earthP.set(\gate, 1)},
-			{~earthP.set(\gate, 0)}
+			{~earthP.set(\gate, 1);
+			 ~earthG.set(\gate, 1);
+			 ~earthW.set(\gate, 1);
+			  ~moonP.set(\gate, 1);
+			},
+			{~earthP.set(\gate, 0);
+			 ~earthG.set(\gate, 0);
+			 ~earthW.set(\gate, 0);
+			  ~moonP.set(\gate, 0);}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
@@ -72,10 +96,17 @@ OSCdef.new(\earth,
 		~earthP.set(\amp, clampedAmp);
 		~earthP.set(\reverb, 1-clampedAmp);
 
-		~earthPos = -1*(msg[2]/pi);
-		~earthP.set(\pan, ~earthPos);
-		~earthS.set(\pan, ~earthPos);
-		~earthPoof.set(\pan, ~earthPos);
+		~posEarth = -1*(msg[2]/pi);
+		~posMoon = -1*(msg[4]/pi);
+
+		~earthP.set(\pan, ~posEarth);
+		~earthG.set(\pan, ~posEarth);
+		~earthW.set(\pan, ~posEarth);
+
+		~moonP.set(\pan, ~posMoon)
+
+		~earthS.set(\pan, ~posEarth);
+		~earthPoof.set(\pan, ~posEarth);
 
 	},'/Earth'
     );
@@ -86,8 +117,17 @@ OSCdef.new(\mars,
 		var clampedAmp = (3*~diameterMars)/msg[1];
 		("marsDist:" + msg[1]);
 		if(msg[1]<(20*~diameterMars),
-			{~marsP.set(\gate, 1)},
-			{~marsP.set(\gate, 0)}
+			{~marsP.set(\gate, 1);
+			 ~marsG.set(\gate, 1);
+			 ~marsW.set(\gate, 1);
+			 ~phobosP.set(\gate, 1);
+		 	 ~deimosP.set(\gate, 1);
+			},
+			{~marsP.set(\gate, 0);
+			 ~marsG.set(\gate, 0);
+			 ~marsW.set(\gate, 0);
+			 ~phobosP.set(\gate, 0);
+		 	 ~deimosP.set(\gate, 0);}
 		);
 		if(clampedAmp>1.0,
 			{clampedAmp = 1.0},
@@ -95,10 +135,18 @@ OSCdef.new(\mars,
 		~marsP.set(\amp, clampedAmp);
 		~marsP.set(\reverb, 1-clampedAmp);
 
-		~marsPos = -1*(msg[2]/pi);
-		~marsP.set(\pan, ~marsPos);
-		~marsS.set(\pan, ~marsPos);
-		~marsPoof.set(\pan, ~marsPos);
+		~posMars = -1*(msg[2]/pi);
+		~posPhobos = -1*(msg[4]/pi);
+		~posDeimos = -1*(msg[5]/pi);
+
+		~marsP.set(\pan, ~posMars);
+		~marsG.set(\pan, ~posMars);
+		~marsW.set(\pan, ~posMars);
+		~phobosP.set(\pan, ~posPhobos);
+		~deimosP.set(\pan, ~posDeimos);
+
+		~marsS.set(\pan, ~posMars);
+		~marsPoof.set(\pan, ~posMars);
 
 	},'/Mars'
     );

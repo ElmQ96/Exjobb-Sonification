@@ -102,14 +102,16 @@ var mul = 1.0;
 ~gravityEarth = 1;
 ~gravityMars = 0.377;
 
-~mercuryPos = 0;
-~venusPos = 0;
-~earthPos = 0;
-~marsPos = 0;
-~jupiterPos = 0;
-~saturnPos = 0;
-~uranusPos = 0;
-~neptunePos = 0;
+~posMercury = 0;
+~posVenus = 0;
+~posEarth = 0;
+~posMars = 0;
+~posJupiter = 0;
+~posSaturn = 0;
+~posUranus = 0;
+~posNeptune = 0;
+
+~posMoon = 0;
 
 )
 
