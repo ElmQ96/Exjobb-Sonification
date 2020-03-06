@@ -16,7 +16,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 
 (
 SynthDef.new(\reverb, {
-	arg in, out=0, amp = 0.1;
+	arg in, out=0, amp = 0.4;
 	var sig, reverbed;
 	sig = In.ar(~surroundBus.index,7);
 	sig = FreeVerb.ar(sig,0.8,1.0,1.0);
@@ -31,7 +31,7 @@ SynthDef.new(\reverb, {
 
 
 SynthDef.new(\reroute, {
-	arg sigbus, rebus, sigmix=1.0, remix=0.1;
+	arg sigbus, rebus, sigmix=1.0, remix=0.1, lfemix=0.5;
 
 	Out.ar(2, (sigmix*In.ar(~surroundBus.index, 1))   + (remix*In.ar(~reverbBus.index, 1)));
 	Out.ar(1, (sigmix*In.ar(~surroundBus.index+1, 1)) + (remix*In.ar(~reverbBus.index+1, 1)));
@@ -40,10 +40,12 @@ SynthDef.new(\reroute, {
 	Out.ar(6, (sigmix*In.ar(~surroundBus.index+4, 1)) + (remix*In.ar(~reverbBus.index+4, 1)));
 	Out.ar(4, (sigmix*In.ar(~surroundBus.index+5, 1)) + (remix*In.ar(~reverbBus.index+5, 1)));
 	Out.ar(0, (sigmix*In.ar(~surroundBus.index+6, 1)) + (remix*In.ar(~reverbBus.index+6, 1)));
+
+	Out.ar(3, lfemix*(Mix.new(In.ar(~surroundBus.index, 7))));
 }).add;
 
 SynthDef(\surroundmod, {
-	arg freq=200, rate=1, pan=0, gate=0, reverb=0.5, amp=0.3;
+	arg freq=200, rate=1, pan=0, gate=0, reverb=0.5, amp=0.2;
 	var sig, resfreq, env, reverbed;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
@@ -66,7 +68,7 @@ SynthDef(\surroundmod, {
 }).add;
 
 SynthDef("poof", {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.1, gate=0;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.4, gate=0;
 	var sig, env, t_gate=0;
 
 	t_gate = gate * LFPulse.ar(rate);
@@ -88,7 +90,7 @@ SynthDef("poof", {
 }).add;
 
 SynthDef.new(\wind, {
-	arg amp, gate, pan=0;
+	arg amp, rate=0.45, gate, pan=0;
 	var sig, env;
 	env = EnvGen.kr(
 		Env.adsr(0.5,0.0,1.0,1.0),
@@ -96,11 +98,11 @@ SynthDef.new(\wind, {
 		doneAction:0
 	);
 	sig = PinkNoise.ar(amp);
-	sig = LPF.ar(sig, Vibrato.kr(1000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
-	sig = LPF.ar(sig, Vibrato.kr(5000,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
+	sig = LPF.ar(sig, Vibrato.kr(1000,rate,rate,rateVariation:0.7,depthVariation:0.3));
+	sig = LPF.ar(sig, Vibrato.kr(5000,rate,rate,rateVariation:0.7,depthVariation:0.3));
 	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
 	sig = HPF.ar(sig, 20);
-	sig = FreeVerb.ar(sig, 0.50, 1.0, 1.0);
+	//sig = FreeVerb.ar(sig, 0.50, 1.0, 1.0);
 	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);

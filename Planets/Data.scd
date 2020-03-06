@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1.0;
+var mul = 1.0, orbitscale= 0.5;
 //C4-C5
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
@@ -35,20 +35,20 @@ var mul = 1.0;
 ~orbitMars = 0.02;*/
 
 //orbital period, Earth ratio, (1 month/second)
-~orbitMercury = 0.34578146611;
-~orbitVenus = 0.13550135501;
-~orbitEarth = 0.08333330167;
-~orbitMars = 0.04432624113;
+~orbitMercury = 0.34578146611*orbitscale;
+~orbitVenus = 0.13550135501*orbitscale;
+~orbitEarth = 0.08333330167*orbitscale;
+~orbitMars = 0.04432624113*orbitscale;
 
 //1 day/second
 ~orbitMoon = 0.03663003663;
 ~orbitPhobos = 3.13568091311;
 ~orbitDeimos = 0.79211685307;
 
-~orbitJupiter = 0.00700280112;
-~orbitSaturn = 0.00283446712;
-~orbitUranus = 0.00099561927;
-~orbitNeptune = 0.00050906129;
+~orbitJupiter = 0.00700280112*orbitscale;
+~orbitSaturn = 0.00283446712*orbitscale;
+~orbitUranus = 0.00099561927*orbitscale;
+~orbitNeptune = 0.00050906129*orbitscale;
 
 
 //Axis-Rotation (24 hours/second), 0.4-1

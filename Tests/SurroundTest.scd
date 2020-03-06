@@ -60,11 +60,11 @@ SynthDef.new(\pulseTest, {
 x = Synth.new(\pulseTest);
 
 (
-{
-    var n;
-    n = 20; // number of 'voices'
-    Mix.new( // mix all stereo pairs down.
-        Pan4.ar( // pan the voice to a stereo position
+SynthDef.new(\panpluck, {
+	arg out = 0;
+    var n, sig;
+    n = 7; // number of 'voices'
+    sig = Pan4.ar( // pan the voice to a stereo position
             CombL.ar( // a comb filter used as a string resonator
                 Dust.ar( // random impulses as an excitation function
                     // an array to cause expansion of Dust to n channels
@@ -78,7 +78,9 @@ x = Synth.new(\pulseTest);
                 4 // decay time in seconds
             ),
             Array.fill(n,{1.0.rand2}) // give each voice a different pan position
-        )
-    )
-}.play;
+        );
+	Out.ar(~surroundBus, sig);
+
+}).play;
 )
+

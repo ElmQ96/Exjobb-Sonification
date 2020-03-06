@@ -6,6 +6,14 @@
 
 )
 
+/*(
+~wind = Synth.new(\wind, [
+		\amp, 0.4,
+		\pan, 0]);
+~wind.set(\gate, 1);
+~wind.set(\rate, 0.1);
+)*/
+
 //Planetary View
 (
 ~mercuryP = Synth.new(\surroundmod, [
@@ -38,7 +46,8 @@
 		\pan, ~orbitVenus]);
 
 ~venusW = Synth.new(\wind, [
-		\amp, 0.4,
+		\amp, 0.2,
+		\rate, 0.4,
 		\pan, ~orbitVenus]);
 
 ~venusP.set(\gate, 1);
@@ -61,6 +70,7 @@
 
 ~earthW = Synth.new(\wind, [
 		\amp, 0.2,
+		\rate, 0.2,
 		\pan, ~orbitEarth]);
 
 ~moonP = Synth.new(\poof, [
@@ -83,6 +93,7 @@
 
 ~marsW = Synth.new(\wind, [
 		\amp, 0.05,
+		\rate, 0.2,
 		\pan, ~orbitMars]);
 
 ~marsG = Synth.new(\gravity, [
@@ -108,10 +119,22 @@
 ~deimosP.set(\gate, 1);
 )
 
+(
+~mercuryP.set(\gate, 0);
+~mercuryG.set(\gate, 0);
+~venusP.set(\gate, 0);
+~venusG.set(\gate, 0);
+~venusW.set(\gate, 0);
+~earthP.set(\gate, 0);
+~earthG.set(\gate, 0);
+~earthW.set(\gate, 0);
+~moonP.set(\gate, 0);
+~marsP.set(\gate, 0);
+~marsG.set(\gate, 0);
 ~marsW.set(\gate, 0);
 ~phobosP.set(\gate, 0);
 ~deimosP.set(\gate, 0);
-
+)
 
 ( //Solar System View
 ~mercuryPoof = Synth.new(\poof, [
@@ -153,6 +176,39 @@
 		\freq, ~massNeptune,
 		\rate, ~invrotationneptune,
 		\pan, ~orbitNeptune]);
+)
+
+(
+
+~reroute = Synth.new(\reroute, [\bus,~surroundBus]);
+
+~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus]);
+
+~earthPoof = Synth.new(\poof, [
+		\freq, ~massEarth,
+		\rate, ~invrotationEarth,
+		\pan, ~orbitEarth]);
+)
+
+~mercuryPoof.set(\gate, 1);
+~venusPoof.set(\gate, 1);
+~earthPoof.set(\gate, 1);
+~marsPoof.set(\gate, 1);
+
+~jupiterPoof.set(\gate, 1);
+~saturnPoof.set(\gate, 1);
+~uranusPoof.set(\gate, 1);
+~neptunePoof.set(\gate, 1);
+
+~mercuryPoof.set(\gate, 0);
+~venusPoof.set(\gate, 0);
+~earthPoof.set(\gate, 0);
+~marsPoof.set(\gate, 0);
+
+~jupiterPoof.set(\gate, 0);
+~saturnPoof.set(\gate, 0);
+~uranusPoof.set(\gate, 0);
+~neptunePoof.set(\gate, 0);
 
 
 //Solar system View
@@ -179,63 +235,3 @@
 		\rate, ~invrotationMars,
 		\pan, ~posMars,
 		\reverb, 0.5]);
-)
-
-(
-
-~reroute = Synth.new(\reroute, [\bus,~surroundBus]);
-
-~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus]);
-
-~earthPoof = Synth.new(\poof, [
-		\freq, ~massEarth,
-		\rate, ~invrotationEarth,
-		\pan, ~orbitEarth]);
-)
-
-~earthPoof.set(\gate, 1);
-
-~mercuryP.set(\gate, 1)
-~mercuryP.set(\gate, 0)
-
-~venusP.set(\gate, 1)
-~venusP.set(\gate, 0)
-
-~earthP.set(\gate, 1)
-~earthP.set(\gate, 0)
-~earthP.set(\reverb, 0.9)
-
-~marsP.set(\gate, 1)
-~marsP.set(\gate, 0)
-
-~mercuryS.set(\gate, 1)
-~mercuryS.set(\gate, 0)
-
-~venusS.set(\gate, 1)
-~venusS.set(\gate, 0)
-
-~earthS.set(\gate, 1)
-~earthS.set(\gate, 0)
-
-~marsS.set(\gate, 1)
-~marsS.set(\gate, 0)
-
-~mercuryPoof.set(\gate, 1);
-~venusPoof.set(\gate, 1);
-~earthPoof.set(\gate, 1);
-~marsPoof.set(\gate, 1);
-
-~jupiterPoof.set(\gate, 1);
-~saturnPoof.set(\gate, 1);
-~uranusPoof.set(\gate, 1);
-~neptunePoof.set(\gate, 1);
-
-~mercuryPoof.set(\gate, 0);
-~venusPoof.set(\gate, 0);
-~earthPoof.set(\gate, 0);
-~marsPoof.set(\gate, 0);
-
-~jupiterPoof.set(\gate, 0);
-~saturnPoof.set(\gate, 0);
-~uranusPoof.set(\gate, 0);
-~neptunePoof.set(\gate, 0);

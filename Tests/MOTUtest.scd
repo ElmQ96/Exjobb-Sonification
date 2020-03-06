@@ -39,15 +39,15 @@ SynthDef(\bpfsaw,{
 	//LFNoise1.kr(1);
 	sig = sig * env * amp;
 
-	Out.ar(~surround, sig);
+	Out.ar(~surroundBus, sig);
 
-	Out.ar(2, In.ar(~surround.index, 1));
-	Out.ar(1, In.ar(~surround.index+1, 1));
-	Out.ar(5, In.ar(~surround.index+2, 1));
-	Out.ar(7, In.ar(~surround.index+3, 1));
-	Out.ar(6, In.ar(~surround.index+4, 1));
-	Out.ar(4, In.ar(~surround.index+5, 1));
-	Out.ar(0, In.ar(~surround.index+6, 1));
+	Out.ar(2, In.ar(~surroundBus.index, 1));
+	Out.ar(1, In.ar(~surroundBus.index+1, 1));
+	Out.ar(5, In.ar(~surroundBus.index+2, 1));
+	Out.ar(7, In.ar(~surroundBus.index+3, 1));
+	Out.ar(6, In.ar(~surroundBus.index+4, 1));
+	Out.ar(4, In.ar(~surroundBus.index+5, 1));
+	Out.ar(0, In.ar(~surroundBus.index+6, 1));
 
 	//Out.ar(3, In.ar(22,7))
 
@@ -64,11 +64,11 @@ SynthDef(\bpfsaw,{
 }).play;
 )
 (
-10.do{Synth(
+3.do{Synth(
 		\bpfsaw,
 		[
 			\freq, 100,
-			\amp,0.5,
+			\amp,0.3,
 			\detune, 1,
 			\cfmin, 20*40,
 			\cfmax, 20*50,
@@ -92,10 +92,9 @@ SynthDef(\sin,{
 
 (
 {
-    NumChannels.ar(
-        SinOsc.ar([0,0,300,0,0,0,0,0],0,0.2), // 4 becomes 2
 
-        20)
+        LFTri.ar([0,0,0,300,0,0,0,0],0,0.1) // 4 becomes 2
+
 }.play
 )
 
@@ -116,9 +115,9 @@ n = {Out.ar(55, WhiteNoise.ar(0.5))}.play;
 
 
 (
-SynthDef.new("tutorial-SinOsc-stereo", { var outArray;
-    outArray = SinOsc.ar(500, 0, 0.2);
-    Out.ar(7, outArray); // writes to busses 0 and 1
+SynthDef.new("sintest", { var outArray;
+    outArray = LFTri.ar(400, 0, 0.2);
+    Out.ar(4, outArray); // writes to busses 0 and 1
 }).play;
 )
 
@@ -150,7 +149,7 @@ SynthDef.new(\source, {
     #x, y = Rotate2.ar(x, y, MouseX.kr(-1,1));
 
     // B-format decode to quad
-    #a, b, c, d = DecodeB2.ar(4, w, x, y);
+    #a, b, c, d = DecodeB2.ar(7, w, x, y);
 
     [a, b, d, c] // reorder to my speaker arrangement: Lf Rf Lr Rr
 }.play;
@@ -160,13 +159,13 @@ SynthDef.new(\source, {
 {
     PanAz.ar(
         numChans: 8,
-        in: ClipNoise.ar(0.1),
+        in: PinkNoise.ar(0.1),
         pos: LFSaw.kr(MouseX.kr(0.2, 8, 'exponential')),
         level: 0.5,
         width: 3,
         orientation: 0.5
     );
-}.scope
+}.play
 )
 
 (
