@@ -25,7 +25,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 
 (
 SynthDef.new(\reverb, {
-	arg in, out=0, amp = 0.5;
+	arg in, out=0, amp = 0.2;
 	var sig, reverbed;
 	sig = In.ar(~surroundBus.index,7);
 	sig = FreeVerb.ar(sig,0.8,1.0,1.0);
@@ -123,7 +123,7 @@ SynthDef(\panaz,{
         width: 3,
         orientation: 0.0
     );
-	Out.ar(0,sig);
+	Out.ar(~surroundBus,sig);
 }).play
 )
 
@@ -131,8 +131,10 @@ SynthDef(\panaz,{
 (
 var earth = {
 	var sig;
-	sig = SinOsc.ar(MouseX.kr(200,700), 0, 0.2);
-	sig = sig!2;
+	sig = SinOsc.ar(MouseY.kr(100,700), 0, 0.2);
+	sig = PanAz.ar(7,sig, MouseX.kr(0.5, 2),0.7,3,0);
+	sig = Out.ar(~surroundBus,sig);
+
 }.play;
 )
 

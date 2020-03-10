@@ -1,9 +1,5 @@
-s.boot;
-
 NetAddr.langPort;
 NetAddr.localAddr;
-
-s.meter;
 
 //msg[1] = distance (amp)
 //msg[2] = angle (pan)
@@ -38,9 +34,7 @@ OSCdef.new(\mercury,
 		~mercuryS.set(\pan, ~posMercury);
 		~mercuryPoof.set(\pan, ~posMercury);
 
-	},'/Mercury'
-    );
-
+	},'/Mercury');
 
 OSCdef.new(\venus,
 	{
@@ -71,8 +65,7 @@ OSCdef.new(\venus,
 		~venusS.set(\pan, ~posVenus);
 		~venusPoof.set(\pan, ~posVenus);
 
-	},'/Venus'
-    );
+	},'/Venus');
 
 OSCdef.new(\earth,
 	{
@@ -108,8 +101,7 @@ OSCdef.new(\earth,
 		~earthS.set(\pan, ~posEarth);
 		~earthPoof.set(\pan, ~posEarth);
 
-	},'/Earth'
-    );
+	},'/Earth');
 
 OSCdef.new(\mars,
 	{
@@ -148,24 +140,14 @@ OSCdef.new(\mars,
 		~marsS.set(\pan, ~posMars);
 		~marsPoof.set(\pan, ~posMars);
 
-	},'/Mars'
-    );
+	},'/Mars');
 
 OSCdef.new(\focus,
 	{
 		arg msg;
-		//func
 		var focus = msg[1];
-		("FOCUS:" + msg[1]).postln;
-		//case
-			//{ focus == 'Mercury' } { \no }
-			//{ focus == 'Venus' } { \wrong }
-			//{ focus == 'Earth } { \wrong }
-			//{ focus == 'Mars' } { \wrong }
-			//{ focus == 'Jupiter' } { \wrong }
-			//{ focus == 'Saturn' } { \true }
-			//{ focus == 'Uranus' } { \wrong }
-			//{ focus == 'Neptune' } { \wrong }
+		("Focus:" + msg[1]).postln;
+
 
 		if(focus == 'Sun',
 			{~mercuryPoof.set(\gate, 1);
@@ -180,9 +162,7 @@ OSCdef.new(\focus,
 			 ~marsPoof.set(\gate, 0);
 			}
 		)
-
-	},'/focus'
-    );
+	},'/focus');
 )
 
 /*

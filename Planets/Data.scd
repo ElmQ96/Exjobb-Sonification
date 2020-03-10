@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1.0, orbitscale= 0.5;
+var mul = 1.0, orbitscale= 0.2;
 //C4-C5
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
