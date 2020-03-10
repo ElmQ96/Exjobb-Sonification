@@ -51,8 +51,8 @@ SynthDef(\surroundmod, {
 	sig = RLPF.ar(sig, resfreq,0.5);
 	//sig = FreeVerb.ar(sig, reverb, 0.5, 0.8);
 	sig = sig + sig2;
-	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	//sig = PanAz.ar(7, sig, pan,0.2,3,0);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan).poll,0.2,3,0);
+	//sig = PanAz.ar(7, sig, Lag.kr(pan,2),0.2,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -68,7 +68,7 @@ SynthDef("poof", {
 	sig = PinkNoise.ar(1);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 40); //+ (BPF.ar(sig, freq*, 0.01) *5);
 	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	//sig = PanAz.ar(7, sig, pan,0.2,3,0);
+	//sig = PanAz.ar(7, sig, Lag.kr(pan,2),0.2,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -86,7 +86,7 @@ SynthDef.new(\wind, {
 	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
 	sig = HPF.ar(sig, 200);
 	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
-	//sig = PanAz.ar(7, sig, pan,0.8,3,0);
+	//sig = PanAz.ar(7, sig, Lag.kr(pan),0.8,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -103,7 +103,7 @@ SynthDef.new(\gravity, {
     t = TBall.ar(sf, gravity,0,0.01);
     sig = Ringz.ar(t * 5, freq, 0.5);
 	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
-	//sig = PanAz.ar(7, sig, pan,0.8,3,0);
+	//sig = PanAz.ar(7, sig, Lag.kr(pan,2),0.8,3,0);
 	sig = sig * amp * env;
 	Out.ar(~surroundBus, sig);
 }).add;
