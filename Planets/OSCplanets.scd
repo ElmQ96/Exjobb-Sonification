@@ -7,15 +7,21 @@ NetAddr.localAddr;
 //msg[4] = 1st moon
 //msg[5] = 2nd moon
 
+
+
+(
+~minDist = 3;
+~maxDist = 500;
+)
+
 (
 OSCdef.new(\mercury,
 	{
 		arg msg;
-		var ampMercury = (3*~diameterMercury)/msg[1];
+		var ampMercury = (~minDist*~diameterMercury)/msg[1];
 
-		("mercuryDist:" + msg[1]);
 
-		if(msg[1]<(20*~diameterMercury),
+		if(msg[1]<(~maxDist*~diameterMercury),
 			{~mercuryP.set(\gate, 1);
 			 ~mercuryG.set(\gate, 1);
 			},
@@ -24,7 +30,7 @@ OSCdef.new(\mercury,
 
 		if(ampMercury>1.0,
 			{ampMercury = 1.0},
-			{ampMercury = (3*~diameterMercury)/msg[1]});
+			{ampMercury = (~minDist*~diameterMercury)/msg[1]});
 
 		~mercuryP.set(\amp2, ampMercury);
 		~mercuryG.set(\amp2, ampMercury);
@@ -44,9 +50,9 @@ OSCdef.new(\mercury,
 OSCdef.new(\venus,
 	{
 		arg msg;
-		var ampVenus = (3*~diameterVenus)/msg[1];
+		var ampVenus = (~minDist*~diameterVenus)/msg[1];
 		("venusDist:" + msg[1]);
-		if(msg[1]<(20*~diameterVenus),
+		if(msg[1]<(~maxDist*~diameterVenus),
 			{~venusP.set(\gate, 1);
 			 ~venusG.set(\gate, 1);
 			 ~venusW.set(\gate, 1);
@@ -57,7 +63,7 @@ OSCdef.new(\venus,
 		);
 		if(ampVenus>1.0,
 			{ampVenus = 1.0},
-			{ampVenus = (3*~diameterVenus)/msg[1]});
+			{ampVenus = (~minDist*~diameterVenus)/msg[1]});
 
 		~venusP.set(\amp2, ampVenus);
 		~venusG.set(\amp2, ampVenus);
@@ -79,9 +85,10 @@ OSCdef.new(\venus,
 OSCdef.new(\earth,
 	{
 		arg msg;
-		var ampEarth = (10*~diameterEarth)/msg[1];
-		("earthAngle:" + msg[2]).postln;
-		if(msg[1]<(100*~diameterEarth),
+
+		var ampEarth = (~minDist*~diameterEarth)/msg[1];
+		//("earthAngle:" + msg[2]).postln;
+		if(msg[1]<(~maxDist*~diameterEarth),
 			{~earthP.set(\gate, 1);
 			 ~earthG.set(\gate, 1);
 			 ~earthW.set(\gate, 1);
@@ -94,7 +101,9 @@ OSCdef.new(\earth,
 		);
 		if(ampEarth>1.0,
 			{ampEarth = 1.0},
-			{ampEarth = (10*~diameterEarth)/msg[1]});
+			{ampEarth = ((~minDist*~diameterEarth)/msg[1])});
+
+		//("earthAmp:" + ampEarth).postln;
 
 		~earthP.set(\amp2, ampEarth);
 		~earthG.set(\amp2, ampEarth);
@@ -106,24 +115,26 @@ OSCdef.new(\earth,
 
 		~posEarth = -1*(msg[2]/pi);
 		~posMoon = -1*(msg[4]/pi);
-
+		//if(abs(~posEarth)>0.95,{~lagSwitch=0},{~lagSwitch=1});
+		//("earthAngle:" + ~posEarth).postln;
 		~earthP.set(\pan, ~posEarth);
 		~earthG.set(\pan, ~posEarth);
 		~earthW.set(\pan, ~posEarth);
 
 		~moonP.set(\pan, ~posMoon);
 
-		~earthS.set(\pan, ~posEarth);
-		~earthPoof.set(\pan, ~posEarth);
+		//~earthS.set(\pan, ~posEarth);
+		//~earthPoof.set(\pan, ~posEarth);
 
 	},'/Earth');
+
 
 OSCdef.new(\mars,
 	{
 		arg msg;
-		var ampMars = (3*~diameterMars)/msg[1];
-		("marsDist:" + msg[1]);
-		if(msg[1]<(20*~diameterMars),
+		var ampMars = (~minDist*~diameterMars)/msg[1];
+
+		if(msg[1]<(~maxDist*~diameterMars),
 			{~marsP.set(\gate, 1);
 			 ~marsG.set(\gate, 1);
 			 ~marsW.set(\gate, 1);
@@ -138,7 +149,7 @@ OSCdef.new(\mars,
 		);
 		if(ampMars>1.0,
 			{ampMars = 1.0},
-			{ampMars = (3*~diameterMars)/msg[1]});
+			{ampMars = (~minDist*~diameterMars)/msg[1]});
 
 		~marsP.set(\amp2, ampMars);
 		~marsG.set(\amp2, ampMars);
@@ -158,8 +169,8 @@ OSCdef.new(\mars,
 		~phobosP.set(\pan, ~posPhobos);
 		~deimosP.set(\pan, ~posDeimos);
 
-		~marsS.set(\pan, ~posMars);
-		~marsPoof.set(\pan, ~posMars);
+		//~marsS.set(\pan, ~posMars);
+		//~marsPoof.set(\pan, ~posMars);
 
 	},'/Mars');
 

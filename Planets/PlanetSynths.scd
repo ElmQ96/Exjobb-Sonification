@@ -16,6 +16,9 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 )
 
 (
+~panlagTime = 1;
+~poslagTime = 1;
+
 SynthDef.new(\reverb, {
 	arg in, out=0, amp = 0.4;
 	var sig, reverbed;
@@ -39,7 +42,7 @@ SynthDef.new(\reroute, {
 }).add;
 
 SynthDef(\surroundmod, {
-	arg freq=200, rate=1, pan=0, gate=0, reverb=0.5, amp=0.4, amp2=1.0;
+	arg freq=200, rate=1, pan=0, lagpan=0, gate=0, reverb=0.5, amp=0.4, amp2=1.0;
 	var sig, sig2, resfreq, env, reverbed;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
@@ -52,7 +55,11 @@ SynthDef(\surroundmod, {
 	//sig = FreeVerb.ar(sig, reverb, 0.5, 0.8);
 	sig = sig + sig2;
 	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,1),0.2,3,0);
+	/*if(~lagSwitch==1,
+		{lagpan = Lag.kr(pan,~panlagTime)},
+		{lagpan = pan});*/
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.2,3,0);
+	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -68,7 +75,8 @@ SynthDef("poof", {
 	sig = PinkNoise.ar(1);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 40); //+ (BPF.ar(sig, freq*, 0.01) *5);
 	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,1),0.2,3,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.2,3,0);
+	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -102,13 +110,14 @@ SynthDef.new(\wind, {
 	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
 	sig = HPF.ar(sig, 200);
 	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,1),0.8,3,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~lagTime),0.8,3,0);
+	amp2 = Lag.kr(amp2, ~lagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
 
 SynthDef.new(\gravity, {
-	arg amp=0.1, amp2=1.0, freq=200, gravity=1, gate=0, rate, pan=0, out=0;
+	arg amp=0.5, amp2=1.0, freq=200, gravity=1, gate=0, rate, pan=0, out=0;
     var t, sf, env, sig, t_gate;
 	env = EnvGen.kr(
 		Env.adsr(0.05,0.0,1.0,0.5),
@@ -119,7 +128,8 @@ SynthDef.new(\gravity, {
     t = TBall.ar(sf, gravity,0,0.01);
     sig = Ringz.ar(t * 5, freq, 0.5);
 	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,1),0.8,3,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,3,0);
+	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;

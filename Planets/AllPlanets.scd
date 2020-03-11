@@ -55,7 +55,6 @@
 		\rate, ~invrotationMoon,
 		\pan, ~orbitEarth]); //~orbitMoon
 
-
 ~marsP = Synth.new(\surroundmod, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
