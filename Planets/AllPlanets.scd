@@ -7,8 +7,7 @@
 ~mercuryP = Synth.new(\surroundmod, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, ~orbitMercury,
-		\reverb, 0.5]);
+		\pan, ~orbitMercury]);
 
 ~mercuryG = Synth.new(\gravity, [
 		\freq, ~massMercury,
@@ -20,8 +19,7 @@
 ~venusP = Synth.new(\surroundmod, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
-		\pan, ~orbitVenus,
-		\reverb, 0.5]);
+		\pan, ~orbitVenus]);
 
 ~venusG = Synth.new(\gravity, [
 		\freq, ~massVenus,
@@ -38,8 +36,7 @@
 ~earthP = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, ~orbitEarth,
-		\reverb, 0.5]);
+		\pan, ~orbitEarth]);
 
 ~earthG = Synth.new(\gravity, [
 		\freq, ~massEarth,
@@ -62,8 +59,7 @@
 ~marsP = Synth.new(\surroundmod, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
-		\pan, ~orbitMars,
-		\reverb, 0.5]);
+		\pan, ~orbitMars]);
 
 ~marsW = Synth.new(\wind, [
 		\amp, 0.05,
