@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1.0, orbitscale= 0.5;
+var mul = 1.0, orbitscale= 1.0, tempscale=70, tempscale2=2;
 //C4-C5
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
@@ -112,6 +112,18 @@ var mul = 1.0, orbitscale= 0.5;
 ~posNeptune = 0;
 
 ~posMoon = 0;
+
+~tempMercury = (167+tempscale)*tempscale2;
+~tempVenus = (464+tempscale)*tempscale2;
+~tempEarth = (15+tempscale)*tempscale2;
+~tempMars = (-65+tempscale)*tempscale2;
+
+~tempJupiter = (-110+tempscale)*tempscale2;
+~tempSaturn = (-140+tempscale)*tempscale2;
+~tempUranus = (-195+tempscale)*tempscale2;
+~tempNeptune = (-200+tempscale)*tempscale2;
+
+
 
 )
 

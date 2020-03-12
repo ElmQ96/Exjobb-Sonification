@@ -81,37 +81,39 @@ SynthDef("poof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-/*SynthDef("suspoof", {
+SynthDef("percpoof", {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.5, amp2=1.0, gate=0;
 	var sig, env, t_gate=0;
 	t_gate = gate * LFPulse.ar(rate);
 	env = EnvGen.kr(
-		Env.adsr(5.0,0.0,1.0,5.0),
+		//Env.adsr(0.05,0.5,0.3,0.5),
+		Env.perc(0.01,1.0),
 		t_gate,
 		doneAction:0);
 	sig = PinkNoise.ar(1);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 40); //+ (BPF.ar(sig, freq*, 0.01) *5);
-	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	//sig = PanAz.ar(7, sig, Lag.kr(pan,1),0.2,3,0);
+	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.2,3,0);
+	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
-}).add;*/
+}).add;
 
 SynthDef.new(\wind, {
 	arg amp=0.1, amp2=1.0, rate=0.45, gate, pan=0;
 	var sig, env;
 	env = EnvGen.kr(
-		Env.adsr(0.5,0.0,1.0,1.0),
+		Env.adsr(5.0,0.0,1.0,5.0),
 		gate,
 		doneAction:0);
 	sig = PinkNoise.ar(amp);
 	sig = LPF.ar(sig, Vibrato.kr(1000,rate,rate,rateVariation:0.7,depthVariation:0.3));
 	sig = LPF.ar(sig, Vibrato.kr(5000,rate,rate,rateVariation:0.7,depthVariation:0.3));
 	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
-	sig = HPF.ar(sig, 200);
+	sig = HPF.ar(sig, 100);
 	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,~lagTime),0.8,3,0);
-	amp2 = Lag.kr(amp2, ~lagTime);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,3,0);
+	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -120,7 +122,7 @@ SynthDef.new(\gravity, {
 	arg amp=0.5, amp2=1.0, freq=200, gravity=1, gate=0, rate, pan=0, out=0;
     var t, sf, env, sig, t_gate;
 	env = EnvGen.kr(
-		Env.adsr(0.05,0.0,1.0,0.5),
+		Env.adsr(5.0,0.0,1.0,5.0),
 		gate,
 		doneAction:0);
 	//sf = K2A.ar(LFPulse.kr(0.5).poll > 0.5) > 0;
@@ -133,4 +135,25 @@ SynthDef.new(\gravity, {
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
+
+SynthDef.new(\fry, {
+	arg amp=0.2, amp2=1.0, rate=40, gate, pan=0;
+	var sig, env;
+	env = EnvGen.kr(
+		Env.adsr(5.0,0.0,1.0,5.0),
+		gate,
+		doneAction:0);
+	sig = Dust.ar(rate, 0.4); //rate: 5-1000
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,3,0);
+	amp2 = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env * amp * amp2;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+
+
+
+
+
+
 )

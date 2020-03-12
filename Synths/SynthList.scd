@@ -9,6 +9,9 @@ SynthDef("mod", {
 }).play;
 )
 
+//wind
+play{f=LFDNoise3.kr(1/pi.dup);Mix.fill(5,{RLPF.ar(PinkNoise.ar([1,1]),f.range(200,3000),f.range(0.1,0.8),f.range(0.2,0.5))})}
+
 //Random Sinus
 (
 x = { var src;
@@ -169,8 +172,6 @@ play{c=LFCub;t=Dust2.kr(pi);x=TChoose;p=Splay;p.ar([c.ar(x.kr(t,(432..999)),0,0.
 
 fork{y=[Blip,Saw,Pulse,SinOsc];loop{x=play{z=_.ar(rand(999));z.(y.choose)*z.(y.choose)*z.(y.choose)};(rand(0.1)+0.05).wait;x.free;}}
 
-
-play{f=LFDNoise3.kr(1/pi.dup);Mix.fill(5,{RLPF.ar(PinkNoise.ar([1,1]),f.range(200,3000),f.range(0.1,0.8),f.range(0.2,0.5))})}
 
 play{a=LFNoise0;b=1/6;MoogFF.ar(a.ar(999)*Pulse.ar(a.kr(b).range(15,24),a.kr(1))!8,a.kr(0.6).range(55,8e3),LFPar.kr(a.kr(b,8),0,4))}
 
