@@ -8,12 +8,12 @@ NetAddr.localAddr;
 //msg[5] = 1st moon
 //msg[6] = 2nd moon
 
+
+
 (
 ~minDist = 3;
 ~maxDist = 500;
-)
 
-(
 OSCdef.new(\mercury,
 	{
 		arg msg;
@@ -22,9 +22,9 @@ OSCdef.new(\mercury,
 
 		if(msg[4]==1,
 			{if(msg[1]<(~maxDist*~diameterMercury),
-				{~mercuryGrp.set(\gate, 1);},
-				{~mercuryGrp.set(\gate, 0););
-			},
+					{~mercuryGrp.set(\gate, 1);},
+					{~mercuryGrp.set(\gate, 0);}
+			);},
 			{~mercuryGrp.set(\gate, 0);}
 		);
 

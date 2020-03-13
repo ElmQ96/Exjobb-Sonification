@@ -9,7 +9,6 @@
 ~earthGrp = Group.new(~planetaryGrp);
 ~marsGrp = Group.new(~planetaryGrp);
 
-
 ~fxGrp = Group.after(~solarGrp);
 )
 
@@ -29,7 +28,7 @@
 
 ~mercuryG = Synth.new(\gravity, [
 		\freq, ~massMercury,
-		\rate, ~invrotationMercury,
+		\rate, ~invrotationEarth/7,
 		\gravity, ~gravityMercury,
 		\pan, 0], ~mercuryGrp);
 
@@ -40,7 +39,10 @@
 		\pan, 0], ~mercuryGrp);
 
 ~mercuryT = Synth.new(\fry, [
-		\rate, ~tempMercury,
+		\rate, ~invrotationMercury,
+		\filt, 2000,
+		\lowtemp, ~lowtempMercury,
+		\hightemp, ~hightempMercury,
 		\pan, 0], ~mercuryGrp);
 
 //Venus
@@ -51,7 +53,7 @@
 
 ~venusG = Synth.new(\gravity, [
 		\freq, ~massVenus,
-		\rate, ~invrotationVenus,
+		\rate, ~invrotationEarth/7,
 		\gravity, ~gravityVenus,
 		\pan, 0], ~venusGrp);
 
@@ -62,7 +64,10 @@
 
 
 ~venusT = Synth.new(\fry, [
-		\rate, ~tempVenus,
+		\rate, ~invrotationVenus,
+		\filt, 6000,
+		\lowtemp, ~lowtempVenus ,
+		\hightemp, ~hightempVenus,
 		\pan, 0], ~venusGrp);
 
 //Earth
@@ -73,7 +78,7 @@
 
 ~earthG = Synth.new(\gravity, [
 		\freq, ~massEarth,
-		\rate, ~invrotationEarth,
+		\rate, ~invrotationEarth/7,
 		\gravity, ~gravityEarth,
 		\pan, 0], ~earthGrp);
 
@@ -82,15 +87,18 @@
 		\rate, 0.3,
 		\pan, 0], ~earthGrp);
 
-~earthY = Synth.new(\poof, [
+/*~earthY = Synth.new(\poof, [
 		\amp, 1.0,
 		\freq, ~massEarth,
 		\rate, ~orbitEarth*12,
-		\pan, 0], ~earthGrp);
+		\pan, 0], ~earthGrp);*/
 
 
 ~earthT = Synth.new(\fry, [
-		\rate, ~tempEarth,
+		\rate, ~invrotationEarth,//~tempEarth,
+		\filt, 2000,
+		\lowtemp, ~lowtempEarth ,
+		\hightemp, ~hightempEarth,
 		\pan, 0], ~earthGrp);
 
 
@@ -114,13 +122,15 @@
 
 ~marsG = Synth.new(\gravity, [
 		\freq, ~massMars,
-		\rate, ~invrotationMars,
+		\rate, ~invrotationEarth/7,
 		\gravity, ~gravityMars,
 		\pan, 0], ~marsGrp);
 
-
 ~marsT = Synth.new(\fry, [
-		\rate, ~tempMars,
+		\rate, ~invrotationMars,
+		\filt, 6000,
+		\lowtemp, ~lowtempMars ,
+		\hightemp, ~hightempMars,
 		\pan, 0], ~marsGrp);
 
 ~phobosP = Synth.new(\poof, [
@@ -144,6 +154,8 @@
 ~mercuryG.set(\gate, 1);
 ~mercuryY.set(\gate, 1);
 ~mercuryT.set(\gate, 1);
+
+~mercuryT.set(\filt, 5000);
 
 ~venusGrp.set(\gate, 1);
 ~venusP.set(\gate, 1);
@@ -243,6 +255,9 @@
 )
 
 (
+~innerSolarGrp.set(\gate, 1);
+~innerSolarGrp.set(\gate, 0);
+
 ~mercuryPoof.set(\gate, 1);
 ~venusPoof.set(\gate, 1);
 ~earthPoof.set(\gate, 1);

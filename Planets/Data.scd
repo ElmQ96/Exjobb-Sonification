@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1.0, orbitscale= 1.0, tempscale=70, tempscale2=2;
+var mul = 1.0, orbitscale= 1.0, tempscale=174, tempscale2=2;
 //C4-C5
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
@@ -27,12 +27,6 @@ var mul = 1.0, orbitscale= 1.0, tempscale=70, tempscale2=2;
 ~diameterSaturn = 120536;
 ~diameterUranus = 51118;
 ~diameterNeptune = 49528;
-
-/*orbital period (1 month/second), (1/12)-0.02
-~orbitMercury = 0.137888899;
-~orbitVenus = 0.1109850384;
-~orbitEarth = 0.08333330167;
-~orbitMars = 0.02;*/
 
 //orbital period, Earth ratio, (1 month/second)
 ~orbitMercury = 0.34578146611*orbitscale;
@@ -67,17 +61,6 @@ var mul = 1.0, orbitscale= 1.0, tempscale=70, tempscale2=2;
 ~rotationSaturn = 0.444;
 ~rotationUranus = 0.718; //-
 ~rotationNeptune = 0.671;
-
-/*Inverted Axis-Rotation (24 hours/second)
-~invrotationSun = 2.732212581;
-~invrotationMercury = 0;
-~invrotationVenus = 0; //-
-~invrotationEarth = 1;
-~invrotationMars = 0.8;
-~invrotationJupiter = 5;
-~invrotationSaturn = 4.771428571;
-~invrotationUranus = 2.914285714;
-~invrotationNeptune = 3.228571429;*/
 
 //ratio earth (1/rotationRatio),(24hrs/sec)
 ~invrotationMercury = 0.00568504832;
@@ -118,15 +101,23 @@ var mul = 1.0, orbitscale= 1.0, tempscale=70, tempscale2=2;
 ~tempEarth = (15+tempscale)*tempscale2;
 ~tempMars = (-65+tempscale)*tempscale2;
 
+~lowtempMercury = (-173+tempscale)*tempscale2; //-173
+~lowtempVenus = (462+tempscale)*tempscale2;
+~lowtempEarth = (-88+tempscale)*tempscale2;
+~lowtempMars = (-153+tempscale)*tempscale2; //-153
+
+~hightempMercury = (427+tempscale)*tempscale2;
+~hightempVenus = (462+tempscale)*tempscale2;
+~hightempEarth = (58+tempscale)*tempscale2;
+~hightempMars = (20+tempscale)*tempscale2;
+
+/*
 ~tempJupiter = (-110+tempscale)*tempscale2;
 ~tempSaturn = (-140+tempscale)*tempscale2;
 ~tempUranus = (-195+tempscale)*tempscale2;
 ~tempNeptune = (-200+tempscale)*tempscale2;
-
-
-
+*/
 )
-
 
 //Bruce Mass mapping
 //E2 - E8

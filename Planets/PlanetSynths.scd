@@ -82,7 +82,7 @@ SynthDef("poof", {
 }).add;
 
 SynthDef("percpoof", {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.5, amp2=1.0, gate=0;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.4, amp2=1.0, gate=0;
 	var sig, env, t_gate=0;
 	t_gate = gate * LFPulse.ar(rate);
 	env = EnvGen.kr(
@@ -119,14 +119,14 @@ SynthDef.new(\wind, {
 }).add;
 
 SynthDef.new(\gravity, {
-	arg amp=0.5, amp2=1.0, freq=200, gravity=1, gate=0, rate, pan=0, out=0;
+	arg amp=0.8, amp2=1.0, freq=200, gravity=1, gate=0, rate, pan=0, out=0;
     var t, sf, env, sig, t_gate;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
 		gate,
 		doneAction:0);
 	//sf = K2A.ar(LFPulse.kr(0.5).poll > 0.5) > 0;
-	sf = LFPulse.ar(rate/2,0.9999);
+	sf = LFPulse.ar(rate,0.9999);
     t = TBall.ar(sf, gravity,0,0.01);
     sig = Ringz.ar(t * 5, freq, 0.5);
 	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
@@ -137,23 +137,18 @@ SynthDef.new(\gravity, {
 }).add;
 
 SynthDef.new(\fry, {
-	arg amp=0.2, amp2=1.0, rate=40, gate, pan=0;
-	var sig, env;
+	arg amp=0.5, amp2=1.0, freq=440, filt=440, rate=1, lowtemp=20, hightemp=200, gate, pan=0;
+	var sig, env, newrate;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
 		gate,
 		doneAction:0);
-	sig = Dust.ar(rate, 0.4); //rate: 5-1000
+	newrate = SinOsc.kr(rate).range(lowtemp,hightemp);
+	sig = Dust.ar(newrate, 0.4); //rate: 5-1000
+	sig = LPF.ar(sig,filt);
 	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,3,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
-
-
-
-
-
-
-
 )
