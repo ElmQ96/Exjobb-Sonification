@@ -145,7 +145,7 @@ SynthDef.new(\fry, {
 		doneAction:0);
 	newrate = SinOsc.kr(rate).range(lowtemp,hightemp);
 	sig = Dust.ar(newrate, 0.4); //rate: 5-1000
-	sig = LPF.ar(sig,filt);
+	sig = LPF.ar(sig,2000);
 	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,3,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;

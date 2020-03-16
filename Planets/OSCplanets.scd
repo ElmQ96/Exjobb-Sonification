@@ -141,6 +141,41 @@ OSCdef.new(\focus,
 
 	},'/focus');
 )
+/*
+OSCdef.new(\sun,
+	{
+		arg msg;
+		//msg[1] = focusgate
+		//msg[2] = focus
+		//msg[3] = planetgate
+		("Focus:" + msg[1]).postln;
+
+		if(msg[1]==1,
+		{if(msg[2] == 'Sun',
+			{~innerSolarGrp.set(\gate, 1);},
+			{~innerSolarGrp.set(\gate, 0);}
+		)},
+			{});
+
+		if(msg[3]==1,
+			{~mercuryGrp.set(\gate, 1);},
+			{~mercuryGrp.set(\gate, 0);}
+		);
+		if(msg[4]==1,
+			{~venusGrp.set(\gate, 1);},
+			{~venusGrp.set(\gate, 0);}
+		);
+		if(msg[5]==1,
+			{~earthGrp.set(\gate, 1);},
+			{~earthGrp.set(\gate, 0);}
+		);
+		if(msg[6]==1,
+			{~marsGrp.set(\gate, 1);},
+			{~marsGrp.set(\gate, 0);}
+		);
+
+	},'/sun');
+)*/
 
 /*
 (
