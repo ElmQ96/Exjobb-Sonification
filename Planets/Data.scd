@@ -1,11 +1,24 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1.0, orbitscale= 1.0, tempscale=174, tempscale2=2;
+var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 //C4-C5
+/*~massMercury = 523.25*mul;//C5
+~massVenus =  329.63*mul;//E4
+~massEarth =  261.63*mul;//C4
+//~massMars =  493.88*mul;//B4
+//~massMars =  440.00*mul;//A4
+~massMars =  392.00*mul;//G4 */
+
+
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
 ~massEarth =  261.63*mul;//C4
-~massMars =  493.88*mul;//B4
+~massMars =  392.00*mul;//G4
+
+
+
+
+
 //C3-C4 blankt
 //C2-C3
 ~massJupiter = 65.406*mul; //C2

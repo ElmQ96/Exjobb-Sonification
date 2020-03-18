@@ -76,7 +76,7 @@ SynthDef(\bpfsaw,{
 		LFNoise1.kr(0.2).exprange(cfmin,cfmax),
 		LFNoise1.kr(0.1).exprange(rqmin,rqmax)
 	);
-	sig = PanAz.ar(7, sig, Lag.kr(LFSaw.kr(0.1).poll,1),1,3,0);
+	sig = PanAz.ar(7, sig, LFSaw.kr(0.1).poll,1,3,0);
 	//LFNoise1.kr(1);
 	sig = sig * env * amp;
 

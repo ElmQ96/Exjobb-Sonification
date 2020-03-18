@@ -9,11 +9,11 @@ By Josh Mitchell 11/19.
 SynthDef("phazer", {
     arg
 	//Standard Values
-	out = 0, pan = 0, freq = 440, amp = 0.5, gate = 1,
+	out = 0, pan = 0, freq = 261.63, amp = 0.5, gate = 1,
 	att = 1, dec = 3, sus = 0, rel = 1.5, crv = -4,
     //Other controls
-    rq = 0.5, rate = 1, minfreq = 100, maxfreq = 16000,
-	drylevel = 1.5, fmdepth = 1.5, fmfreq = 432;
+    rq = 0.5, rate = 0.5, minfreq = 20, maxfreq = 20000,
+	drylevel = 1.5, fmdepth = 1.5, fmfreq = 261.63;
 
 	var env, lfo, input, snd;
 
@@ -56,4 +56,5 @@ Pbindef( \phazer,
 	\dur, 5,
 	\ctranspose, -24,
 	\degree, Pseq([0, 2, -1, 0, 2, 1, 4, 0], inf).play;
-);
+).play;
+)

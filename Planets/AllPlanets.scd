@@ -10,16 +10,14 @@
 ~marsGrp = Group.new(~planetaryGrp);
 
 ~fxGrp = Group.after(~solarGrp);
-)
 
 
-(//Setup
+//Setup
 ~reroute = Synth.new(\reroute, [\bus,~surroundBus], ~fxGrp);
 ~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus], ~fxGrp);
-)
+
 
 //Planetary View
-(
 //Mercury
 ~mercuryP = Synth.new(\surroundmod, [
 		\freq, ~massMercury,
@@ -37,13 +35,13 @@
 		\freq, ~massMercury,
 		\rate, ~orbitMercury/12,
 		\pan, 0], ~mercuryGrp);
-
+/*
 ~mercuryT = Synth.new(\fry, [
 		\rate, ~invrotationMercury,
 		\filt, 2000,
 		\lowtemp, ~lowtempMercury,
 		\hightemp, ~hightempMercury,
-		\pan, 0], ~mercuryGrp);
+		\pan, 0], ~mercuryGrp);*/
 
 //Venus
 ~venusP = Synth.new(\surroundmod, [
@@ -63,12 +61,12 @@
 		\pan, 0], ~venusGrp);
 
 
-~venusT = Synth.new(\fry, [
+/*~venusT = Synth.new(\fry, [
 		\rate, ~invrotationVenus,
 		\filt, 6000,
 		\lowtemp, ~lowtempVenus ,
 		\hightemp, ~hightempVenus,
-		\pan, 0], ~venusGrp);
+		\pan, 0], ~venusGrp);*/
 
 //Earth
 ~earthP = Synth.new(\surroundmod, [
@@ -94,12 +92,12 @@
 		\pan, 0], ~earthGrp);*/
 
 
-~earthT = Synth.new(\fry, [
+/*~earthT = Synth.new(\fry, [
 		\rate, ~invrotationEarth,//~tempEarth,
 		\filt, 2000,
 		\lowtemp, ~lowtempEarth ,
 		\hightemp, ~hightempEarth,
-		\pan, 0], ~earthGrp);
+		\pan, 0], ~earthGrp);*/
 
 
 
@@ -126,12 +124,12 @@
 		\gravity, ~gravityMars,
 		\pan, 0], ~marsGrp);
 
-~marsT = Synth.new(\fry, [
+/*~marsT = Synth.new(\fry, [
 		\rate, ~invrotationMars,
 		\filt, 6000,
 		\lowtemp, ~lowtempMars ,
 		\hightemp, ~hightempMars,
-		\pan, 0], ~marsGrp);
+		\pan, 0], ~marsGrp);*/
 
 ~phobosP = Synth.new(\poof, [
 		\amp, 0.2,
@@ -144,6 +142,48 @@
 		\freq, ~massDeimos,
 		\rate, ~invrotationDeimos,
 		\pan, ~orbitMars], ~marsGrp); //~orbitDeimos
+
+ //Solar System View
+~mercuryPoof = Synth.new(\poof, [
+		\freq, ~massMercury,
+		\rate, ~invrotationMercury,
+		\pan, ~orbitMars], ~innerSolarGrp);
+
+~venusPoof = Synth.new(\poof, [
+		\freq, ~massVenus,
+		\rate, ~invrotationVenus,
+		\pan, ~orbitVenus], ~innerSolarGrp);
+
+~earthPoof = Synth.new(\poof, [
+		\freq, ~massEarth,
+		\rate, ~invrotationEarth,
+		\pan, ~orbitEarth], ~innerSolarGrp);
+
+~marsPoof = Synth.new(\poof, [
+		\freq, ~massMars,
+		\rate, ~invrotationMars,
+		\pan, ~orbitMars], ~innerSolarGrp);
+
+~jupiterPoof = Synth.new(\poof, [
+		\freq, ~massJupiter,
+		\rate, ~invrotationJupiter,
+		\pan, ~orbitJupiter], ~outerSolarGrp);
+
+~saturnPoof = Synth.new(\poof, [
+		\freq, ~massSaturn,
+		\rate, ~invrotationSaturn,
+		\pan, ~orbitSaturn], ~outerSolarGrp);
+
+~uranusPoof = Synth.new(\poof, [
+		\freq, ~massUranus,
+		\rate, ~invrotationUranus,
+		\pan, ~orbitUranus], ~outerSolarGrp);
+
+~neptunePoof = Synth.new(\poof, [
+		\freq, ~massNeptune,
+		\rate, ~invrotationneptune,
+		\pan, ~orbitNeptune], ~outerSolarGrp);
+
 )
 
 (
@@ -153,7 +193,7 @@
 ~mercuryP.set(\gate, 1);
 ~mercuryG.set(\gate, 1);
 ~mercuryY.set(\gate, 1);
-~mercuryT.set(\gate, 1);
+~mercuryT.set(\gate, 1);q
 
 ~mercuryT.set(\filt, 5000);
 
@@ -212,47 +252,7 @@
 ~deimosP.set(\gate, 0);
 )
 
-( //Solar System View
-~mercuryPoof = Synth.new(\poof, [
-		\freq, ~massMercury,
-		\rate, ~invrotationMercury,
-		\pan, ~orbitMars], ~innerSolarGrp);
 
-~venusPoof = Synth.new(\poof, [
-		\freq, ~massVenus,
-		\rate, ~invrotationVenus,
-		\pan, ~orbitVenus], ~innerSolarGrp);
-
-~earthPoof = Synth.new(\poof, [
-		\freq, ~massEarth,
-		\rate, ~invrotationEarth,
-		\pan, ~orbitEarth], ~innerSolarGrp);
-
-~marsPoof = Synth.new(\poof, [
-		\freq, ~massMars,
-		\rate, ~invrotationMars,
-		\pan, ~orbitMars], ~innerSolarGrp);
-
-~jupiterPoof = Synth.new(\poof, [
-		\freq, ~massJupiter,
-		\rate, ~invrotationJupiter,
-		\pan, ~orbitJupiter], ~outerSolarGrp);
-
-~saturnPoof = Synth.new(\poof, [
-		\freq, ~massSaturn,
-		\rate, ~invrotationSaturn,
-		\pan, ~orbitSaturn], ~outerSolarGrp);
-
-~uranusPoof = Synth.new(\poof, [
-		\freq, ~massUranus,
-		\rate, ~invrotationUranus,
-		\pan, ~orbitUranus], ~outerSolarGrp);
-
-~neptunePoof = Synth.new(\poof, [
-		\freq, ~massNeptune,
-		\rate, ~invrotationneptune,
-		\pan, ~orbitNeptune], ~outerSolarGrp);
-)
 
 (
 ~innerSolarGrp.set(\gate, 1);
@@ -281,27 +281,30 @@
 )
 
 (//Solar system View
-~mercuryS = Synth.new(\surroundmod, [
+~mercuryS = Synth.new(\beating, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, ~posMercury,
-		\reverb, 0.5]);
+		\pan, ~orbitMercury]);
 
-~venusS = Synth.new(\surroundmod, [
+~venusS = Synth.new(\beating, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
-		\pan, ~posVenus,
-		\reverb, 0.5]);
+		\pan, ~orbitVenus]);
 
-~earthS = Synth.new(\surroundmod, [
+~earthS = Synth.new(\beating, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, ~posEarth,
-		\reverb, 0.5]);
+		\pan, ~orbitEarth]);
 
-~marsS = Synth.new(\surroundmod, [
+~marsS = Synth.new(\beating, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
-		\pan, ~posMars,
-		\reverb, 0.5]);
+		\pan, ~orbitMars]);
 )
+
+~mercuryS.set(\gate, 1);
+~venusS.set(\gate, 1);
+~earthS.set(\gate, 1);
+~marsS.set(\gate, 1);
+
+

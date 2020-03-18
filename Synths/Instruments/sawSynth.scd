@@ -1,7 +1,7 @@
 /* Retrieved from
 http://sccode.org/1-5aD
 */
-
+(
 SynthDef("sawSynth", { arg freq = 440, amp = 0.1, att = 0.1, rel = 2, lofreq = 1000, hifreq = 3000;
     var env, snd;
     env = Env.perc(
@@ -19,4 +19,5 @@ SynthDef("sawSynth", { arg freq = 440, amp = 0.1, att = 0.1, rel = 2, lofreq = 1
 // Basic saw synth for chords and bass
 //By Bruno Ruviaro
 //http://sccode.org/1-54H
-}).play;
+}).add;
+)

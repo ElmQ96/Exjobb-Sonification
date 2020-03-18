@@ -8,7 +8,7 @@ under GNU GPL 3 as per SuperCollider license
 
 Minor modifications by Bruno Ruviaro, June 2015.
 */
-
+(
 SynthDef("prophet5pwmStrings", {
 	arg out = 0, pan = 0.0, freq = 440, amp = 1.0, gate = 1, att = 0.01, rel = 0, sus = 1, dec = 0.5, lforate = 10, lfowidth = 0.5, cutoff = 12000, rq = 0.5;
 
@@ -36,3 +36,4 @@ Pbindef(\prophet5pwmStrings,
 	\lforate, Pn(Pseries(2, 1, 11), inf),
 	\rq, Pn(Pseries(0.9, -0.1, 5), inf)
 );
+)

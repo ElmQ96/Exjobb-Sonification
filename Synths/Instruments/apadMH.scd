@@ -7,7 +7,7 @@ FreeVerb.ar added by Josh Mitchell.
 
 Modified by Bruno Ruviaro and Josh Mitchell 8/19.
 */
-
+(
 SynthDef(\apad_mh, {
 	arg
 	//Standard Values:
@@ -35,7 +35,8 @@ metadata:(
 	tags: [\pad, \vibrato, \sustained]
 	)
 ).add
-
+)
+(
 Pbindef( \apad_mh,
 	\instrument, "apad_mh",
 	\dur, 4,
@@ -49,3 +50,4 @@ Pbindef( \apad_mh,
 	            ]),
 	\amp, 0.1
 );
+)
