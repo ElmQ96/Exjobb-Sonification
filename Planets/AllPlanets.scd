@@ -164,7 +164,7 @@
 		\rate, ~invrotationMars,
 		\pan, ~orbitMars], ~innerSolarGrp);
 
-~jupiterPoof = Synth.new(\poof, [
+/*~jupiterPoof = Synth.new(\poof, [
 		\freq, ~massJupiter,
 		\rate, ~invrotationJupiter,
 		\pan, ~orbitJupiter], ~outerSolarGrp);
@@ -182,7 +182,7 @@
 ~neptunePoof = Synth.new(\poof, [
 		\freq, ~massNeptune,
 		\rate, ~invrotationneptune,
-		\pan, ~orbitNeptune], ~outerSolarGrp);
+		\pan, ~orbitNeptune], ~outerSolarGrp);*/
 
 )
 
@@ -193,7 +193,7 @@
 ~mercuryP.set(\gate, 1);
 ~mercuryG.set(\gate, 1);
 ~mercuryY.set(\gate, 1);
-~mercuryT.set(\gate, 1);q
+~mercuryT.set(\gate, 1);
 
 ~mercuryT.set(\filt, 5000);
 

@@ -30,7 +30,7 @@ SynthDef.new(\reverb, {
 }).add;
 
 SynthDef.new(\reroute, {
-	arg sigbus, rebus, sigmix=1.0, remix=0.1, lfemix=0.5;
+	arg sigbus, rebus, sigmix=1.0, remix=0.0, lfemix=0.5;
 	Out.ar(2, (sigmix*In.ar(~surroundBus.index, 1))   + (remix*In.ar(~reverbBus.index, 1)));
 	Out.ar(1, (sigmix*In.ar(~surroundBus.index+1, 1)) + (remix*In.ar(~reverbBus.index+1, 1)));
 	Out.ar(5, (sigmix*In.ar(~surroundBus.index+2, 1)) + (remix*In.ar(~reverbBus.index+2, 1)));
@@ -42,7 +42,7 @@ SynthDef.new(\reroute, {
 }).add;
 
 SynthDef(\surroundmod, {
-	arg freq=200, rate=1, pan=0, lagpan=0, gate=0, reverb=0.5, amp=0.4, amp2=1.0;
+	arg freq=200, rate=1, pan=0, lagpan=0, gate=0, reverb=0.5, amp=0.3, amp2=1.0;
 	var sig, sig2, resfreq, env, reverbed,  lfo, input, snd;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
@@ -53,13 +53,13 @@ SynthDef(\surroundmod, {
 	resfreq = SinOsc.kr(rate) * 200 + 400;
 	sig = RLPF.ar(sig, resfreq,0.5);
 	//sig = FreeVerb.ar(sig, reverb, 0.5, 0.8);
-	input = sig + sig2;
+	sig = (sig + sig2)/2;
 	/*if(~lagSwitch==1,
 		{lagpan = Lag.kr(pan,~panlagTime)},
 		{lagpan = pan});*/
 
-	lfo = LinExp.ar(LFTri.ar(0.1), -1, 1, freq*2, 20000/8);
-	sig = BRF.ar(sig, lfo, 1);
+	/*lfo = LinExp.ar(LFTri.ar(0.1), -1, 1, freq*2, 20000/8);
+	BRF.ar(sig, lfo, 1);*/
 	/*snd = BAllPass.ar(sig, [1, 2, 4, 8] * lfo, 0.5);
 	snd = Mix.ar(snd);
 	snd = snd + (sig * -1 * 3);
@@ -67,8 +67,8 @@ SynthDef(\surroundmod, {
 
 
 	//sig = sig + snd;
-	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,2.5,0);
-	//sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.2,2.5,0);
+	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
@@ -91,14 +91,15 @@ SynthDef("poof", {
 	sig2 = (BPF.ar(sig, freq/2, 0.01) * 40);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 40);
 
-	sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,2.5,0);
-	sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),0.2,2.5,0);
-	//sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.2,2.5,0);
+	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
+	//sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
+	sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env;
 	//sig2 = SinOsc.ar(freq/2,0,0.2);
 	sig2 = sig2 * env2;
-	sig = (sig + sig2) * amp * amp2;
+	sig = (sig + sig2)/2 * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
 
@@ -114,7 +115,7 @@ SynthDef("percpoof", {
 	sig = PinkNoise.ar(1);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 40); //+ (BPF.ar(sig, freq*, 0.01) *5);
 	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.2,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.2,2.5,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
@@ -132,10 +133,10 @@ SynthDef.new(\wind, {
 	sig = LPF.ar(sig, Vibrato.kr(5000,rate,rate,rateVariation:0.7,depthVariation:0.3));
 	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
 	sig = HPF.ar(sig, 100);
-	lfo = LinExp.ar(LFTri.ar(0.1), -1, 1, 100, 20000/8);
-	sig = BRF.ar(sig, lfo, 1);
-	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,2.5,0);
+	/*lfo = LinExp.ar(LFTri.ar(0.1), -1, 1, 100, 20000/8);
+	sig = BRF.ar(sig, lfo, 1);*/
+	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
@@ -154,8 +155,8 @@ SynthDef.new(\gravity, {
     sig = Ringz.ar(t * 5, freq, 0.5);
 	lfo = LinExp.ar(LFTri.ar(0.1), -1, 1, 100, 20000/8);
 	sig = BRF.ar(sig, lfo, 1);
-	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),0.8,3,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,2.5,0);
+	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
@@ -171,12 +172,12 @@ SynthDef.new(\fry, {
 	newrate = SinOsc.kr(rate).range(lowtemp,hightemp);
 	sig = Dust.ar(newrate, 0.4); //rate: 5-1000
 	sig = LPF.ar(sig,2000);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),0.8,2.5,0);
+	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1,2.5,0);
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
-
+)
 SynthDef("beating", {
 	arg freq = 440, amp = 0.1, out = 0, pan = 0, att = 0.01, dec = 1, curve = -4, beatFreq = 15, rate, gate;
 
@@ -198,7 +199,7 @@ SynthDef("beating", {
 
 }
 ).add
-)
+
 SynthDef(\FMRhodes2, {
     arg
     // standard meanings
