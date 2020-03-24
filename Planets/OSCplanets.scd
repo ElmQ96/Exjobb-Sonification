@@ -22,15 +22,15 @@ OSCdef.new(\mercury,
 		arg msg;
 		var amp = (~minDist*~diameterMercury)/msg[1];
 
-		if(msg[4][1]==1,
+		if(msg[4][0]==1,
 			{~mercuryP.set(\gate, 1);},
 			{~mercuryP.set(\gate, 0);});
 
-		if(msg[4][2]==1,
+		if(msg[4][1]==1,
 			{~mercuryG.set(\gate, 1);},
 			{~mercuryG.set(\gate, 0);});
 
-		if(msg[4][3]==1,
+		if(msg[4][2]==1,
 			{~mercuryW.set(\gate, 1);},
 			{~mercuryW.set(\gate, 0);});
 
@@ -52,15 +52,15 @@ OSCdef.new(\venus,
 		arg msg;
 		var amp = (~minDist*~diameterVenus)/msg[1];
 
-		if(msg[4][1]==1,
+		if(msg[4][0]==1,
 			{~venusP.set(\gate, 1);},
 			{~venusP.set(\gate, 0);});
 
-		if(msg[4][2]==1,
+		if(msg[4][1]==1,
 			{~venusG.set(\gate, 1);},
 			{~venusG.set(\gate, 0);});
 
-		if(msg[4][3]==1,
+		if(msg[4][2]==1,
 			{~venusW.set(\gate, 1);},
 			{~venusW.set(\gate, 0);});
 
@@ -84,19 +84,19 @@ OSCdef.new(\earth,
 		var amp = (~minDist*~diameterEarth)/msg[1];
 		//("earthAngle:" + msg[2]).postln;
 
-		if(msg[4][1]==1,
+		if(msg[4][0]==1,
 			{~earthP.set(\gate, 1);},
 			{~earthP.set(\gate, 0);});
 
-		if(msg[4][2]==1,
+		if(msg[4][1]==1,
 			{~earthG.set(\gate, 1);},
 			{~earthG.set(\gate, 0);});
 
-		if(msg[4][3]==1,
+		if(msg[4][2]==1,
 			{~earthW.set(\gate, 1);},
 			{~earthW.set(\gate, 0);});
 
-		if(msg[4][4]==1,
+		if(msg[4][3]==1,
 			{~moonP.set(\gate, 1);},
 			{~moonP.set(\gate, 0);});
 
@@ -120,19 +120,19 @@ OSCdef.new(\mars,
 		arg msg;
 		var amp = (~minDist*~diameterMars)/msg[1];
 
-		if(msg[4][1]==1,
+		if(msg[4][0]==1,
 			{~marsP.set(\gate, 1);},
 			{~marsP.set(\gate, 0);});
 
-		if(msg[4][2]==1,
+		if(msg[4][1]==1,
 			{~marsG.set(\gate, 1);},
 			{~marsG.set(\gate, 0);});
 
-		if(msg[4][3]==1,
+		if(msg[4][2]==1,
 			{~marsW.set(\gate, 1);},
 			{~marsW.set(\gate, 0);});
 
-		if(msg[4][4]==1,
+		if(msg[4][3]==1,
 			{~phobosP.set(\gate, 1);
 			 ~deimosP.set(\gate, 1);
 			},
@@ -179,24 +179,20 @@ OSCdef.new(\sun,
 		//msg[1][4] = mars
 
 		if(msg[1][0] == 1,
-			{~innerSolarGrp.set(\gate, 1);},
-			{~innerSolarGrp.set(\gate, 0);});
+			{~mercuryPoof.set(\gate, 1);},
+			{~mercuryPoof.set(\gate, 0);});
 
 		if(msg[1][1] == 1,
-			{~mercuryGrp.set(\gate, 1);},
-			{~mercuryGrp.set(\gate, 0);});
+			{~venusPoof.set(\gate, 1);},
+			{~venusPoof.set(\gate, 0);});
 
 		if(msg[1][2] == 1,
-			{~venusGrp.set(\gate, 1);},
-			{~venusGrp.set(\gate, 0);});
+			{~earthPoof.set(\gate, 1);},
+			{~earthPoof.set(\gate, 0);});
 
 		if(msg[1][3] == 1,
-			{~earthGrp.set(\gate, 1);},
-			{~earthGrp.set(\gate, 0);});
-
-		if(mmsg[1][4] == 1,
-			{~marsGrp.set(\gate, 1);},
-			{~marsGrp.set(\gate, 0);});
+			{~marsPoof.set(\gate, 1);},
+			{~marsPoof.set(\gate, 0);});
 
 	},'/Sun');
 )

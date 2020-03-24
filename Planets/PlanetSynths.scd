@@ -103,7 +103,7 @@ SynthDef("poof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-/*SynthDef("percpoof", {
+SynthDef("percpoof", {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.4, amp2=1.0, gate=0;
 	var sig, env, t_gate=0;
 	t_gate = gate * LFPulse.ar(rate);
@@ -119,7 +119,7 @@ SynthDef("poof", {
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
-}).add;*/
+}).add;
 
 SynthDef.new(\wind, {
 	arg amp=0.1, amp2=1.0, rate=0.45, gate, pan=0;
