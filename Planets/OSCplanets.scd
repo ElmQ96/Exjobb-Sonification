@@ -136,8 +136,8 @@ OSCdef.new(\mars,
 			{~phobosP.set(\gate, 1);
 			 ~deimosP.set(\gate, 1);
 			},
-			{~phobosP.set(\gate, 1);
-			 ~deimosP.set(\gate, 1);});
+			{~phobosP.set(\gate, 0);
+			 ~deimosP.set(\gate, 0);});
 
 		if(amp>1.0,
 			{amp = 1.0},
