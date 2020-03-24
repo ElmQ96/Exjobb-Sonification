@@ -13,8 +13,6 @@ NetAddr.localAddr;
 //msg[5] = Pos 1st moon
 //msg[6] = Pos 2nd moon
 
-
-
 (
 ~minDist = 3;
 ~maxDist = 500;
@@ -117,7 +115,6 @@ OSCdef.new(\earth,
 
 	},'/Earth');
 
-
 OSCdef.new(\mars,
 	{
 		arg msg;
@@ -158,7 +155,7 @@ OSCdef.new(\mars,
 		~marsPoof.set(\pan, ~posMars);
 
 	},'/Mars');
-
+/*
 OSCdef.new(\focus,
 	{
 		arg msg;
@@ -167,10 +164,41 @@ OSCdef.new(\focus,
 
 		if(focus == 'Sun',
 			{~innerSolarGrp.set(\gate, 1);},
-			{~innerSolarGrp.set(\gate, 0);}
-		)
+			{~innerSolarGrp.set(\gate, 0);})
 
 	},'/focus');
+*/
+OSCdef.new(\sun,
+	{
+		arg msg;
+		//msg[1] = array of gates
+		//msg[1][0] = all gate
+		//msg[1][1] = mercury
+		//msg[1][2] = venus
+		//msg[1][3] = earth
+		//msg[1][4] = mars
+
+		if(msg[1][0] == 1,
+			{~innerSolarGrp.set(\gate, 1);},
+			{~innerSolarGrp.set(\gate, 0);});
+
+		if(msg[1][1] == 1,
+			{~mercuryGrp.set(\gate, 1);},
+			{~mercuryGrp.set(\gate, 0);});
+
+		if(msg[1][2] == 1,
+			{~venusGrp.set(\gate, 1);},
+			{~venusGrp.set(\gate, 0);});
+
+		if(msg[1][3] == 1,
+			{~earthGrp.set(\gate, 1);},
+			{~earthGrp.set(\gate, 0);});
+
+		if(mmsg[1][4] == 1,
+			{~marsGrp.set(\gate, 1);},
+			{~marsGrp.set(\gate, 0);});
+
+	},'/Sun');
 )
 
 /*if(msg[1]<(~maxDist*~diameterMercury),
@@ -186,44 +214,6 @@ if(msg[4]==1,
 	{~marsGrp.set(\gate, 0);}
 );
 */
-
-
-/*
-OSCdef.new(\sun,
-	{
-		arg msg;
-		//msg[1] = focusgate
-		//msg[2] = focus
-		//msg[3] = planetgate
-		("Focus:" + msg[1]).postln;
-
-		if(msg[1]==1,
-		{if(msg[2] == 'Sun',
-			{~innerSolarGrp.set(\gate, 1);},
-			{~innerSolarGrp.set(\gate, 0);}
-		)},
-			{});
-
-		if(msg[3]==1,
-			{~mercuryGrp.set(\gate, 1);},
-			{~mercuryGrp.set(\gate, 0);}
-		);
-		if(msg[4]==1,
-			{~venusGrp.set(\gate, 1);},
-			{~venusGrp.set(\gate, 0);}
-		);
-		if(msg[5]==1,
-			{~earthGrp.set(\gate, 1);},
-			{~earthGrp.set(\gate, 0);}
-		);
-		if(msg[6]==1,
-			{~marsGrp.set(\gate, 1);},
-			{~marsGrp.set(\gate, 0);}
-		);
-
-	},'/sun');
-)*/
-
 /*
 (
 OSCdef.new(\jupiter,

@@ -9,15 +9,10 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 //~massMars =  440.00*mul;//A4
 ~massMars =  392.00*mul;//G4 */
 
-
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
 ~massEarth =  261.63*mul;//C4
 ~massMars =  392.00*mul;//G4
-
-
-
-
 
 //C3-C4 blankt
 //C2-C3
@@ -150,7 +145,6 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 //Neptune F4
 
 
-
 //Quinton Mass mapping
 //C2-C4
 //~massMercury = 261.63;//C4
@@ -174,7 +168,3 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 ~massSaturn =  //2.74
 ~massUranus = 18.35 // 18, D0
 ~massNeptune =16.35  //15.3, C0*/
-
-
-
-
