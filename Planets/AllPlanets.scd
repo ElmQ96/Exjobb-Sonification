@@ -11,7 +11,6 @@
 
 ~fxGrp = Group.after(~solarGrp);
 
-
 //Setup
 ~reroute = Synth.new(\reroute, [\bus,~surroundBus], ~fxGrp);
 ~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus], ~fxGrp);
@@ -31,12 +30,12 @@
 		\pan, 0], ~mercuryGrp);
 
 ~mercuryY = Synth.new(\percpoof, [
-		\amp, 1.0,
+		\amp, 0.5,
 		\freq, ~massMercury,
 		\rate, ~orbitMercury/12,
 		\pan, 0], ~mercuryGrp);
-/*
-~mercuryT = Synth.new(\fry, [
+
+/*~mercuryT = Synth.new(\fry, [
 		\rate, ~invrotationMercury,
 		\filt, 2000,
 		\lowtemp, ~lowtempMercury,
@@ -45,6 +44,7 @@
 
 //Venus
 ~venusP = Synth.new(\surroundmod, [
+		\amp, 0.1,
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
 		\pan, 0], ~venusGrp);
@@ -72,7 +72,7 @@
 ~earthP = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, 0], ~earthGrp);
+		\pan, ~orbitEarth], ~earthGrp);
 
 ~earthG = Synth.new(\gravity, [
 		\freq, ~massEarth,
@@ -99,7 +99,7 @@
 		\hightemp, ~hightempEarth,
 		\pan, 0], ~earthGrp);*/
 
-~moonP = Synth.new(\poof, [
+~moonP = Synth.new(\moonpoof, [
 		\amp, 0.2,
 		\freq, ~massMoon,
 		\rate, ~invrotationMoon,
@@ -129,35 +129,35 @@
 		\hightemp, ~hightempMars,
 		\pan, 0], ~marsGrp);*/
 
-~phobosP = Synth.new(\poof, [
+~phobosP = Synth.new(\moonpoof, [
 		\amp, 0.2,
 		\freq, ~massPhobos,
 		\rate, ~invrotationPhobos,
 		\pan, ~orbitMars], ~marsGrp); //~orbitPhobos
 
-~deimosP = Synth.new(\poof, [
+~deimosP = Synth.new(\moonpoof, [
 		\amp, 0.2,
 		\freq, ~massDeimos,
 		\rate, ~invrotationDeimos,
 		\pan, ~orbitMars], ~marsGrp); //~orbitDeimos
 
 //Solar System View
-~mercuryPoof = Synth.new(\poof, [
+~mercuryPoof = Synth.new(\solarpoof, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
 		\pan, ~orbitMars], ~innerSolarGrp);
 
-~venusPoof = Synth.new(\poof, [
+~venusPoof = Synth.new(\solarpoof, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
 		\pan, ~orbitVenus], ~innerSolarGrp);
 
-~earthPoof = Synth.new(\poof, [
+~earthPoof = Synth.new(\solarpoof, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
 		\pan, ~orbitEarth], ~innerSolarGrp);
 
-~marsPoof = Synth.new(\poof, [
+~marsPoof = Synth.new(\solarpoof, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
 		\pan, ~orbitMars], ~innerSolarGrp);

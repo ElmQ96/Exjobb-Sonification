@@ -77,7 +77,7 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 ~invrotationMars = 0.9708737864;
 
 //tidally locked
-~invrotationMoon = 0;
+~invrotationMoon = ~orbitMoon;
 ~invrotationPhobos = 0;
 ~invrotationDeimos = 0;
 
