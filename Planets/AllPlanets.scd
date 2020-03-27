@@ -19,6 +19,7 @@
 //Planetary View
 //Mercury
 ~mercuryP = Synth.new(\surroundmod, [
+		\amp, 0.2,
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
 		\pan, 0], ~mercuryGrp);
@@ -99,11 +100,11 @@
 		\hightemp, ~hightempEarth,
 		\pan, 0], ~earthGrp);*/
 
-~moonP = Synth.new(\moonpoof, [
+~moonP = Synth.new(\sinpoof, [
 		\amp, 0.2,
 		\freq, ~massMoon,
 		\rate, ~invrotationMoon,
-		\pan, ~orbitEarth], ~earthGrp); //~orbitMoon
+		\pan, ~orbitMoon], ~earthGrp); //~orbitMoon
 
 //Mars
 ~marsP = Synth.new(\surroundmod, [
@@ -129,35 +130,35 @@
 		\hightemp, ~hightempMars,
 		\pan, 0], ~marsGrp);*/
 
-~phobosP = Synth.new(\moonpoof, [
+~phobosP = Synth.new(\sinpoof, [
 		\amp, 0.2,
 		\freq, ~massPhobos,
 		\rate, ~invrotationPhobos,
-		\pan, ~orbitMars], ~marsGrp); //~orbitPhobos
+		\pan, ~orbitPhobos], ~marsGrp); //~orbitPhobos
 
-~deimosP = Synth.new(\moonpoof, [
+~deimosP = Synth.new(\sinpoof, [
 		\amp, 0.2,
 		\freq, ~massDeimos,
 		\rate, ~invrotationDeimos,
-		\pan, ~orbitMars], ~marsGrp); //~orbitDeimos
+		\pan, ~orbitDeimos], ~marsGrp); //~orbitDeimos
 
 //Solar System View
-~mercuryPoof = Synth.new(\solarpoof, [
+~mercuryPoof = Synth.new(\sinpoof, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
 		\pan, ~orbitMars], ~innerSolarGrp);
 
-~venusPoof = Synth.new(\solarpoof, [
+~venusPoof = Synth.new(\sinpoof, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
 		\pan, ~orbitVenus], ~innerSolarGrp);
 
-~earthPoof = Synth.new(\solarpoof, [
+~earthPoof = Synth.new(\sinpoof, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
 		\pan, ~orbitEarth], ~innerSolarGrp);
 
-~marsPoof = Synth.new(\solarpoof, [
+~marsPoof = Synth.new(\sinpoof, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
 		\pan, ~orbitMars], ~innerSolarGrp);

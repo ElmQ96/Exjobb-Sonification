@@ -73,7 +73,38 @@ SynthDef(\surroundmod, {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef("solarpoof", {
+SynthDef("sinpoof", {
+	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
+	var sig,sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq;
+
+	env = EnvGen.kr(
+		Env.adsr(0.05,0.5,0.3,0.5),
+		gate,
+		doneAction:0);
+	env2 = EnvGen.kr(
+		Env.adsr(0.05,0.5,0.3,0.5),
+		gate,
+		doneAction:0);
+
+	sig = PinkNoise.ar(1);
+	sig2 = (BPF.ar(sig, freq/2, 0.01) * 5);
+	sig = (BPF.ar(sig, Vibrato.kr(freq*2,rate,0.01), 0.01) * 40);
+
+	sig = 1-abs(SinOsc.kr(rate/2)) * sig;
+
+	sig = PanAz.ar(7, sig, -1*LFSaw.kr(pan/2),1.0,2.5,0);
+	sig2 = PanAz.ar(7, sig2, -1*LFSaw.kr(pan/2),1.0,2.5,0);
+	//sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
+	//sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);
+
+	amp2 = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env;
+	sig2 = sig2 * env2;
+	sig = (sig + sig2)/2 * amp * amp2;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+SynthDef("suspoof", {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.5, amp2=1.0, gate=0;
 	var sig,sig2, env, env2, t_gate=0,oscillator1, oscillator2;
 
@@ -91,10 +122,10 @@ SynthDef("solarpoof", {
 	sig2 = (BPF.ar(sig, freq/2, 0.01) * 40);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 40);
 
-	//sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
-	//sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-	sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);
+	sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
+	sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);
+	//sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
+	//sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env;
@@ -103,36 +134,6 @@ SynthDef("solarpoof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef("moonpoof", {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.5, amp2=1.0, gate=0;
-	var sig,sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq;
-
-	env = EnvGen.kr(
-		Env.adsr(0.05,0.5,0.3,0.5),
-		gate,
-		doneAction:0);
-	env2 = EnvGen.kr(
-		Env.adsr(0.05,0.5,0.3,0.5),
-		gate,
-		doneAction:0);
-
-	sig = PinkNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq/2, 0.01) * 40);
-	sig = (BPF.ar(sig, freq*2, 0.01) * 40);
-
-	sig = 1-abs(LFTri.kr(rate/2)) * sig;
-
-	//sig = PanAz.ar(7, sig, -1*LFSaw.kr(pan/2),1.0,2.5,0);
-	//sig2 = PanAz.ar(7, sig2, -1*LFSaw.kr(pan/2),1.0,2.5,0);
-	sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-	sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-
-	amp2 = Lag.kr(amp2, ~poslagTime);
-	sig = sig * env;
-	sig2 = sig2 * env2;
-	sig = (sig + sig2)/2 * amp * amp2;
-	Out.ar(~surroundBus, sig);
-}).add;
 
 SynthDef("percpoof", {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.4, amp2=1.0, gate=0;
