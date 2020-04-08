@@ -5,9 +5,9 @@ NetAddr.localAddr;
 //msg[2] = angle (pan)
 //msg[3] = time (days/s)
 //msg[4] = GUI-gate array
-	//msg[4][0] = Planet-gate
-	//msg[4][1] = Size/day-gate
-	//msg[4][2] = Gravity-gate
+	//msg[4][0] = Size/day-gate
+	//msg[4][1] = Gravity-gate
+	//msg[4][2] = Temperature-gate
 	//msg[4][3] = Atmosphere-gate
 	//msg[4][4] = Moons-gate
 //msg[5] = Pos 1st moon

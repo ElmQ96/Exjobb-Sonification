@@ -1,11 +1,13 @@
 (
 ~planetaryGrp.set(\gate, 1);
+~innerPlanetaryGrp.set(\gate, 1);
+~outerPlanetaryGrp.set(\gate, 1);
 
 ~mercuryGrp.set(\gate, 1);
 ~mercuryP.set(\gate, 1);
 ~mercuryG.set(\gate, 1);
-~mercuryY.set(\gate, 1);
 ~mercuryT.set(\gate, 1);
+~mercuryY.set(\gate, 1);
 
 ~venusGrp.set(\gate, 1);
 ~venusP.set(\gate, 1);
@@ -28,6 +30,30 @@
 ~marsT.set(\gate, 1);
 ~phobosP.set(\gate, 1);
 ~deimosP.set(\gate, 1);
+
+~jupiterGrp.set(\gate, 1);
+~jupiterP.set(\gate, 1);
+~jupiterG.set(\gate, 1);
+~jupiterW.set(\gate, 1);
+~jupiterT.set(\gate, 1);
+
+~saturnGrp.set(\gate, 1);
+~saturnP.set(\gate, 1);
+~saturnG.set(\gate, 1);
+~saturnW.set(\gate, 1);
+~saturnT.set(\gate, 1);
+
+~uranusGrp.set(\gate, 1);
+~uranusP.set(\gate, 1);
+~uranusG.set(\gate, 1);
+~uranusW.set(\gate, 1);
+~uranusT.set(\gate, 1);
+
+~neptuneGrp.set(\gate, 1);
+~neptuneP.set(\gate, 1);
+~neptuneG.set(\gate, 1);
+~neptuneW.set(\gate, 1);
+~neptuneT.set(\gate, 1);
 )
 
 (
@@ -60,6 +86,30 @@
 ~marsT.set(\gate, 0);
 ~phobosP.set(\gate, 0);
 ~deimosP.set(\gate, 0);
+
+~jupiterGrp.set(\gate, 0);
+~jupiterP.set(\gate, 0);
+~jupiterG.set(\gate, 0);
+~jupiterW.set(\gate, 0);
+~jupiterT.set(\gate, 0);
+
+~saturnGrp.set(\gate, 0);
+~saturnP.set(\gate, 0);
+~saturnG.set(\gate, 0);
+~saturnW.set(\gate, 0);
+~saturnT.set(\gate, 0);
+
+~uranusGrp.set(\gate, 0);
+~uranusP.set(\gate, 0);
+~uranusG.set(\gate, 0);
+~uranusW.set(\gate, 0);
+~uranusT.set(\gate, 0);
+
+~neptuneGrp.set(\gate, 0);
+~neptuneP.set(\gate, 0);
+~neptuneG.set(\gate, 0);
+~neptuneW.set(\gate, 0);
+~neptuneT.set(\gate, 0);
 )
 
 (//Solar

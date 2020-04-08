@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2, tempscale3=99;
+var mul = 1, orbitscale= 12.0, tempscale=174, tempscale2=2, tempscale3=99;
 
 //C4-C5
 /*~massMercury = 523.25*mul;//C5
@@ -18,9 +18,9 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2, tempscale3=99;
 //C3-C4 blankt
 //C2-C3
 ~massJupiter = 65.406*mul; //C2
-~massSaturn = 97.999*mul; //G2
+~massSaturn = 82.41*mul; //G2
 ~massUranus = 130.81*mul; //C3
-~massNeptune =  123.47*mul; //B2
+~massNeptune =  98.00*mul; //B2
 
 //not scaled
 ~massMoon = 659.25; //E5
@@ -37,55 +37,43 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2, tempscale3=99;
 ~diameterUranus = 51118;
 ~diameterNeptune = 49528;
 
-//orbital period, Earth ratio, (1 month/second)
-~orbitMercury = 0.34578146611*orbitscale;
-~orbitVenus = 0.13550135501*orbitscale;
-~orbitEarth = 0.08333330167*orbitscale;
-~orbitMars = 0.04432624113*orbitscale;
+//orbital period, Earth ratio, (1 day/second)
+~orbitMercury = (1/88)*orbitscale;
+~orbitVenus = (1/224.7)*orbitscale;
+~orbitEarth = (1/365.2)*orbitscale;
+~orbitMars = (1/687)*orbitscale;
 
 //1 day/second
 ~orbitMoon = 0.03663003663;
 ~orbitPhobos = 3.13568091311;
 ~orbitDeimos = 0.79211685307;
 
-~orbitJupiter = 0.00700280112*orbitscale;
-~orbitSaturn = 0.00283446712*orbitscale;
-~orbitUranus = 0.00099561927*orbitscale;
-~orbitNeptune = 0.00050906129*orbitscale;
+~orbitJupiter = (1/4331)*orbitscale;
+~orbitSaturn = (1/10747)*orbitscale;
+~orbitUranus = (1/30589)*orbitscale;
+~orbitNeptune = (1/59800)*orbitscale;
 
+/*orbit, 1 month/second
+~orbitMercury = 0.34578146611*orbitscale;
+~orbitVenus = 0.13550135501*orbitscale;
+~orbitEarth = 0.08333330167*orbitscale;
+~orbitMars = 0.04432624113*orbitscale;*/
 
-//Axis-Rotation (24 hours/second), 0.4-1
-//Length of day
-~rotationMercury = 175.9;
-~rotationVenus = 116.8; //-
-~rotationEarth = 1;
-~rotationMars = 1.03;
-
-//tidally locked
-~rotationMoon = 0;
-~rotationPhobos = 0;
-~rotationDeimos = 0;
-
-~rotationJupiter = 0.414;
-~rotationSaturn = 0.444;
-~rotationUranus = 0.718; //-
-~rotationNeptune = 0.671;
-
-//ratio earth (1/rotationRatio),(24hrs/sec)
-~invrotationMercury = 0.00568504832;
-~invrotationVenus = 0.00856164383; //-
+//Length of day, ratio earth (1/rotationRatio),(24hrs/sec)
+~invrotationMercury = 1/175.9;
+~invrotationVenus = 1/116.8; //-
 ~invrotationEarth = 1;
-~invrotationMars = 0.9708737864;
+~invrotationMars = 1/1.03;
 
 //tidally locked
 ~invrotationMoon = ~orbitMoon;
 ~invrotationPhobos = ~orbitPhobos;
 ~invrotationDeimos = ~orbitDeimos;
 
-~invrotationJupiter = 2.4154589372;
-~invrotationSaturn = 2.25225225225;
-~invrotationUranus = 1.39275766017;
-~invrotationNeptune = 1.49031296572;
+~invrotationJupiter = 1/0.414;
+~invrotationSaturn = 1/0.444;
+~invrotationUranus = 1/0.718; //-
+~invrotationNeptune = 1/0.671;
 
 //Gravity (g), relation to Earth
 ~gravityMercury = 0.378;
@@ -93,16 +81,10 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2, tempscale3=99;
 ~gravityEarth = 1;
 ~gravityMars = 0.377;
 
-~posMercury = 0;
-~posVenus = 0;
-~posEarth = 0;
-~posMars = 0;
-~posJupiter = 0;
-~posSaturn = 0;
-~posUranus = 0;
-~posNeptune = 0;
-
-~posMoon = 0;
+~gravityJupiter = 2.36;
+~gravitySaturn = 0.916;
+~gravityUranus = 0.889;
+~gravityNeptune = 1.12;
 
 ~tempMercury = (167+tempscale)*tempscale2;
 ~tempVenus = (464+tempscale)*tempscale2;
@@ -119,6 +101,11 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2, tempscale3=99;
 ~hightempVenus = 735-tempscale3;
 ~hightempEarth = 331-tempscale3;
 ~hightempMars = 293-tempscale3;
+
+~lowtempJupiter = ~hightempJupiter = 163-tempscale3;
+~lowtempSaturn = ~hightempSaturn = 133-tempscale3;
+~lowtempUranus = ~hightempUranus = 100-tempscale3; //78
+~lowtempNeptune = ~hightempNeptune = 100-tempscale3; //73
 
 /*~lowtempMercury = (-173+tempscale)*tempscale2; //-173
 ~lowtempVenus = (462+tempscale)*tempscale2;

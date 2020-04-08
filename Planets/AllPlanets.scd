@@ -4,10 +4,17 @@
 ~outerSolarGrp = Group.new(~solarGrp);
 
 ~planetaryGrp = Group.new;
-~mercuryGrp = Group.new(~planetaryGrp);
-~venusGrp = Group.new(~planetaryGrp);
-~earthGrp = Group.new(~planetaryGrp);
-~marsGrp = Group.new(~planetaryGrp);
+~innerPlanetaryGrp = Group.new(~planetaryGrp);
+~outerPlanetaryGrp = Group.new(~planetaryGrp);
+
+~mercuryGrp = Group.new(~innerPlanetaryGrp);
+~venusGrp = Group.new(~innerPlanetaryGrp);
+~earthGrp = Group.new(~innerPlanetaryGrp);
+~marsGrp = Group.new(~innerPlanetaryGrp);
+~jupiterGrp = Group.new(~outerPlanetaryGrp);
+~saturnGrp = Group.new(~outerPlanetaryGrp);
+~uranusGrp = Group.new(~outerPlanetaryGrp);
+~neptuneGrp = Group.new(~outerPlanetaryGrp);
 
 ~fxGrp = Group.after(~solarGrp);
 
@@ -22,85 +29,84 @@
 		\amp, 0.2,
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, 0], ~mercuryGrp);
+		\isMagnetic, 1,
+		\pan, ~orbitMercury], ~mercuryGrp);
 
 ~mercuryG = Synth.new(\gravity, [
 		\freq, ~massMercury,
 		\rate, ~invrotationEarth/7,
 		\gravity, ~gravityMercury,
-		\pan, 0], ~mercuryGrp);
+		\pan, ~orbitMercury], ~mercuryGrp);
+
+~mercuryT = Synth.new(\fry, [
+		\rate, ~invrotationMercury,
+		\lowtemp, ~lowtempMercury,
+		\hightemp, ~hightempMercury,
+		\pan, ~orbitMercury], ~mercuryGrp);
 
 ~mercuryY = Synth.new(\percpoof, [
 		\amp, 0.5,
 		\freq, ~massMercury,
 		\rate, ~orbitMercury/12,
-		\pan, 0], ~mercuryGrp);
-
-~mercuryT = Synth.new(\fry, [
-		\rate, ~invrotationMercury,
-		\filt, 2000,
-		\lowtemp, ~lowtempMercury,
-		\hightemp, ~hightempMercury,
-		\pan, 0], ~mercuryGrp);
+		\pan, ~orbitMercury], ~mercuryGrp);
 
 //Venus
 ~venusP = Synth.new(\surroundmod, [
 		\amp, 0.2,
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
-		\pan, 0], ~venusGrp);
+		\isMagnetic, 0,
+		\pan, ~orbitVenus], ~venusGrp);
 
 ~venusG = Synth.new(\gravity, [
 		\freq, ~massVenus,
 		\rate, ~invrotationEarth/7,
 		\gravity, ~gravityVenus,
-		\pan, 0], ~venusGrp);
+		\pan, ~orbitVenus], ~venusGrp);
 
 ~venusW = Synth.new(\wind, [
 		\amp, 0.9,
 		\rate, 0.5,
 		\gust, 0.5,
-		\pan, 0], ~venusGrp);
+		\pan, ~orbitVenus], ~venusGrp);
 
 
 ~venusT = Synth.new(\fry, [
 		\rate, ~invrotationVenus,
-		\filt, 6000,
 		\lowtemp, ~lowtempVenus ,
 		\hightemp, ~hightempVenus,
-		\pan, 0], ~venusGrp);
+		\pan, ~orbitVenus], ~venusGrp);
 
 //Earth
 ~earthP = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, 0], ~earthGrp);
+		\isMagnetic, 1,
+		\pan, ~orbitEarth], ~earthGrp);
 
 ~earthG = Synth.new(\gravity, [
 		\freq, ~massEarth,
 		\rate, 0.5,
 		\gravity, ~gravityEarth,
-		\pan, 0], ~earthGrp);
+		\pan, ~orbitEarth], ~earthGrp);
 
 ~earthW = Synth.new(\wind, [
 		\amp, 0.6,
 		\rate, 0.2,
 		\gust, 1,
-		\pan, 0], ~earthGrp);
+		\pan, ~orbitEarth], ~earthGrp);
+
+~earthT = Synth.new(\fry, [
+		\rate, ~invrotationEarth,//~tempEarth,
+		\lowtemp, ~lowtempEarth ,
+		\hightemp, ~hightempEarth,
+		\pan, ~orbitEarth], ~earthGrp);
 
 /*~earthY = Synth.new(\poof, [
 		\amp, 1.0,
 		\freq, ~massEarth,
 		\rate, ~orbitEarth*12,
 		\pan, 0], ~earthGrp);*/
-
-
-~earthT = Synth.new(\fry, [
-		\rate, ~invrotationEarth,//~tempEarth,
-		\filt, 2000,
-		\lowtemp, ~lowtempEarth ,
-		\hightemp, ~hightempEarth,
-		\pan, 0], ~earthGrp);
 
 ~moonP = Synth.new(\sinpoof, [
 		\amp, 0.2,
@@ -112,45 +118,149 @@
 ~marsP = Synth.new(\surroundmod, [
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
-		\pan, 0], ~marsGrp);
+		\isMagnetic, 0,
+		\pan, ~orbitMars], ~marsGrp);
+
+~marsG = Synth.new(\gravity, [
+		\freq, ~massMars,
+		\rate, ~invrotationEarth/7,
+		\gravity, ~gravityMars,
+		\pan, ~orbitMars], ~marsGrp);
 
 ~marsW = Synth.new(\wind, [
 		\amp, 0.4,
 		\rate, 0.3,
 		\gust, 5,
 		\atmos, 200,
-		\pan, 0], ~marsGrp);
-
-~marsG = Synth.new(\gravity, [
-		\freq, ~massMars,
-		\rate, ~invrotationEarth/7,
-		\gravity, ~gravityMars,
-		\pan, 0], ~marsGrp);
+		\pan, ~orbitMars], ~marsGrp);
 
 ~marsT = Synth.new(\fry, [
 		\rate, ~invrotationMars,
-		\filt, 6000,
-		\lowtemp, ~lowtempMars ,
+		\lowtemp, ~lowtempMars,
 		\hightemp, ~hightempMars,
-		\pan, 0], ~marsGrp);
+		\pan, ~orbitMars], ~marsGrp);
 
 ~phobosP = Synth.new(\sinpoof, [
 		\amp, 0.2,
 		\freq, ~massPhobos,
 		\rate, ~invrotationPhobos,
-		\pan, ~orbitPhobos], ~marsGrp); //~orbitPhobos
+		\pan, ~orbitPhobos], ~marsGrp);
 
 ~deimosP = Synth.new(\sinpoof, [
 		\amp, 0.2,
 		\freq, ~massDeimos,
 		\rate, ~invrotationDeimos,
-		\pan, ~orbitDeimos], ~marsGrp); //~orbitDeimos
+		\pan, ~orbitDeimos], ~marsGrp);
 
-//Solar System View
+//Jupiter
+~jupiterP = Synth.new(\surroundmod, [
+		\freq, ~massJupiter,
+		\rate, ~invrotationJupiter,
+		\isMagnetic, 1,
+		\pan, ~orbitJupiter], ~jupiterGrp);
+
+~jupiterG = Synth.new(\gravity, [
+		\freq, ~massJupiter,
+		\rate, ~invrotationJupiter/7,
+		\gravity, ~gravityJupiter,
+		\pan, ~orbitJupiter], ~jupiterGrp);
+
+~jupiterW = Synth.new(\wind, [
+		\amp, 0.4,
+		\rate, 0.3,
+		\gust, 5,
+		\atmos, 200,
+		\pan, ~orbitJupiter], ~jupiterGrp);
+
+~jupiterT = Synth.new(\fry, [
+		\rate, ~invrotationJupiter,
+		\lowtemp, ~lowtempJupiter,
+		\hightemp, ~hightempJupiter,
+		\pan, ~orbitJupiter], ~jupiterGrp);
+
+//Saturn
+~saturnP = Synth.new(\surroundmod, [
+		\freq, ~massSaturn,
+		\rate, ~invrotationSaturn,
+		\isMagnetic, 1,
+		\pan, ~orbitSaturn], ~saturnGrp);
+
+~saturnG = Synth.new(\gravity, [
+		\freq, ~massSaturn,
+		\rate, ~invrotationSaturn/7,
+		\gravity, ~gravitySaturn,
+		\pan, ~orbitSaturn], ~saturnGrp);
+
+~saturnW = Synth.new(\wind, [
+		\amp, 0.4,
+		\rate, 0.3,
+		\gust, 5,
+		\atmos, 200,
+		\pan, ~orbitSaturn], ~saturnGrp);
+
+~saturnT = Synth.new(\fry, [
+		\rate, ~invrotationSaturn,
+		\lowtemp, ~lowtempSaturn,
+		\hightemp, ~hightempSaturn,
+		\pan, ~orbitSaturn], ~saturnGrp);
+
+//Uranus
+~uranusP = Synth.new(\surroundmod, [
+		\freq, ~massUranus,
+		\rate, ~invrotationUranus,
+		\isMagnetic, 1,
+		\pan, ~orbitUranus], ~uranusGrp);
+
+~uranusG = Synth.new(\gravity, [
+		\freq, ~massUranus,
+		\rate, ~invrotationUranus/7,
+		\gravity, ~gravityUranus,
+		\pan, ~orbitUranus], ~uranusGrp);
+
+~uranusW = Synth.new(\wind, [
+		\amp, 0.4,
+		\rate, 0.3,
+		\gust, 5,
+		\atmos, 200,
+		\pan, ~orbitUranus], ~uranusGrp);
+
+~uranusT = Synth.new(\fry, [
+		\rate, ~invrotationUranus,
+		\lowtemp, ~lowtempUranus,
+		\hightemp, ~hightempUranus,
+		\pan, ~orbitUranus], ~uranusGrp);
+
+//Neptune
+~neptuneP = Synth.new(\surroundmod, [
+		\freq, ~massNeptune,
+		\rate, ~invrotationNeptune,
+		\isMagnetic, 1,
+		\pan, ~orbitNeptune], ~neptuneGrp);
+
+~neptuneG = Synth.new(\gravity, [
+		\freq, ~massNeptune,
+		\rate, ~invrotationNeptune/7,
+		\gravity, ~gravityNeptune,
+		\pan, ~orbitNeptune], ~neptuneGrp);
+
+~neptuneW = Synth.new(\wind, [
+		\amp, 0.4,
+		\rate, 0.3,
+		\gust, 5,
+		\atmos, 200,
+		\pan, ~orbitNeptune], ~neptuneGrp);
+
+~neptuneT = Synth.new(\fry, [
+		\rate, ~invrotationNeptune,
+		\lowtemp, ~lowtempNeptune,
+		\hightemp, ~hightempNeptune,
+		\pan, ~orbitNeptune], ~neptuneGrp);
+
+//SOLAR SYSTEM VIEW
 ~mercuryPoof = Synth.new(\sinpoof, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
-		\pan, ~orbitMars], ~innerSolarGrp);
+		\pan, ~orbitMercury], ~innerSolarGrp);
 
 ~venusPoof = Synth.new(\sinpoof, [
 		\freq, ~massVenus,
