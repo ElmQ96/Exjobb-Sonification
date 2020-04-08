@@ -36,16 +36,16 @@
 		\rate, ~orbitMercury/12,
 		\pan, 0], ~mercuryGrp);
 
-/*~mercuryT = Synth.new(\fry, [
+~mercuryT = Synth.new(\fry, [
 		\rate, ~invrotationMercury,
 		\filt, 2000,
 		\lowtemp, ~lowtempMercury,
 		\hightemp, ~hightempMercury,
-		\pan, 0], ~mercuryGrp);*/
+		\pan, 0], ~mercuryGrp);
 
 //Venus
 ~venusP = Synth.new(\surroundmod, [
-		\amp, 0.1,
+		\amp, 0.2,
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
 		\pan, 0], ~venusGrp);
@@ -57,33 +57,35 @@
 		\pan, 0], ~venusGrp);
 
 ~venusW = Synth.new(\wind, [
-		\amp, 0.5,
+		\amp, 0.9,
 		\rate, 0.5,
+		\gust, 0.5,
 		\pan, 0], ~venusGrp);
 
 
-/*~venusT = Synth.new(\fry, [
+~venusT = Synth.new(\fry, [
 		\rate, ~invrotationVenus,
 		\filt, 6000,
 		\lowtemp, ~lowtempVenus ,
 		\hightemp, ~hightempVenus,
-		\pan, 0], ~venusGrp);*/
+		\pan, 0], ~venusGrp);
 
 //Earth
 ~earthP = Synth.new(\surroundmod, [
 		\freq, ~massEarth,
 		\rate, ~invrotationEarth,
-		\pan, ~orbitEarth], ~earthGrp);
+		\pan, 0], ~earthGrp);
 
 ~earthG = Synth.new(\gravity, [
 		\freq, ~massEarth,
-		\rate, ~invrotationEarth/7,
+		\rate, 0.5,
 		\gravity, ~gravityEarth,
 		\pan, 0], ~earthGrp);
 
 ~earthW = Synth.new(\wind, [
-		\amp, 0.3,
-		\rate, 0.3,
+		\amp, 0.6,
+		\rate, 0.2,
+		\gust, 1,
 		\pan, 0], ~earthGrp);
 
 /*~earthY = Synth.new(\poof, [
@@ -93,12 +95,12 @@
 		\pan, 0], ~earthGrp);*/
 
 
-/*~earthT = Synth.new(\fry, [
+~earthT = Synth.new(\fry, [
 		\rate, ~invrotationEarth,//~tempEarth,
 		\filt, 2000,
 		\lowtemp, ~lowtempEarth ,
 		\hightemp, ~hightempEarth,
-		\pan, 0], ~earthGrp);*/
+		\pan, 0], ~earthGrp);
 
 ~moonP = Synth.new(\sinpoof, [
 		\amp, 0.2,
@@ -113,8 +115,10 @@
 		\pan, 0], ~marsGrp);
 
 ~marsW = Synth.new(\wind, [
-		\amp, 0.25,
+		\amp, 0.4,
 		\rate, 0.3,
+		\gust, 5,
+		\atmos, 200,
 		\pan, 0], ~marsGrp);
 
 ~marsG = Synth.new(\gravity, [
@@ -123,12 +127,12 @@
 		\gravity, ~gravityMars,
 		\pan, 0], ~marsGrp);
 
-/*~marsT = Synth.new(\fry, [
+~marsT = Synth.new(\fry, [
 		\rate, ~invrotationMars,
 		\filt, 6000,
 		\lowtemp, ~lowtempMars ,
 		\hightemp, ~hightempMars,
-		\pan, 0], ~marsGrp);*/
+		\pan, 0], ~marsGrp);
 
 ~phobosP = Synth.new(\sinpoof, [
 		\amp, 0.2,

@@ -196,6 +196,18 @@ OSCdef.new(\sun,
 
 	},'/Sun');
 )
+(
+OSCdef.new(\compare,
+	{
+		arg msg;
+		//msg[1] = first planet to compare
+		//msg[2] = second planet to compare
+		("First: " + msg[1]).postln;
+		("Second: " + msg[2]).postln
+
+
+	},'/Compare');
+)
 
 /*if(msg[1]<(~maxDist*~diameterMercury),
 	{amp = (~minDist*~diameterMercury)/msg[1]},

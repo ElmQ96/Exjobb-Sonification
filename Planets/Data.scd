@@ -1,6 +1,7 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
+var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2, tempscale3=99;
+
 //C4-C5
 /*~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
@@ -86,7 +87,6 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 ~invrotationUranus = 1.39275766017;
 ~invrotationNeptune = 1.49031296572;
 
-
 //Gravity (g), relation to Earth
 ~gravityMercury = 0.378;
 ~gravityVenus = 0.907;
@@ -109,7 +109,18 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 ~tempEarth = (15+tempscale)*tempscale2;
 ~tempMars = (-65+tempscale)*tempscale2;
 
-~lowtempMercury = (-173+tempscale)*tempscale2; //-173
+//Kelvin
+~lowtempMercury = 100-tempscale3;
+~lowtempVenus = 735-tempscale3;
+~lowtempEarth = 185-tempscale3;
+~lowtempMars = 120-tempscale3;
+
+~hightempMercury = 700-tempscale3;
+~hightempVenus = 735-tempscale3;
+~hightempEarth = 331-tempscale3;
+~hightempMars = 293-tempscale3;
+
+/*~lowtempMercury = (-173+tempscale)*tempscale2; //-173
 ~lowtempVenus = (462+tempscale)*tempscale2;
 ~lowtempEarth = (-88+tempscale)*tempscale2;
 ~lowtempMars = (-153+tempscale)*tempscale2; //-153
@@ -117,7 +128,7 @@ var mul = 1, orbitscale= 1.0, tempscale=174, tempscale2=2;
 ~hightempMercury = (427+tempscale)*tempscale2;
 ~hightempVenus = (462+tempscale)*tempscale2;
 ~hightempEarth = (58+tempscale)*tempscale2;
-~hightempMars = (20+tempscale)*tempscale2;
+~hightempMars = (20+tempscale)*tempscale2;*/
 
 /*
 ~tempJupiter = (-110+tempscale)*tempscale2;
