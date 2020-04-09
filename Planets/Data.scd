@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1, orbitscale= 12.0, tempscale=174, tempscale2=2, tempscale3=99;
+var mul = 1, orbitscale= 12.0, gravityscale=0.1, tempscale=174, tempscale2=2, tempscale3=99;
 
 //C4-C5
 /*~massMercury = 523.25*mul;//C5
@@ -18,14 +18,25 @@ var mul = 1, orbitscale= 12.0, tempscale=174, tempscale2=2, tempscale3=99;
 //C3-C4 blankt
 //C2-C3
 ~massJupiter = 65.406*mul; //C2
-~massSaturn = 82.41*mul; //G2
+~massSaturn = 82.41*mul; //E2
 ~massUranus = 130.81*mul; //C3
-~massNeptune =  98.00*mul; //B2
+~massNeptune =  98.00*mul; //G2
 
 //not scaled
 ~massMoon = 659.25; //E5
 ~massPhobos = 783.99; //G5
 ~massDeimos = 987.77;
+
+/*Planet Type
+// 0 = rocky, 1 = gas
+~typeMercury = 0;
+~typeVenus = 0;
+~typeEarth = 0;
+~typeMars = 0;
+~typeJupiter = 1;
+~typeSaturn = 1;
+~typeUranus = 1; //ice (2)
+~typeNeptune = 1; //ice (2)*/
 
 ~diameterMercury = 4879;
 ~diameterVenus = 12104;
@@ -76,15 +87,15 @@ var mul = 1, orbitscale= 12.0, tempscale=174, tempscale2=2, tempscale3=99;
 ~invrotationNeptune = 1/0.671;
 
 //Gravity (g), relation to Earth
-~gravityMercury = 0.378;
-~gravityVenus = 0.907;
-~gravityEarth = 1;
-~gravityMars = 0.377;
+~gravityMercury = 0.378-gravityscale;
+~gravityVenus = 0.907-gravityscale;
+~gravityEarth = 1-gravityscale;
+~gravityMars = 0.377-gravityscale;
 
-~gravityJupiter = 2.36;
-~gravitySaturn = 0.916;
-~gravityUranus = 0.889;
-~gravityNeptune = 1.12;
+~gravityJupiter = 2.36-gravityscale;
+~gravitySaturn = 0.916-gravityscale;
+~gravityUranus = 0.889-gravityscale;
+~gravityNeptune = 1.12-gravityscale;
 
 ~tempMercury = (167+tempscale)*tempscale2;
 ~tempVenus = (464+tempscale)*tempscale2;

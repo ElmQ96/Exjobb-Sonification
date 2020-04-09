@@ -113,8 +113,14 @@
 )
 
 (//Solar
+~solarGrp.set(\gate, 1);
+~solarGrp.set(\gate, 0);
+
 ~innerSolarGrp.set(\gate, 1);
 ~innerSolarGrp.set(\gate, 0);
+
+~outerSolarGrp.set(\gate, 1);
+~outerSolarGrp.set(\gate, 0);
 
 ~mercuryPoof.set(\gate, 1);
 ~venusPoof.set(\gate, 1);
