@@ -37,11 +37,25 @@
 ~jupiterW.set(\gate, 1);
 ~jupiterT.set(\gate, 1);
 
+~ioP.set(\gate, 1);
+~europaP.set(\gate, 1);
+~ganymedeP.set(\gate, 1);
+~callistoP.set(\gate, 1);
+
 ~saturnGrp.set(\gate, 1);
 ~saturnP.set(\gate, 1);
 ~saturnG.set(\gate, 1);
 ~saturnW.set(\gate, 1);
 ~saturnT.set(\gate, 1);
+
+~mimasP.set(\gate, 1);
+~enceladusP.set(\gate, 1);
+~tethysP.set(\gate, 1);
+~dioneP.set(\gate, 1);
+~rheaP.set(\gate, 1);
+~titanP.set(\gate, 1);
+~hyperionP.set(\gate, 1);
+~iapetusP.set(\gate, 1);
 
 ~uranusGrp.set(\gate, 1);
 ~uranusP.set(\gate, 1);

@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1, orbitscale= 12.0, gravityscale=0.1, tempscale=174, tempscale2=2, tempscale3=99;
+var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, tempscale3=99;
 
 //C4-C5
 /*~massMercury = 523.25*mul;//C5
@@ -24,8 +24,24 @@ var mul = 1, orbitscale= 12.0, gravityscale=0.1, tempscale=174, tempscale2=2, te
 
 //not scaled
 ~massMoon = 659.25; //E5
+
 ~massPhobos = 783.99; //G5
 ~massDeimos = 987.77;
+
+~massIo = 659.25; //E5, similar to moon
+~massEuropa = 783.99; //G5
+~massGanymede =  440.00; //A4, biggest
+~massCallisto = 523.25; //C5, similar to mercury
+
+~massMimas =  987.77;
+~massEnceladus = 783.99; //G5
+~massTethys =  659.25; //E5, similar to moon
+~massDione = 659.25; //E5, similar to moon
+~massRhea = 523.25; //C5, similar to mercury
+~massTitan = 440.00; //A4, biggest
+~massHyperion = 987.77;
+~massIapetus = 523.25; //C5, similar to mercury
+
 
 /*Planet Type
 // 0 = rocky, 1 = gas
@@ -54,15 +70,30 @@ var mul = 1, orbitscale= 12.0, gravityscale=0.1, tempscale=174, tempscale2=2, te
 ~orbitEarth = (1/365.2)*orbitscale;
 ~orbitMars = (1/687)*orbitscale;
 
-//1 day/second
-~orbitMoon = 0.03663003663;
-~orbitPhobos = 3.13568091311;
-~orbitDeimos = 0.79211685307;
-
 ~orbitJupiter = (1/4331)*orbitscale;
 ~orbitSaturn = (1/10747)*orbitscale;
 ~orbitUranus = (1/30589)*orbitscale;
 ~orbitNeptune = (1/59800)*orbitscale;
+
+//1 day/second
+~orbitMoon = 1/27.3;
+
+~orbitPhobos = 1/0.31891;
+~orbitDeimos = 1/1.26244;
+
+~orbitIo = 1/1.8;
+~orbitEuropa = 1/3.6;
+~orbitGanymede = 1/7.2;
+~orbitCallisto = 1/16.7;
+
+~orbitMimas = 1/0.9424218;
+~orbitEnceladus = 1/1.370218;
+~orbitTethys =  1/1.887802;
+~orbitDione = 1/2.736915;
+~orbitRhea = 1/4.517500;
+~orbitTitan = 1/15.945421;
+~orbitHyperion = 1/21.276609;
+~orbitIapetus = 1/79.330183;
 
 /*orbit, 1 month/second
 ~orbitMercury = 0.34578146611*orbitscale;
@@ -76,26 +107,23 @@ var mul = 1, orbitscale= 12.0, gravityscale=0.1, tempscale=174, tempscale2=2, te
 ~invrotationEarth = 1;
 ~invrotationMars = 1/1.03;
 
-//tidally locked
-~invrotationMoon = ~orbitMoon;
-~invrotationPhobos = ~orbitPhobos;
-~invrotationDeimos = ~orbitDeimos;
-
 ~invrotationJupiter = 1/0.414;
 ~invrotationSaturn = 1/0.444;
 ~invrotationUranus = 1/0.718; //-
 ~invrotationNeptune = 1/0.671;
 
-//Gravity (g), relation to Earth
-~gravityMercury = 0.378-gravityscale;
-~gravityVenus = 0.907-gravityscale;
-~gravityEarth = 1-gravityscale;
-~gravityMars = 0.377-gravityscale;
+//Moons are tidally locked ~invrotation = ~orbit
 
-~gravityJupiter = 2.36-gravityscale;
-~gravitySaturn = 0.916-gravityscale;
-~gravityUranus = 0.889-gravityscale;
-~gravityNeptune = 1.12-gravityscale;
+//Gravity (g), relation to Earth
+~gravityMercury = 0.378/gravityscale;
+~gravityVenus = 0.907/gravityscale;
+~gravityEarth = 1/gravityscale;
+~gravityMars = 0.377/gravityscale;
+
+~gravityJupiter = 2.36/gravityscale;
+~gravitySaturn = 0.916/gravityscale;
+~gravityUranus = 0.889/gravityscale;
+~gravityNeptune = 1.12/gravityscale;
 
 ~tempMercury = (167+tempscale)*tempscale2;
 ~tempVenus = (464+tempscale)*tempscale2;

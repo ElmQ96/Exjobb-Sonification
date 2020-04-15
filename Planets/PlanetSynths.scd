@@ -16,8 +16,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 )
 
 (
-~autOrbit = 0
-;
+~autOrbit = 0;
 ~panlagTime = 1;
 ~poslagTime = 1;
 
@@ -169,7 +168,7 @@ SynthDef("percpoof", {
 }).add;
 
 SynthDef.new(\wind, {
-	arg amp=0.1, amp2=1.0, rate=0.45, gate, pan=0, gust=1, atmos=50;
+	arg amp=0.1, amp2=1.0, rate=0.45, gate, pan=0, gust=1, atmos=40;
 	var sig, env, lfo;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
@@ -227,7 +226,7 @@ SynthDef.new(\fry, {
 
 	newrate = SinOsc.kr(rate).range(lowtemp,hightemp);
 	sig = Dust.ar(newrate, 0.7); //rate: 5-1000
-	sig = LPF.ar(sig,SinOsc.kr(rate).range(10000,20000));
+	//sig = LPF.ar(sig,SinOsc.kr(rate).range(4000,6000));
 
 	if(~autOrbit == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
@@ -237,7 +236,60 @@ SynthDef.new(\fry, {
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
+
+SynthDef(\rings, {
+	arg type=0,freq=200, rate=1, pan=0, lagpan=0, gate=0, isMagnetic=0, amp=0.3, amp2=1.0;
+	var sig, sig2, resfreq, env, reverbed,  lfo, input, snd;
+	env = EnvGen.kr(
+		Env.adsr(5.0,0.0,1.0,5.0),
+		gate,
+		doneAction:0);
+
+	sig = LFSaw.ar(Vibrato.kr(freq,rate,0.01));
+
+	amp2 = Lag.kr(amp2, ~poslagTime);
+
+	sig = sig * env * amp * amp2;
+	Out.ar(~surroundBus, sig);
+}).add;
+
 )
+
+//Resonating Sin
+(
+SynthDef.new(\multi, {
+	var sig,amp;
+	amp = SinOsc.kr([0.7,0.1,0.2,0.02,0.6]).range(0.1);
+	sig = SinOsc.ar([300,500,700,900,1100]);
+	//sig = (BPF.ar(sig, 1000, 0.01) * 20);
+	sig = sig * amp;
+	sig = Splay.ar(sig) * 0.5;
+	Out.ar(0,sig);
+}).play;
+)
+
+//Overtone Sin
+(
+SynthDef.new(\iter2,{
+	arg freq=200, dev=1.02;
+	var temp, sum;
+	sum = 0;
+	//10 can't be a variable
+	5.do{
+		arg count;
+		temp = SinOsc.ar(
+			freq *
+			(count + 1) *
+			LFNoise1.kr({Rand(0.05,0.2)}!2).range(dev.reciprocal,dev)
+		);
+		temp = temp * LFNoise1.kr({Rand(0.5,8)}!2).exprange(0.01,1);
+		sum = sum + temp;
+	};
+	sum = sum * 0.05;
+	Out.ar(0,sum);
+}).add;
+)
+x = Synth.new(\iter2);
 
 { Crackle.ar(MouseX.kr(1,2), 0.5) }.play;
 
@@ -249,7 +301,7 @@ SynthDef.new(\fry, {
 {
     var t, sf;
     sf = K2A.ar(MouseX.kr > 0.5) > 0;
-    t = TBall.ar(sf, 0.2, 0,0.01);
+    t = TBall.ar(sf, 0.5, 0,0.01);
     Ringz.ar(t * 10, 1200, 0.1)!2;
 }.play;
 )
