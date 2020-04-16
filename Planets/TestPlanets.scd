@@ -7,7 +7,7 @@
 ~mercuryP.set(\gate, 1);
 ~mercuryG.set(\gate, 1);
 ~mercuryT.set(\gate, 1);
-~mercuryY.set(\gate, 1);
+//~mercuryY.set(\gate, 1);
 
 ~venusGrp.set(\gate, 1);
 ~venusP.set(\gate, 1);
@@ -19,7 +19,6 @@
 ~earthP.set(\gate, 1);
 ~earthG.set(\gate, 1);
 ~earthW.set(\gate, 1);
-~earthY.set(\gate, 1);
 ~earthT.set(\gate, 1);
 ~moonP.set(\gate, 1);
 
@@ -47,6 +46,7 @@
 ~saturnG.set(\gate, 1);
 ~saturnW.set(\gate, 1);
 ~saturnT.set(\gate, 1);
+~saturnR.set(\gate, 1);
 
 ~mimasP.set(\gate, 1);
 ~enceladusP.set(\gate, 1);

@@ -202,9 +202,41 @@ OSCdef.new(\compare,
 		arg msg;
 		//msg[1] = first planet to compare
 		//msg[2] = second planet to compare
-		("First: " + msg[1]).postln;
-		("Second: " + msg[2]).postln
 
+		("First: " + msg[1]).postln;
+		("Second: " + msg[2]).postln;
+
+		if(msg[1] == 1 && msg[2] == 1,
+			{~mercuryGrp.set(\gate, 1);},
+			{~mercuryGrp.set(\gate, 0);});
+
+		if(msg[1] == 2 && msg[2] == 2,
+			{~venusGrp.set(\gate, 1);},
+			{~venusGrp.set(\gate, 0);});
+
+		if(msg[1] == 3 && msg[2] == 3,
+			{~earthGrp.set(\gate, 1);},
+			{~earthGrp.set(\gate, 0);});
+
+		if(msg[1] == 4 && msg[2] == 4,
+			{~marsGrp.set(\gate, 1);},
+			{~marsGrp.set(\gate, 0);});
+
+		if(msg[1] == 5 && msg[2] == 5,
+			{~jupiterGrp.set(\gate, 1);},
+			{~jupiterGrp.set(\gate, 0);});
+
+		if(msg[1] == 6 && msg[2] == 6,
+			{~saturnGrp.set(\gate, 1);},
+			{~saturnGrp.set(\gate, 0);});
+
+		if(msg[1] == 7 && msg[2] == 7,
+			{~uranusGrp.set(\gate, 1);},
+			{~uranusGrp.set(\gate, 0);});
+
+		if(msg[1] == 8 && msg[2] == 8,
+			{~neptuneGrp.set(\gate, 1);},
+			{~neptuneGrp.set(\gate, 0);});
 
 	},'/Compare');
 )

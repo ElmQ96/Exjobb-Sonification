@@ -26,7 +26,7 @@
 //Planetary View
 //Mercury
 ~mercuryP = Synth.new(\surroundmod, [
-		\amp, 0.2,
+		\amp, 0.1,
 		\type, 0,
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
@@ -45,15 +45,15 @@
 		\hightemp, ~hightempMercury,
 		\pan, ~orbitMercury], ~mercuryGrp);
 
-~mercuryY = Synth.new(\percpoof, [
+/*~mercuryY = Synth.new(\percpoof, [
 		\amp, 0.5,
 		\freq, ~massMercury,
 		\rate, ~orbitMercury/12,
-		\pan, ~orbitMercury], ~mercuryGrp);
+		\pan, ~orbitMercury], ~mercuryGrp);*/
 
 //Venus
 ~venusP = Synth.new(\surroundmod, [
-		\amp, 0.2,
+		\amp, 0.1,
 		\type, 0,
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
@@ -112,10 +112,10 @@
 		\rate, ~orbitEarth*12,
 		\pan, 0], ~earthGrp);*/
 
-~moonP = Synth.new(\sinpoof, [
+~moonP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massMoon,
-		\rate, ~orbitMoon,
+		\rate, ~invrotationEarth,
 		\pan, ~orbitMoon], ~earthGrp);
 
 //Mars
@@ -145,21 +145,23 @@
 		\hightemp, ~hightempMars,
 		\pan, ~orbitMars], ~marsGrp);
 
-~phobosP = Synth.new(\sinpoof, [
+~phobosP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massPhobos,
-		\rate, ~orbitPhobos,
+		\rate, ~invrotationMars/2,
+		\phase, 0.25,
 		\pan, ~orbitPhobos], ~marsGrp);
 
-~deimosP = Synth.new(\sinpoof, [
+~deimosP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massDeimos,
-		\rate, ~orbitDeimos,
+		\rate, ~invrotationMars/2,
+		\phase, 0.75,
 		\pan, ~orbitDeimos], ~marsGrp);
 
 //Jupiter
 ~jupiterP = Synth.new(\surroundmod, [
-		\amp, 0.6,
+		\amp, 0.4,
 		\type, 1,
 		\freq, ~massJupiter,
 		\rate, ~invrotationJupiter,
@@ -187,31 +189,35 @@
 ~ioP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massIo,
-		\rate, ~orbitIo,
+		\rate, ~invrotationJupiter/4,
+		\phase, 0.25+0.125,
 		\pan, ~orbitIo], ~jupiterGrp);
 
 ~europaP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massEuropa,
-		\rate, ~orbitEuropa,
+		\rate, ~invrotationJupiter/4,
+		\phase, 0.75+0.125,
 		\pan, ~orbitEuropa], ~jupiterGrp);
 
 ~ganymedeP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massGanymede,
-		\rate, ~orbitGanymede,
+		\rate, ~invrotationJupiter/4,
+		\phase, 0+0.125,
 		\pan, ~orbitGanymede], ~jupiterGrp);
 
 ~callistoP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massCallisto,
-		\rate, ~orbitCallisto,
+		\rate, ~invrotationJupiter/4,
+		\phase, 0.5+0.125,
 		\pan, ~orbitCallisto], ~jupiterGrp);
 
 
 //Saturn
 ~saturnP = Synth.new(\surroundmod, [
-		\amp, 0.6,
+		\amp, 0.5,
 		\type, 1,
 		\freq, ~massSaturn,
 		\rate, ~invrotationSaturn,
@@ -237,50 +243,50 @@
 		\pan, ~orbitSaturn], ~saturnGrp);
 
 ~saturnR = Synth.new(\rings, [
-		\freq, ~massSaturn,
+		\freq, ~massSaturn*6,
 		\rate, ~invrotationSaturn,
 		\pan, ~orbitSaturn], ~saturnGrp);
 
 ~mimasP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massMimas,
-		\rate, ~orbitMimas,
+		\rate, ~invrotationSaturn,
 		\pan, ~orbitMimas], ~saturnGrp);
 
 ~enceladusP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massEnceladus,
-		\rate, ~orbitEnceladus,
+		\rate, ~invrotationSaturn,
 		\pan, ~orbitEnceladus], ~saturnGrp);
 
 ~tethysP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massTethys,
-		\rate, ~orbitTethys,
+		\rate, ~invrotationSaturn,
 		\pan, ~orbitTethys], ~saturnGrp);
 
 ~dioneP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massDione,
-		\rate, ~orbitDione,
+		\rate, ~invrotationSaturn,
 		\pan, ~orbitDione], ~saturnGrp);
 
 ~rheaP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massRhea,
-		\rate, ~orbitRhea,
+		\rate, ~invrotationSaturn,
 		\pan, ~orbitRhea], ~saturnGrp);
 
 ~titanP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massTitan,
-		\rate, ~orbitTitan,
+		\rate, ~invrotationSaturn,
 		\pan, ~orbitTitan], ~saturnGrp);
 
 ~hyperionP = Synth.new(\percpoof, [
 		\amp, 0.2,
 		\freq, ~massHyperion,
-		\rate, ~orbitHyperion,
+		\rate, ~invrotationSaturn,
 		\pan, ~orbitHyperion], ~saturnGrp);
 
 ~iapetusP = Synth.new(\percpoof, [

@@ -16,7 +16,8 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 )
 
 (
-~autOrbit = 0;
+~autOrbitP = 0;
+~autOrbitM = 1;
 ~panlagTime = 1;
 ~poslagTime = 1;
 
@@ -70,7 +71,7 @@ SynthDef(\surroundmod, {
 	snd = snd + (sig * -1 * 3);
 	sig = Mix.ar(snd);*/
 
-	if(~autOrbit == 1,
+	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
@@ -94,12 +95,12 @@ SynthDef("sinpoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq, 0.01) * 1);
+	sig2 = (BPF.ar(sig, freq, 0.005) * 5);
 	sig = (BPF.ar(sig, Vibrato.kr(freq*2,rate,0.01), 0.005) * 40);
 
-	sig = 1-abs(SinOsc.kr(rate/2)) * sig;
+	sig = 1-SinOsc.kr(rate).range(0,1) * sig;
 
-	if(~autOrbit == 1,
+	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan/2),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan/2),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
@@ -112,11 +113,35 @@ SynthDef("sinpoof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
+SynthDef("singlepoof", {
+	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
+	var sig,sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq;
+
+	env = EnvGen.kr(
+		Env.adsr(0.01,0.0,0.3,0.1),
+		gate,
+		doneAction:0);
+
+	sig = BrownNoise.ar(1);
+	sig = (BPF.ar(sig, Vibrato.kr(freq,rate,0.01), 0.001) * 40);
+
+	sig = 1-SinOsc.kr(rate/2).range(0,1) * sig;
+
+	if(~autOrbitM == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan/2),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+
+	amp2 = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env;
+	sig = sig  * amp * amp2;
+	Out.ar(~surroundBus, sig);
+}).add;
+
 SynthDef("suspoof", {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.5, amp2=1.0, gate=0;
 	var sig,sig2, env, env2, t_gate=0,oscillator1, oscillator2;
 
-	t_gate = gate * LFPulse.ar(rate);
+	t_gate = gate * LFPulse.ar(rate/2);
 	env = EnvGen.kr(
 		Env.adsr(0.05,0.5,0.3,0.5),
 		t_gate,
@@ -130,7 +155,7 @@ SynthDef("suspoof", {
 	sig2 = (BPF.ar(sig, freq/2, 0.01) * 40);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 40);
 
-	if(~autOrbit == 1,
+	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan/2),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan/2),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
@@ -145,10 +170,10 @@ SynthDef("suspoof", {
 
 
 SynthDef("percpoof", {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.4, amp2=1.0, gate=0;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.3, amp2=1.0, gate=0, phase=0;
 	var sig, env, t_gate=0;
 
-	t_gate = gate * LFPulse.ar(rate);
+	t_gate = gate * 1-LFPulse.kr(rate,phase);
 	env = EnvGen.kr(
 		//Env.adsr(0.05,0.5,0.3,0.5),
 		Env.perc(0.01,0.5),
@@ -156,9 +181,9 @@ SynthDef("percpoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig = (BPF.ar(sig, freq*2, 0.003) * 20); //+ (BPF.ar(sig, freq*, 0.01) *5);
+	sig = (BPF.ar(sig, freq*2, 0.01) * 20); //+ (BPF.ar(sig, freq*, 0.01) *5);
 
-	if(~autOrbit == 1,
+	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
@@ -181,7 +206,7 @@ SynthDef.new(\wind, {
 	//sig = sig * LPF.ar(sig, Vibrato.kr(1500,0.45,0.40,rateVariation:0.7,depthVariation:0.3));
 	sig = HPF.ar(sig, atmos);
 
-	if(~autOrbit == 1,
+	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
@@ -206,7 +231,7 @@ SynthDef.new(\gravity, {
 	/*lfo = LinExp.ar(LFTri.ar(0.1), -1, 1, 100, 20000/8);
 	sig = BRF.ar(sig, lfo, 1);*/
 
-	if(~autOrbit == 1,
+	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
@@ -228,7 +253,7 @@ SynthDef.new(\fry, {
 	sig = Dust.ar(newrate, 0.7); //rate: 5-1000
 	//sig = LPF.ar(sig,SinOsc.kr(rate).range(4000,6000));
 
-	if(~autOrbit == 1,
+	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
@@ -238,20 +263,52 @@ SynthDef.new(\fry, {
 }).add;
 
 SynthDef(\rings, {
-	arg type=0,freq=200, rate=1, pan=0, lagpan=0, gate=0, isMagnetic=0, amp=0.3, amp2=1.0;
-	var sig, sig2, resfreq, env, reverbed,  lfo, input, snd;
+	arg type=0,freq=400, dev=1.02, rate=1, pan=0, lagpan=0, gate=0, amp=0.3, amp2=1.0;
+	var sig, temp, env;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
 		gate,
 		doneAction:0);
 
-	sig = LFSaw.ar(Vibrato.kr(freq,rate,0.01));
+	sig = 0;
+	2.do{
+		arg count;
+		temp = SinOsc.ar(
+			freq *
+			(count + 1) *
+			LFNoise1.kr({Rand(0.05,0.2)}!3).range(dev.reciprocal,dev)
+		);
+		temp = temp * LFNoise1.kr({Rand(0.5,8)}!7).exprange(0.01,1);
+		sig = sig + temp;
+	};
+	//sig = LPF.ar(sig,1000);
+	sig = sig * 0.5;
 
 	amp2 = Lag.kr(amp2, ~poslagTime);
 
 	sig = sig * env * amp * amp2;
 	Out.ar(~surroundBus, sig);
 }).add;
+
+/*SynthDef(\rings, {
+	arg type=0,freq=400, dev=1.02, rate=1, pan=0, lagpan=0, gate=0, amp=0.1, amp2=1.0;
+	var sig, temp, env;
+	env = EnvGen.kr(
+		Env.adsr(5.0,0.0,1.0,5.0),
+		gate,
+		doneAction:0);
+
+	amp = SinOsc.kr([0.07,0.1,0.2,0.02,0.06,0.2,0.2]).range(0.1);
+	sig = SinOsc.ar([164.81,164.81*1.5,164.81*2,164.81*3,164.81*4,164.81*5;]);
+	//sig = (BPF.ar(sig, 1000, 0.01) * 20);
+	sig = sig * amp;
+	//sig = Splay.ar(sig) * 0.5;
+
+	amp2 = Lag.kr(amp2, ~poslagTime);
+
+	sig = sig * env * amp * amp2;
+	Out.ar(~surroundBus, sig);
+}).add;*/
 
 )
 
@@ -260,11 +317,11 @@ SynthDef(\rings, {
 SynthDef.new(\multi, {
 	var sig,amp;
 	amp = SinOsc.kr([0.7,0.1,0.2,0.02,0.6]).range(0.1);
-	sig = SinOsc.ar([300,500,700,900,1100]);
+	sig = SinOsc.ar([~massSaturn,~massSaturn*1.5,~massSaturn*2,~massSaturn*3,~massSaturn*4]);
 	//sig = (BPF.ar(sig, 1000, 0.01) * 20);
 	sig = sig * amp;
-	sig = Splay.ar(sig) * 0.5;
-	Out.ar(0,sig);
+	//sig = Splay.ar(sig) * 0.5;
+	Out.ar(~surroundBus,sig);
 }).play;
 )
 
@@ -305,4 +362,13 @@ x = Synth.new(\iter2);
     Ringz.ar(t * 10, 1200, 0.1)!2;
 }.play;
 )
+
+(
+SynthDef("test", {
+
+	SinOsc.kr(1).poll
+
+}).add;
+)
+x = Synth.new(\test);
 
