@@ -195,8 +195,7 @@ OSCdef.new(\sun,
 			{~marsPoof.set(\gate, 0);});
 
 	},'/Sun');
-)
-(
+
 OSCdef.new(\compare,
 	{
 		arg msg;
@@ -206,37 +205,38 @@ OSCdef.new(\compare,
 		("First: " + msg[1]).postln;
 		("Second: " + msg[2]).postln;
 
-		if(msg[1] == 1 && msg[2] == 1,
+		if(msg[1] == 1 or: msg[2] == 1,
 			{~mercuryGrp.set(\gate, 1);},
 			{~mercuryGrp.set(\gate, 0);});
 
-		if(msg[1] == 2 && msg[2] == 2,
+		if(msg[1] == 2 or: {msg[2] == 2},
 			{~venusGrp.set(\gate, 1);},
 			{~venusGrp.set(\gate, 0);});
 
-		if(msg[1] == 3 && msg[2] == 3,
+		if(msg[1] == 3 or: {msg[2] == 3},
 			{~earthGrp.set(\gate, 1);},
 			{~earthGrp.set(\gate, 0);});
 
-		if(msg[1] == 4 && msg[2] == 4,
+		if(msg[1] == 4 or: {msg[2] == 4},
 			{~marsGrp.set(\gate, 1);},
 			{~marsGrp.set(\gate, 0);});
 
-		if(msg[1] == 5 && msg[2] == 5,
+		if(msg[2] == 5 or: {msg[1] == 5},
 			{~jupiterGrp.set(\gate, 1);},
 			{~jupiterGrp.set(\gate, 0);});
 
-		if(msg[1] == 6 && msg[2] == 6,
+		if(msg[1] == 6 or: {msg[2] == 6},
 			{~saturnGrp.set(\gate, 1);},
 			{~saturnGrp.set(\gate, 0);});
 
-		if(msg[1] == 7 && msg[2] == 7,
+		if(msg[1] == 7 or: {msg[2] == 7},
 			{~uranusGrp.set(\gate, 1);},
 			{~uranusGrp.set(\gate, 0);});
 
-		if(msg[1] == 8 && msg[2] == 8,
+		if(msg[1] == 8 or: {msg[2] == 8},
 			{~neptuneGrp.set(\gate, 1);},
 			{~neptuneGrp.set(\gate, 0);});
+
 
 	},'/Compare');
 )

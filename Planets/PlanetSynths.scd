@@ -17,7 +17,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 
 (
 ~autOrbitP = 0;
-~autOrbitM = 1;
+~autOrbitM = 0;
 ~panlagTime = 1;
 ~poslagTime = 1;
 
