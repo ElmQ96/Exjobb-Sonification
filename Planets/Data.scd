@@ -51,7 +51,7 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~typeMars = 0;
 ~typeJupiter = 1;
 ~typeSaturn = 1;
-~typeUranus = 1; //ice (2)
+~typeUranus = 1; //ice (2).
 ~typeNeptune = 1; //ice (2)*/
 
 ~diameterMercury = 4879;

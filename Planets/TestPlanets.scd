@@ -1,4 +1,4 @@
-(
+
 ~planetaryGrp.set(\gate, 1);
 ~innerPlanetaryGrp.set(\gate, 1);
 ~outerPlanetaryGrp.set(\gate, 1);
@@ -68,9 +68,9 @@
 ~neptuneG.set(\gate, 1);
 ~neptuneW.set(\gate, 1);
 ~neptuneT.set(\gate, 1);
-)
 
-(
+
+
 ~planetaryGrp.set(\gate, 0);
 
 ~mercuryGrp.set(\gate, 0);
