@@ -2,6 +2,8 @@
 //Mass (10^24 kg), C2-C5
 var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, tempscale3=99;
 
+~time = 1;
+
 //C4-C5
 /*~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
@@ -65,7 +67,7 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~diameterNeptune = 49528;
 
 //orbital period, Earth ratio, (1 day/second)
-~orbitMercury = (1/88)*orbitscale;
+/*~orbitMercury = (1/88)*orbitscale;
 ~orbitVenus = (1/224.7)*orbitscale;
 ~orbitEarth = (1/365.2)*orbitscale;
 ~orbitMars = (1/687)*orbitscale;
@@ -73,7 +75,17 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~orbitJupiter = (1/4331)*orbitscale;
 ~orbitSaturn = (1/10747)*orbitscale;
 ~orbitUranus = (1/30589)*orbitscale;
-~orbitNeptune = (1/59800)*orbitscale;
+~orbitNeptune = (1/59800)*orbitscale;*/
+
+~orbitMercury = 0;
+~orbitVenus = 0;
+~orbitEarth = 0;
+~orbitMars = 0;
+
+~orbitJupiter = 0;
+~orbitSaturn = 0;
+~orbitUranus = 0;
+~orbitNeptune = 0;
 
 //1 day/second
 ~orbitMoon = 1/27.3;

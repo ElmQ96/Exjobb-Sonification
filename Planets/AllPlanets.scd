@@ -26,7 +26,7 @@
 //Planetary View
 //Mercury
 ~mercuryP = Synth.new(\surroundmod, [
-		\amp, 0.1,
+		\amp, 0.2,
 		\type, 0,
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
@@ -54,7 +54,7 @@
 
 //Venus
 ~venusP = Synth.new(\surroundmod, [
-		\amp, 0.1,
+		\amp, 0.15,
 		\type, 0,
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
@@ -70,10 +70,10 @@
 		\pan, ~orbitVenus], ~venusGrp);
 
 ~venusW = Synth.new(\wind, [
-		\amp, 0.9,
-		\type, 0,
+		\amp, 0.4,
+		\type, 1,
 		\rate, 0.5,
-		\gust, 0.5,
+		\gust, 1,
 		\pan, ~orbitVenus], ~venusGrp);
 
 

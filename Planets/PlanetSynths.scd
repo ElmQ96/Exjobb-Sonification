@@ -44,7 +44,7 @@ SynthDef.new(\reroute, {
 }).add;
 
 SynthDef(\surroundmod, {
-	arg type=0,freq=200, rate=1, pan=0, lagpan=0, gate=0, isMagnetic=0, amp=0.3, amp2=1.0;
+	arg type=0,freq=200, rate=1, pan=0, lagpan=0, gate=0, isMagnetic=0, time=1, amp=0.3, amp2=1.0;
 	var sig, sig2, resfreq, env, reverbed,  lfo, input, snd;
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
@@ -52,12 +52,12 @@ SynthDef(\surroundmod, {
 		doneAction:0);
 
 	sig = Select.ar(type,
-		[LFSaw.ar(Vibrato.kr(freq,rate,0.01)),
-		 LFPulse.ar(Vibrato.kr(freq,rate,0.01),0,0.4)]);
+		[LFSaw.ar(Vibrato.kr(freq,rate*time,0.01)),
+		 LFPulse.ar(Vibrato.kr(freq,rate*time,0.01),0,0.4)]);
 
 	sig2 = SinOsc.ar(freq/2,0,0.5);
 
-	resfreq = SinOsc.kr(rate) * 200 + 400;
+	resfreq = SinOsc.kr(rate*time) * 200 + 400;
 	sig = RLPF.ar(sig, resfreq,0.5);
 
 	lfo = LinExp.ar(Vibrato.ar(0.5,0.1,1.0,0,0,0.5,0.5), -1, 1, freq*3, 20000/4);
@@ -170,10 +170,10 @@ SynthDef("suspoof", {
 
 
 SynthDef("percpoof", {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.3, amp2=1.0, gate=0, phase=0;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.3, amp2=1.0, gate=0, phase=0, time=1;
 	var sig, env, t_gate=0;
 
-	t_gate = gate * LFPulse.kr(rate,phase);
+	t_gate = gate * LFPulse.kr(rate*time,phase);
 	env = EnvGen.kr(
 		//Env.adsr(0.05,0.5,0.3,0.5),
 		Env.perc(0.01,0.5), // 1/rate as release
@@ -216,7 +216,7 @@ SynthDef("percsuspoof", {
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
-	amp2 = -4*(Lag.kr(amp2, ~poslagTime)-0.5)**2+1;
+	amp2 = -4*((Lag.kr(amp2, ~poslagTime)-0.5)**2)+1;
 	sig = sig * env;
 	sig2 = sig2 * env2;
 	sig = (sig + sig2)/2 * amp * amp2;
@@ -267,9 +267,10 @@ SynthDef.new(\gravity, {
 	/*lfo = LinExp.ar(LFTri.ar(0.1), -1, 1, 100, 20000/8);
 	sig = BRF.ar(sig, lfo, 1);*/
 
+
 	if(~autOrbitP == 1,
-		{sig = PanAz.ar(7, sig, LFSaw.kr(Vibrato.kr(pan,rate/2,4)),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(Vibrato.kr(pan,rate/2,4),~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2)),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2),~panlagTime),1.0,2.5,0);});
 
 	amp2 = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * amp2;
@@ -277,7 +278,7 @@ SynthDef.new(\gravity, {
 }).add;
 
 SynthDef.new(\fry, {
-	arg amp=0.45, amp2=1.0, freq=440, rate=1, lowtemp=20, hightemp=200, gate, pan=0;
+	arg amp=0.45, amp2=1.0, freq=440, rate=1, lowtemp=20, hightemp=200, gate, pan=0, time=1;
 	var sig, env, newrate;
 
 	env = EnvGen.kr(
@@ -285,9 +286,9 @@ SynthDef.new(\fry, {
 		gate,
 		doneAction:0);
 
-	newrate = SinOsc.kr(rate).range(lowtemp,hightemp);
+	newrate = SinOsc.kr(rate*time).range(lowtemp,hightemp);
 	sig = Dust.ar(newrate, 0.3); //rate: 5-1000
-	sig = LPF.ar(sig,SinOsc.kr(rate).range(4000,8000));
+	sig = LPF.ar(sig,SinOsc.kr(rate*time).range(4000,8000));
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},

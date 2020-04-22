@@ -45,6 +45,8 @@ OSCdef.new(\mercury,
 
 		~mercuryGrp.set(\amp2, amp);
 
+
+
 		~posMercury = -1*(msg[2]/pi);
 
 		~mercuryGrp.set(\pan, ~posMercury);
@@ -90,8 +92,11 @@ OSCdef.new(\earth,
 	{
 		arg msg;
 
-		var amp = (~minDist*~diameterEarth)/msg[1];
+		var amp = -5.4e-7*msg[1] + 1.03;
 		//("earthAngle:" + msg[2]).postln;
+
+		~planetaryGrp.set(\time, msg[3]);
+		~solarGrp.set(\time, msg[3]);
 
 		if(msg[4][0]==1,
 			{~earthP.set(\gate, 1);},
@@ -115,7 +120,11 @@ OSCdef.new(\earth,
 
 		if(amp>1.0,
 			{amp = 1.0},
-			{amp = ((~minDist*~diameterEarth)/msg[1])});
+			{amp = -5.4e-7*msg[1] + 1.03});
+
+		if(0>amp,
+			{amp = 0.0},
+			{amp = -5.4e-7*msg[1] + 1.03});
 
 		~earthGrp.set(\amp2, amp);
 
@@ -131,7 +140,7 @@ OSCdef.new(\earth,
 OSCdef.new(\mars,
 	{
 		arg msg;
-		var amp = (~minDist*~diameterMars)/msg[1];
+		var amp = -9.5e-6*msg[1] + 1.23;
 
 		if(msg[4][0]==1,
 			{~marsP.set(\gate, 1);},
@@ -158,7 +167,11 @@ OSCdef.new(\mars,
 
 		if(amp>1.0,
 			{amp = 1.0},
-			{amp = (~minDist*~diameterMars)/msg[1]});
+			{amp = -9.5e-6*msg[1] + 1.23});
+
+		if(0>amp,
+			{amp = 0.0},
+			{amp = -9.5e-6*msg[1] + 1.23});
 
 		~marsGrp.set(\amp2, amp);
 
@@ -176,7 +189,7 @@ OSCdef.new(\mars,
 OSCdef.new(\jupiter,
 	{
 		arg msg;
-		var amp = (~minDist*~diameterJupiter)/msg[1];
+		var amp = -1.2e-7*msg[1] + 1.08;
 
 		if(msg[4][0]==1,
 			{~jupiterP.set(\gate, 1);},
@@ -207,7 +220,11 @@ OSCdef.new(\jupiter,
 
 		if(amp>1.0,
 			{amp = 1.0},
-			{amp = (~minDist*~diameterJupiter)/msg[1]});
+			{amp = -1.2e-7*msg[1] + 1.08});
+
+		if(0>amp,
+			{amp = 0.0},
+			{amp = -1.2e-7*msg[1] + 1.08});
 
 		~jupiterGrp.set(\amp2, amp);
 
