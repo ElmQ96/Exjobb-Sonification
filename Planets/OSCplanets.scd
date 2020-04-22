@@ -95,8 +95,8 @@ OSCdef.new(\earth,
 		var amp = -5.4e-7*msg[1] + 1.03;
 		//("earthAngle:" + msg[2]).postln;
 
-		~planetaryGrp.set(\time, msg[3]);
-		~solarGrp.set(\time, msg[3]);
+		~planetaryGrp.set(\time, abs(msg[3]));
+		~solarGrp.set(\time, abs(msg[3]));
 
 		if(msg[4][0]==1,
 			{~earthP.set(\gate, 1);},
