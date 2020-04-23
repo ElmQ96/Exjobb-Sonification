@@ -45,8 +45,6 @@ OSCdef.new(\mercury,
 
 		~mercuryGrp.set(\amp2, amp);
 
-
-
 		~posMercury = -1*(msg[2]/pi);
 
 		~mercuryGrp.set(\pan, ~posMercury);
@@ -92,7 +90,7 @@ OSCdef.new(\earth,
 	{
 		arg msg;
 
-		var amp = -5.4e-7*msg[1] + 1.03;
+		var amp = (-5.4e-7*2.0*msg[1]).exp*1.1;
 		//("earthAngle:" + msg[2]).postln;
 
 		~planetaryGrp.set(\time, abs(msg[3]));
@@ -120,11 +118,8 @@ OSCdef.new(\earth,
 
 		if(amp>1.0,
 			{amp = 1.0},
-			{amp = -5.4e-7*msg[1] + 1.03});
+			{amp = (-5.4e-7*2.0*msg[1]).exp*1.1});
 
-		if(0>amp,
-			{amp = 0.0},
-			{amp = -5.4e-7*msg[1] + 1.03});
 
 		~earthGrp.set(\amp2, amp);
 
@@ -455,87 +450,55 @@ OSCdef.new(\compare,
 		("Second: " + msg[2]).postln;
 
 		if(msg[1] == 1 or: msg[2] == 1,
-			{~mercuryGrp.set(\gate, 1);},
+			{~mercuryGrp.set(\gate, 1);
+			 ~venusGrp.set(\amp2, 0.5);
+			},
 			{~mercuryGrp.set(\gate, 0);});
 
 		if(msg[1] == 2 or: {msg[2] == 2},
-			{~venusGrp.set(\gate, 1);},
+			{~venusGrp.set(\gate, 1);
+			 ~venusGrp.set(\amp2, 0.5);
+			},
 			{~venusGrp.set(\gate, 0);});
 
 		if(msg[1] == 3 or: {msg[2] == 3},
-			{~earthGrp.set(\gate, 1);},
+			{~earthGrp.set(\gate, 1);
+			 ~earthGrp.set(\amp2, 0.5);
+			},
 			{~earthGrp.set(\gate, 0);});
 
 		if(msg[1] == 4 or: {msg[2] == 4},
-			{~marsGrp.set(\gate, 1);},
+			{~marsGrp.set(\gate, 1);
+			 ~marsGrp.set(\amp2, 0.5);
+			},
 			{~marsGrp.set(\gate, 0);});
 
 		if(msg[2] == 5 or: {msg[1] == 5},
-			{~jupiterGrp.set(\gate, 1);},
+			{~jupiterGrp.set(\gate, 1);
+			 ~jupiterGrp.set(\amp2, 0.5);
+			},
 			{~jupiterGrp.set(\gate, 0);});
 
 		if(msg[1] == 6 or: {msg[2] == 6},
-			{~saturnGrp.set(\gate, 1);},
+			{~saturnGrp.set(\gate, 1);
+			 ~saturnGrp.set(\amp2, 0.5);
+			},
 			{~saturnGrp.set(\gate, 0);});
 
 		if(msg[1] == 7 or: {msg[2] == 7},
-			{~uranusGrp.set(\gate, 1);},
+			{~uranusGrp.set(\gate, 1);
+			 ~uranusGrp.set(\amp2, 0.5);
+			},
 			{~uranusGrp.set(\gate, 0);});
 
 		if(msg[1] == 8 or: {msg[2] == 8},
-			{~neptuneGrp.set(\gate, 1);},
+			{~neptuneGrp.set(\gate, 1);
+			 ~neptuneGrp.set(\amp2, 0.5);
+			},
 			{~neptuneGrp.set(\gate, 0);});
-
 
 	},'/Compare');
 )
-
-
-/*
-(
-OSCdef.new(\jupiter,
-	{
-		arg msg;
-		("earthDist:" + msg[1]).postln;
-		if(msg[1]<~diameterEarth*10,
-		   ~earth.set(\gate, 1),
-		   ~earth.set(\gate, 0)
-		)
-		~earth.set(\amp, ~diameterEarth/msg[1]);
-		~earth.set(\pan, msg[2]);
-	},'/Jupiter'
-    )
-)
-(
-OSCdef.new(\saturn,
-	{
-		arg msg;
-		("saturn:" + msg[1]).postln;
-		//func
-	},'/Saturn'
-    )
-)
-(
-OSCdef.new(\uranus,
-	{
-		arg msg;
-		("saturn:" + msg[1]).postln;
-		//func
-	},'/Uranus'
-    )
-)
-(
-OSCdef.new(\neptune,
-	{
-		arg msg;
-		("neptune:" + msg[1]).postln;
-		//func
-	},'/Neptune'
-    )
-)
-*/
-
-
 
 
 

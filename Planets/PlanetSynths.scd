@@ -17,7 +17,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 
 (
 ~autOrbitP = 0;
-~autOrbitM = 0;
+~autOrbitM = 1;
 ~panlagTime = 1;
 ~poslagTime = 1;
 
@@ -196,7 +196,10 @@ SynthDef("percsuspoof", {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.4, amp2=1.0, gate=0;
 	var sig,sig2, env, env2, t_gate=0;
 
-		t_gate = gate * Lag.kr(pan,~panlagTime);//LFPulse.kr(rate);
+	if(~autOrbitM == 1,
+		{t_gate = gate * LFPulse.kr(rate);},
+		{t_gate = gate * Lag.kr(pan,~panlagTime);});
+
 	env = EnvGen.kr(
 		Env.perc(0.01,0.5),
 		t_gate,
@@ -207,7 +210,7 @@ SynthDef("percsuspoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq, 0.01) * 20);
+	sig2 = (BPF.ar(sig, freq, 0.01) * 10);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 20);
 
 	if(~autOrbitM == 1,
@@ -216,7 +219,7 @@ SynthDef("percsuspoof", {
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
-	amp2 = -4*((Lag.kr(amp2, ~poslagTime)-0.5)**2)+1;
+	//amp2 = -4*((Lag.kr(amp2, ~poslagTime)-0.5)**2)+1;
 	sig = sig * env;
 	sig2 = sig2 * env2;
 	sig = (sig + sig2)/2 * amp * amp2;

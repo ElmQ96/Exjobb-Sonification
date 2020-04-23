@@ -142,7 +142,7 @@ var earth = {
 SynthDef.new(\panpluck, {
 	arg out = 0;
     var n, sig;
-    n = 7; // number of 'voices'
+    n = 10; // number of 'voices'
     sig = Pan4.ar( // pan the voice to a stereo position
             CombL.ar( // a comb filter used as a string resonator
                 Dust.ar( // random impulses as an excitation function
@@ -158,7 +158,7 @@ SynthDef.new(\panpluck, {
             ),
             Array.fill(n,{1.0.rand2}) // give each voice a different pan position
         );
-	Out.ar(~surroundBus, sig);
+	Out.ar(0, sig);
 
 }).play;
 )

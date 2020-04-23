@@ -46,11 +46,10 @@
 		\hightemp, ~hightempMercury,
 		\pan, ~orbitMercury], ~mercuryGrp);
 
-/*~mercuryY = Synth.new(\percpoof, [
-		\amp, 0.5,
-		\freq, ~massMercury,
-		\rate, ~orbitMercury/12,
-		\pan, ~orbitMercury], ~mercuryGrp);*/
+~mercuryY = Synth.new(\percpoof, [
+		\freq, ~massMercury/2,
+		\rate, ~orbitMercury,
+		\pan, ~orbitMercury], ~mercuryGrp);
 
 //Venus
 ~venusP = Synth.new(\surroundmod, [
@@ -83,6 +82,11 @@
 		\hightemp, ~hightempVenus,
 		\pan, ~orbitVenus], ~venusGrp);
 
+~venusY = Synth.new(\percpoof, [
+		\freq, ~massVenus/2,
+		\rate, ~orbitVenus,
+		\pan, ~orbitVenus], ~venusGrp);
+
 //Earth
 ~earthP = Synth.new(\surroundmod, [
 		\type, 0,
@@ -110,11 +114,10 @@
 		\hightemp, ~hightempEarth,
 		\pan, ~orbitEarth], ~earthGrp);
 
-/*~earthY = Synth.new(\poof, [
-		\amp, 1.0,
-		\freq, ~massEarth,
-		\rate, ~orbitEarth*12,
-		\pan, 0], ~earthGrp);*/
+~earthY = Synth.new(\percpoof, [
+		\freq, ~massEarth/2,
+		\rate, ~orbitEarth,
+		\pan, ~orbitEarth], ~earthGrp);
 
 ~moonP = Synth.new(\percsuspoof, [
 		\amp, 0.2,
@@ -150,6 +153,11 @@
 		\rate, ~invrotationMars,
 		\lowtemp, ~lowtempMars,
 		\hightemp, ~hightempMars,
+		\pan, ~orbitMars], ~marsGrp);
+
+~marsY = Synth.new(\percpoof, [
+		\freq, ~massMars/2,
+		\rate, ~orbitMars,
 		\pan, ~orbitMars], ~marsGrp);
 
 ~phobosP = Synth.new(\percsuspoof, [

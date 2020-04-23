@@ -321,13 +321,7 @@ SynthDef(\bpfsaw,{
 	Out.ar(out, sig);
 }).add;
 )
-(
-~rheaP = Synth.new(\bpfsaw, [
-		\amp, 0.2,
-		\freq, ~massRhea,
-		\rate, ~orbitRhea,
-		\pan, ~orbitRhea]);
-)
+
 
 (
 SynthDef(\reverb, {
