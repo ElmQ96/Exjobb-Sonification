@@ -35,15 +35,22 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~massGanymede =  440.00; //A4, biggest
 ~massCallisto = 523.25; //C5, similar to mercury
 
-~massMimas =  987.77;
-~massEnceladus = 783.99; //G5
-~massTethys =  659.25; //E5, similar to moon
-~massDione = 659.25; //E5, similar to moon
-~massRhea = 523.25; //C5, similar to mercury
+~massMimas =  1046.50; //C6
+~massEnceladus = 880.00; //A5
+~massTethys =  783.99; //G5
+~massDione = 659.25; //E5,
+~massRhea = 523.25; //C5,
 ~massTitan = 440.00; //A4, biggest
-~massHyperion = 987.77;
-~massIapetus = 523.25; //C5, similar to mercury
+~massHyperion = 1318.51; //E6
+~massIapetus = 587.33; //D5,
 
+~massAriel = 880.00; //A5
+~massMiranda = 1046.50; //C6
+~massOberon =  659.25; //E5,
+~massTitania = 523.25; //C5,
+~massUmbriel = 783.99; //G5
+
+~massTriton = 440.00; //A4, biggest
 
 /*Planet Type
 // 0 = rocky, 1 = gas
@@ -106,6 +113,14 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~orbitTitan = 1/15.945421;
 ~orbitHyperion = 1/21.276609;
 ~orbitIapetus = 1/79.330183;
+
+~orbitAriel = 1/2.520379;
+~orbitMiranda = 1/1.413479;
+~orbitOberon = 1/13.463234;
+~orbitTitania = 1/8.705867;
+~orbitUmbriel = 1/4.144176;
+
+~orbitTriton = 1/5.876854;
 
 /*orbit, 1 month/second
 ~orbitMercury = 0.34578146611*orbitscale;

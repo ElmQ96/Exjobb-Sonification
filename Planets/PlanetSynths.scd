@@ -1,7 +1,7 @@
 (
 o = Server.default.options;
 o.outDevice_("MME : Högtalare (Razer Surround Audio)");
-//o.outDevice_("ASIO : Focusrite(USB Audio)");
+//o.outDevice_("ASIO : Focusrite (USB Audio)");
 //s.options.memSize = 65536;
 o.numOutputBusChannels = 8;
 o.numOutputBusChannels;
@@ -18,16 +18,16 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 (
 ~autOrbitP = 0;
 ~autOrbitM = 1;
-~panlagTime = 1;
-~poslagTime = 1;
+~panlagTime = 0.5;
+~poslagTime = 0.5;
 
 SynthDef.new(\reverb, {
-	arg in, out=0, amp = 0.4;
+	arg in, out=0, amp = 0.5;
 	var sig, reverbed;
 	sig = In.ar(~surroundBus.index,7);
 	sig = FreeVerb.ar(sig,0.8,1.0,1.0);
 	sig = {AllpassN.ar(sig, 0.2, Rand(0.001,0.6), 0.3)}!7;
-	sig = sig * amp;
+	sig = sig/7 * amp;
 	Out.ar(~reverbBus,sig);
 }).add;
 
@@ -210,7 +210,7 @@ SynthDef("percsuspoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq, 0.01) * 10);
+	sig2 = (BPF.ar(sig, freq, 0.01) * 5);
 	sig = (BPF.ar(sig, freq*2, 0.01) * 20);
 
 	if(~autOrbitM == 1,

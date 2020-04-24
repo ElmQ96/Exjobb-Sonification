@@ -43,9 +43,7 @@
 ~ioP.set(\gate, 1);
 ~europaP.set(\gate, 1);
 ~ganymedeP.set(\gate, 1);
-~callistoP.set(\gate, 1
-
-);
+~callistoP.set(\gate, 1);
 
 ~saturnGrp.set(\gate, 1);
 ~saturnP.set(\gate, 1);
@@ -69,12 +67,19 @@
 ~uranusW.set(\gate, 1);
 ~uranusT.set(\gate, 1);
 
+~arielP.set(\gate, 1);
+~mirandaP.set(\gate, 1);
+~oberonP.set(\gate, 1);
+~titaniaP.set(\gate, 1);
+~umbrielP.set(\gate, 1);
+
 ~neptuneGrp.set(\gate, 1);
 ~neptuneP.set(\gate, 1);
 ~neptuneG.set(\gate, 1);
 ~neptuneW.set(\gate, 1);
 ~neptuneT.set(\gate, 1);
 
+~tritonP.set(\gate, 1);
 
 ~planetaryGrp.set(\gate, 0);
 

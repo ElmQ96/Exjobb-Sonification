@@ -262,11 +262,23 @@ OSCdef.new(\saturn,
 			{~saturnW.set(\gate, 0);});
 
 		if(msg[4][4]==1,
-			{//~phobosP.set(\gate, 1);
-			 //~deimosP.set(\gate, 1);
+			{~mimasP.set(\gate, 1);
+			 ~enceladusP.set(\gate, 1);
+			 ~tethysP.set(\gate, 1);
+			 ~dioneP.set(\gate, 1);
+			 ~rheaP.set(\gate, 1);
+			 ~titanP.set(\gate, 1);
+			 ~hyperionP.set(\gate, 1);
+			 ~iapetusP.set(\gate, 1);
 			},
-			{//~phobosP.set(\gate, 0);
-			 //~deimosP.set(\gate, 0);
+			{~mimasP.set(\gate, 0);
+			 ~enceladusP.set(\gate, 0);
+			 ~tethysP.set(\gate, 0);
+			 ~dioneP.set(\gate, 0);
+			 ~rheaP.set(\gate, 0);
+			 ~titanP.set(\gate, 0);
+			 ~hyperionP.set(\gate, 0);
+			 ~iapetusP.set(\gate, 0);
 		});
 
 		if(msg[4][5]==1,
@@ -280,12 +292,25 @@ OSCdef.new(\saturn,
 		~saturnGrp.set(\amp2, amp);
 
 		~posSaturn = -1*(msg[2]/pi);
-		//~posPhobos = -1*(msg[5]/pi);
-		//~posDeimos = -1*(msg[6]/pi);
+
+		~posDione = -1*(msg[5]/pi);
+		~posEnceladus = -1*(msg[6]/pi);
+		~posHyperion = -1*(msg[7]/pi);
+		~posIapetus = -1*(msg[8]/pi);
+		~posMimas = -1*(msg[9]/pi);
+		~posRhea = -1*(msg[10]/pi);
+		~posTethys = -1*(msg[11]/pi);
+		~posTitan = -1*(msg[12]/pi);
 
 		~saturnGrp.set(\pan, ~posSaturn);
-		//~phobosP.set(\pan, ~posPhobos);
-		//~deimosP.set(\pan, ~posDeimos);
+		~mimasP.set(\pan, ~posMimas);
+		~enceladusP.set(\pan, ~posEnceladus);
+		~tethysP.set(\pan, ~posTethys);
+		~dioneP.set(\pan, ~posDione);
+		~rheaP.set(\pan, ~posRhea);
+		~titanP.set(\pan, ~posTitan);
+		~hyperionP.set(\pan, ~posHyperion);
+		~iapetusP.set(\pan, ~posIapetus);
 		~saturnPoof.set(\pan, ~posSaturn);
 
 	},'/Saturn');
@@ -312,11 +337,17 @@ OSCdef.new(\uranus,
 			{~uranusW.set(\gate, 0);});
 
 		if(msg[4][4]==1,
-			{//~phobosP.set(\gate, 1);
-			 //~deimosP.set(\gate, 1);
+			{~arielP.set(\gate, 1);
+			 ~mirandaP.set(\gate, 1);
+			 ~oberonP.set(\gate, 1);
+			 ~titaniaP.set(\gate, 1);
+			 ~umbrielP.set(\gate, 1);
 			},
-			{//~phobosP.set(\gate, 0);
-			 //~deimosP.set(\gate, 0);
+			{~arielP.set(\gate, 0);
+			 ~mirandaP.set(\gate, 0);
+			 ~oberonP.set(\gate, 0);
+			 ~titaniaP.set(\gate, 0);
+			 ~umbrielP.set(\gate, 0);
 		});
 
 		if(amp>1.0,
@@ -326,12 +357,19 @@ OSCdef.new(\uranus,
 		~uranusGrp.set(\amp2, amp);
 
 		~posUranus = -1*(msg[2]/pi);
-		//~posPhobos = -1*(msg[5]/pi);
-		//~posDeimos = -1*(msg[6]/pi);
+		~posAriel = -1*(msg[5]/pi);
+		~posMiranda = -1*(msg[6]/pi);
+		~posOberon = -1*(msg[7]/pi);
+		~posTitania = -1*(msg[8]/pi);
+		~posUmbriel = -1*(msg[9]/pi);
 
 		~uranusGrp.set(\pan, ~posUranus);
-		//~phobosP.set(\pan, ~posPhobos);
-		//~deimosP.set(\pan, ~posDeimos);
+		~arielP.set(\pan, ~posAriel);
+		~mirandaP.set(\pan, ~posMiranda);
+		~oberonP.set(\pan, ~posOberon);
+		~titaniaP.set(\pan, ~posTitania);
+		~umbrielP.set(\pan, ~posUmbriel);
+
 		~uranusPoof.set(\pan, ~posUranus);
 
 	},'/Uranus');
@@ -358,12 +396,8 @@ OSCdef.new(\neptune,
 			{~neptuneW.set(\gate, 0);});
 
 		if(msg[4][4]==1,
-			{//~phobosP.set(\gate, 1);
-			 //~deimosP.set(\gate, 1);
-			},
-			{//~phobosP.set(\gate, 0);
-			 //~deimosP.set(\gate, 0);
-		});
+			{~tritonP.set(\gate, 1);},
+			{~tritonP.set(\gate, 0);});
 
 		if(amp>1.0,
 			{amp = 1.0},
@@ -372,12 +406,11 @@ OSCdef.new(\neptune,
 		~neptuneGrp.set(\amp2, amp);
 
 		~posNeptune = -1*(msg[2]/pi);
-		//~posPhobos = -1*(msg[5]/pi);
-		//~posDeimos = -1*(msg[6]/pi);
+		~posTriton = -1*(msg[5]/pi);
+
 
 		~neptuneGrp.set(\pan, ~posNeptune);
-		//~phobosP.set(\pan, ~posPhobos);
-		//~deimosP.set(\pan, ~posDeimos);
+		~tritonP.set(\pan, ~posTriton);
 		~neptunePoof.set(\pan, ~posNeptune);
 
 	},'/Neptune');
