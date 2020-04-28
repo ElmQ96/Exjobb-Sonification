@@ -75,7 +75,6 @@
 		\gust, 1,
 		\pan, ~orbitVenus], ~venusGrp);
 
-
 ~venusT = Synth.new(\fry, [
 		\rate, ~invrotationVenus,
 		\lowtemp, ~lowtempVenus ,
@@ -148,7 +147,6 @@
 		\atmos, 200,
 		\pan, ~orbitMars], ~marsGrp);
 
-
 ~marsT = Synth.new(\fry, [
 		\rate, ~invrotationMars,
 		\lowtemp, ~lowtempMars,
@@ -164,16 +162,12 @@
 		\amp, 0.1,
 		\freq, ~massPhobos,
 		\rate, ~orbitPhobos,
-		//\rate, ~invrotationMars/2,
-		//\phase, 0.25,
 		\pan, ~orbitPhobos], ~marsGrp);
 
 ~deimosP = Synth.new(\percsuspoof, [
 		\amp, 0.1,
 		\freq, ~massDeimos,
 		\rate, ~orbitDeimos,
-		//\rate, ~invrotationMars/2,
-		//\phase, 0.75,
 		\pan, ~orbitDeimos], ~marsGrp);
 
 //Jupiter
@@ -208,34 +202,25 @@
 		\amp, 0.2,
 		\freq, ~massIo,
 		\rate, ~orbitIo,
-//		\rate, ~invrotationJupiter/4,
-//		\phase, 0.25+0.125,
 		\pan, ~orbitIo], ~jupiterGrp);
 
 ~europaP = Synth.new(\percsuspoof, [
 		\amp, 0.2,
 		\freq, ~massEuropa,
 		\rate, ~orbitEuropa,
-//		\rate, ~invrotationJupiter/4,
-//		\phase, 0.75+0.125,
 		\pan, ~orbitEuropa], ~jupiterGrp);
 
 ~ganymedeP = Synth.new(\percsuspoof, [
 		\amp, 0.2,
 		\freq, ~massGanymede,
 		\rate, ~orbitGanymede,
-//		\rate, ~invrotationJupiter/4,
-//		\phase, 0+0.125,
 		\pan, ~orbitGanymede], ~jupiterGrp);
 
 ~callistoP = Synth.new(\percsuspoof, [
 		\amp, 0.2,
 		\freq, ~massCallisto,
 		\rate, ~orbitCallisto,
-//		\rate, ~invrotationJupiter/4,
-//		\phase, 0.5+0.125,
 		\pan, ~orbitCallisto], ~jupiterGrp);
-
 
 //Saturn
 ~saturnP = Synth.new(\surroundmod, [
@@ -411,6 +396,7 @@
 		\rate, ~orbitTriton,
 		\pan, ~orbiTriton], ~neptuneGrp);
 
+
 //SOLAR SYSTEM VIEW
 ~mercuryPoof = Synth.new(\percpoof, [
 		\freq, ~massMercury,
@@ -451,27 +437,4 @@
 		\freq, ~massNeptune,
 		\rate, ~invrotationNeptune,
 		\pan, ~orbitNeptune], ~outerSolarGrp);
-
-)
-
-(//Solar system View
-~mercuryS = Synth.new(\beating, [
-		\freq, ~massMercury,
-		\rate, ~invrotationMercury,
-		\pan, ~orbitMercury]);
-
-~venusS = Synth.new(\beating, [
-		\freq, ~massVenus,
-		\rate, ~invrotationVenus,
-		\pan, ~orbitVenus]);
-
-~earthS = Synth.new(\beating, [
-		\freq, ~massEarth,
-		\rate, ~invrotationEarth,
-		\pan, ~orbitEarth]);
-
-~marsS = Synth.new(\beating, [
-		\freq, ~massMars,
-		\rate, ~invrotationMars,
-		\pan, ~orbitMars]);
 )

@@ -191,7 +191,6 @@ SynthDef(\rings, {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-//Cleaned code line
 
 SynthDef("percsuspoof", {
 	arg gate=0, amp=0.4, amp2=1.0, freq=400, rate=1, pan=0;
@@ -234,13 +233,12 @@ SynthDef("percpoof", {
 
 	t_gate = gate * LFPulse.kr(rate*time,phase);
 	env = EnvGen.kr(
-		//Env.adsr(0.05,0.5,0.3,0.5),
 		Env.perc(0.01,0.5), // 1/rate as release
 		t_gate,
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig = (BPF.ar(sig, freq*2, 0.01) * 20); //+ (BPF.ar(sig, freq*, 0.01) *5);
+	sig = (BPF.ar(sig, freq*2, 0.01) * 20);
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},

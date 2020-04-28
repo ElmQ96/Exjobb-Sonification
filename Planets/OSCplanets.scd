@@ -430,19 +430,6 @@ OSCdef.new(\neptune,
 
 	},'/Neptune');
 
-/*
-OSCdef.new(\focus,
-	{
-		arg msg;
-		var focus = msg[1];
-		("Focus:" + msg[1]).postln;
-
-		if(focus == 'Sun',
-			{~innerSolarGrp.set(\gate, 1);},
-			{~innerSolarGrp.set(\gate, 0);})
-
-	},'/focus');
-*/
 OSCdef.new(\sun,
 	{
 		arg msg;
@@ -536,19 +523,3 @@ OSCdef.new(\compare,
 
 	},'/Compare');
 )
-
-
-
-/*if(msg[1]<(~maxDist*~diameterMercury),
-	{amp = (~minDist*~diameterMercury)/msg[1]},
-	{amp = 0;};
-);
-
-if(msg[4]==1,
-	{if(msg[1]<(~maxDist*~diameterMars),
-		{~marsGrp.set(\gate, 1);},
-		{~marsGrp.set(\gate, 0);}
-	);},
-	{~marsGrp.set(\gate, 0);}
-);
-*/

@@ -170,8 +170,3 @@
 ~uranusPoof.set(\gate, 0);
 ~neptunePoof.set(\gate, 0);
 )
-
-~mercuryS.set(\gate, 1);
-~venusS.set(\gate, 1);
-~earthS.set(\gate, 1);
-~marsS.set(\gate, 1);
