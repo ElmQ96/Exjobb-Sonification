@@ -5,30 +5,24 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~time = 1;
 
 //C4-C5
-/*~massMercury = 523.25*mul;//C5
-~massVenus =  329.63*mul;//E4
-~massEarth =  261.63*mul;//C4
-//~massMars =  493.88*mul;//B4
-//~massMars =  440.00*mul;//A4
-~massMars =  392.00*mul;//G4 */
-
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
 ~massEarth =  261.63*mul;//C4
 ~massMars =  392.00*mul;//G4
+//~massMars =  440.00*mul;//A4
 
-//C3-C4 blankt
+//C3-C4 blank
 //C2-C3
 ~massJupiter = 65.406*mul; //C2
 ~massSaturn = 82.41*mul; //E2
 ~massUranus = 130.81*mul; //C3
-~massNeptune =  98.00*mul; //G2
+~massNeptune =  110.00*mul; //A2
 
-//not scaled
+//Moons, not scaled
 ~massMoon = 659.25; //E5
 
 ~massPhobos = 783.99; //G5
-~massDeimos = 987.77;
+~massDeimos = 1046.50; //C6
 
 ~massIo = 659.25; //E5, similar to moon
 ~massEuropa = 783.99; //G5
@@ -42,27 +36,17 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~massRhea = 523.25; //C5,
 ~massTitan = 440.00; //A4, biggest
 ~massHyperion = 1318.51; //E6
-~massIapetus = 587.33; //D5,
+~massIapetus = 587.33; //D5
 
 ~massAriel = 880.00; //A5
 ~massMiranda = 1046.50; //C6
-~massOberon =  659.25; //E5,
-~massTitania = 523.25; //C5,
+~massOberon =  659.25; //E5
+~massTitania = 523.25; //C5
 ~massUmbriel = 783.99; //G5
 
 ~massTriton = 440.00; //A4, biggest
 
-/*Planet Type
-// 0 = rocky, 1 = gas
-~typeMercury = 0;
-~typeVenus = 0;
-~typeEarth = 0;
-~typeMars = 0;
-~typeJupiter = 1;
-~typeSaturn = 1;
-~typeUranus = 1; //ice (2).
-~typeNeptune = 1; //ice (2)*/
-
+//Diameter
 ~diameterMercury = 4879;
 ~diameterVenus = 12104;
 ~diameterEarth = 12756;
@@ -94,7 +78,7 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~orbitUranus = 0;
 ~orbitNeptune = 0;
 
-//1 day/second
+
 ~orbitMoon = 1/27.3;
 
 ~orbitPhobos = 1/0.31891;
@@ -122,12 +106,6 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 
 ~orbitTriton = 1/5.876854;
 
-/*orbit, 1 month/second
-~orbitMercury = 0.34578146611*orbitscale;
-~orbitVenus = 0.13550135501*orbitscale;
-~orbitEarth = 0.08333330167*orbitscale;
-~orbitMars = 0.04432624113*orbitscale;*/
-
 //Length of day, ratio earth (1/rotationRatio),(24hrs/sec)
 ~invrotationMercury = 1/175.9;
 ~invrotationVenus = 1/116.8; //-
@@ -152,6 +130,7 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~gravityUranus = 0.889/gravityscale;
 ~gravityNeptune = 1.12/gravityscale;
 
+//Avrg temperatur
 ~tempMercury = (167+tempscale)*tempscale2;
 ~tempVenus = (464+tempscale)*tempscale2;
 ~tempEarth = (15+tempscale)*tempscale2;
@@ -208,7 +187,6 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 //Uranus G4
 //Neptune F4
 
-
 //Quinton Mass mapping
 //C2-C4
 //~massMercury = 261.63;//C4
@@ -220,15 +198,3 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 //~massSaturn = 73.42;//D2
 //~massUranus = 82.41;//E2
 //~massNeptune = 87.31;//F2
-
-
-/*Mass Earth ratio,Hz
-~massMercury = 4698.63 //4731, D8
-~massVenus =  329.63 //321, E4
-~massEarth = 261.63; //C4
-~massMars = 2489.02  //2445, D7-E7, D#
-
-~massJupiter =  //0.82, nothing
-~massSaturn =  //2.74
-~massUranus = 18.35 // 18, D0
-~massNeptune =16.35  //15.3, C0*/

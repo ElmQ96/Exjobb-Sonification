@@ -6,6 +6,8 @@
 ~planetaryGrp.set(\time, 1);
 ~solarGrp.set(\time, 1);
 
+~planetaryGrp.set(\gate, 0);
+
 ~mercuryGrp.set(\gate, 1);
 ~mercuryP.set(\gate, 1);
 ~mercuryG.set(\gate, 1);

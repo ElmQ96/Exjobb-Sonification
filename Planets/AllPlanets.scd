@@ -19,7 +19,7 @@
 ~fxGrp = Group.after(~solarGrp);
 
 //Setup
-~reroute = Synth.new(\reroute, [\bus,~surroundBus], ~fxGrp);
+~reroute = Synth.new(\reroute, [\sigbus,~surroundBus,\rebus,~reverbBus], ~fxGrp);
 ~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus], ~fxGrp);
 
 

@@ -15,6 +15,7 @@ NetAddr.localAddr;
 //msg[6] = Pos 2nd moon
 
 (
+~distanceAmp = 1;
 ~minDist = 3;
 ~maxDist = 500;
 
@@ -43,7 +44,9 @@ OSCdef.new(\mercury,
 			{amp = 1.0},
 			{amp = (~minDist*~diameterMercury)/msg[1]});
 
-		~mercuryGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~mercuryGrp.set(\amp2, amp);},
+			{~mercuryGrp.set(\amp2, 0.5);});
 
 		~posMercury = -1*(msg[2]/pi);
 
@@ -77,7 +80,9 @@ OSCdef.new(\venus,
 			{amp = 1.0},
 			{amp = (~minDist*~diameterVenus)/msg[1]});
 
-		~venusGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~venusGrp.set(\amp2, amp);},
+			{~venusGrp.set(\amp2, 0.5);});
 
 		~posVenus = -1*(msg[2]/pi);
 
@@ -121,7 +126,9 @@ OSCdef.new(\earth,
 			{amp = (-5.4e-7*2.0*msg[1]).exp*1.1});
 
 
-		~earthGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~earthGrp.set(\amp2, amp);},
+			{~earthGrp.set(\amp2, 0.5);});
 
 		~posEarth = -1*(msg[2]/pi);
 		~posMoon = -1*(msg[5]/pi);
@@ -168,7 +175,9 @@ OSCdef.new(\mars,
 			{amp = 0.0},
 			{amp = -9.5e-6*msg[1] + 1.23});
 
-		~marsGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~marsGrp.set(\amp2, amp);},
+			{~marsGrp.set(\amp2, 0.5);});
 
 		~posMars = -1*(msg[2]/pi);
 		~posPhobos = -1*(msg[5]/pi);
@@ -221,7 +230,9 @@ OSCdef.new(\jupiter,
 			{amp = 0.0},
 			{amp = -1.2e-7*msg[1] + 1.08});
 
-		~jupiterGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~marsGrp.set(\amp2, amp);},
+			{~marsGrp.set(\amp2, 0.5);});
 
 		~posJupiter = -1*(msg[2]/pi);
 		~posIo = -1*(msg[5]/pi);
@@ -289,7 +300,9 @@ OSCdef.new(\saturn,
 			{amp = 1.0},
 			{amp = (~minDist*~diameterSaturn)/msg[1]});
 
-		~saturnGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~saturnGrp.set(\amp2, amp);},
+			{~saturnGrp.set(\amp2, 0.5);});
 
 		~posSaturn = -1*(msg[2]/pi);
 
@@ -354,7 +367,9 @@ OSCdef.new(\uranus,
 			{amp = 1.0},
 			{amp = (~minDist*~diameterUranus)/msg[1]});
 
-		~uranusGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~uranusGrp.set(\amp2, amp);},
+			{~uranusGrp.set(\amp2, 0.5);});
 
 		~posUranus = -1*(msg[2]/pi);
 		~posAriel = -1*(msg[5]/pi);
@@ -403,11 +418,12 @@ OSCdef.new(\neptune,
 			{amp = 1.0},
 			{amp = (~minDist*~diameterNeptune)/msg[1]});
 
-		~neptuneGrp.set(\amp2, amp);
+		if(~distanceAmp == 1,
+			{~neptuneGrp.set(\amp2, amp);},
+			{~neptuneGrp.set(\amp2, 0.5);});
 
 		~posNeptune = -1*(msg[2]/pi);
 		~posTriton = -1*(msg[5]/pi);
-
 
 		~neptuneGrp.set(\pan, ~posNeptune);
 		~tritonP.set(\pan, ~posTriton);
@@ -482,52 +498,41 @@ OSCdef.new(\compare,
 		("First: " + msg[1]).postln;
 		("Second: " + msg[2]).postln;
 
+		if(msg[1] != 0 or: msg[2] != 0,
+			{~distanceAmp=0;},
+			{~distanceAmp=1});
+
+
 		if(msg[1] == 1 or: msg[2] == 1,
-			{~mercuryGrp.set(\gate, 1);
-			 ~venusGrp.set(\amp2, 0.5);
-			},
+			{~mercuryGrp.set(\gate, 1);},
 			{~mercuryGrp.set(\gate, 0);});
 
 		if(msg[1] == 2 or: {msg[2] == 2},
-			{~venusGrp.set(\gate, 1);
-			 ~venusGrp.set(\amp2, 0.5);
-			},
+			{~venusGrp.set(\gate, 1);},
 			{~venusGrp.set(\gate, 0);});
 
 		if(msg[1] == 3 or: {msg[2] == 3},
-			{~earthGrp.set(\gate, 1);
-			 ~earthGrp.set(\amp2, 0.5);
-			},
+			{~earthGrp.set(\gate, 1);},
 			{~earthGrp.set(\gate, 0);});
 
 		if(msg[1] == 4 or: {msg[2] == 4},
-			{~marsGrp.set(\gate, 1);
-			 ~marsGrp.set(\amp2, 0.5);
-			},
+			{~marsGrp.set(\gate, 1);},
 			{~marsGrp.set(\gate, 0);});
 
 		if(msg[2] == 5 or: {msg[1] == 5},
-			{~jupiterGrp.set(\gate, 1);
-			 ~jupiterGrp.set(\amp2, 0.5);
-			},
+			{~jupiterGrp.set(\gate, 1);},
 			{~jupiterGrp.set(\gate, 0);});
 
 		if(msg[1] == 6 or: {msg[2] == 6},
-			{~saturnGrp.set(\gate, 1);
-			 ~saturnGrp.set(\amp2, 0.5);
-			},
+			{~saturnGrp.set(\gate, 1);},
 			{~saturnGrp.set(\gate, 0);});
 
 		if(msg[1] == 7 or: {msg[2] == 7},
-			{~uranusGrp.set(\gate, 1);
-			 ~uranusGrp.set(\amp2, 0.5);
-			},
+			{~uranusGrp.set(\gate, 1);},
 			{~uranusGrp.set(\gate, 0);});
 
 		if(msg[1] == 8 or: {msg[2] == 8},
-			{~neptuneGrp.set(\gate, 1);
-			 ~neptuneGrp.set(\amp2, 0.5);
-			},
+			{~neptuneGrp.set(\gate, 1);},
 			{~neptuneGrp.set(\gate, 0);});
 
 	},'/Compare');
