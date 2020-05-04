@@ -26,7 +26,7 @@
 //Planetary View
 //Mercury
 ~mercuryP = Synth.new(\surroundmod, [
-		\amp, 0.2,
+		\amp, 0.15,
 		\type, 0,
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
@@ -42,6 +42,7 @@
 
 ~mercuryT = Synth.new(\fry, [
 		\rate, ~invrotationMercury,
+		\type, 0,
 		\lowtemp, ~lowtempMercury,
 		\hightemp, ~hightempMercury,
 		\pan, ~orbitMercury], ~mercuryGrp);
@@ -76,6 +77,7 @@
 		\pan, ~orbitVenus], ~venusGrp);
 
 ~venusT = Synth.new(\fry, [
+		\type, 1,
 		\rate, ~invrotationVenus,
 		\lowtemp, ~lowtempVenus ,
 		\hightemp, ~hightempVenus,
@@ -108,6 +110,7 @@
 		\pan, ~orbitEarth], ~earthGrp);
 
 ~earthT = Synth.new(\fry, [
+		\type, 0,
 		\rate, ~invrotationEarth,//~tempEarth,
 		\lowtemp, ~lowtempEarth ,
 		\hightemp, ~hightempEarth,
@@ -142,12 +145,13 @@
 ~marsW = Synth.new(\wind, [
 		\amp, 0.3,
 		\type, 0,
-		\rate, 0.4,
+		\rate, 0.5,
 		\gust, 5,
 		\atmos, 200,
 		\pan, ~orbitMars], ~marsGrp);
 
 ~marsT = Synth.new(\fry, [
+		\type, 0,
 		\rate, ~invrotationMars,
 		\lowtemp, ~lowtempMars,
 		\hightemp, ~hightempMars,
@@ -193,6 +197,7 @@
 		\pan, ~orbitJupiter], ~jupiterGrp);
 
 ~jupiterT = Synth.new(\fry, [
+		\type, 1,
 		\rate, ~invrotationJupiter,
 		\lowtemp, ~lowtempJupiter,
 		\hightemp, ~hightempJupiter,
@@ -245,6 +250,7 @@
 		\pan, ~orbitSaturn], ~saturnGrp);
 
 ~saturnT = Synth.new(\fry, [
+		\type, 1,
 		\rate, ~invrotationSaturn,
 		\lowtemp, ~lowtempSaturn,
 		\hightemp, ~hightempSaturn,
@@ -327,6 +333,7 @@
 		\pan, ~orbitUranus], ~uranusGrp);
 
 ~uranusT = Synth.new(\fry, [
+		\type, 1,
 		\rate, ~invrotationUranus,
 		\lowtemp, ~lowtempUranus,
 		\hightemp, ~hightempUranus,
@@ -364,6 +371,7 @@
 
 //Neptune
 ~neptuneP = Synth.new(\surroundmod, [
+		\type, 1,
 		\amp, 0.5,
 		\type, 1,
 		\freq, ~massNeptune,

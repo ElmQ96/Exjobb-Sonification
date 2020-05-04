@@ -133,26 +133,33 @@ SynthDef.new(\wind, {
 }).add;
 
 SynthDef.new(\fry, {
-	arg gate=0, amp=0.7, amp2=1.0, freq=440, rate=1, time=1, pan=0, lowtemp=20, hightemp=200;
-	var sig, globalAmp, env, newrate, grate;
+	arg gate=0, amp=0.7, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
+	var sig, globalAmp, env, newrate, newrate2, grate;
 
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
 		gate,
 		doneAction:0);
 
-	//Set temperature range and length of day
+	//Set temperature range and length of day.
 	newrate = SinOsc.kr(rate*time).range(lowtemp,hightemp);
 
+	newrate2 = SinOsc.kr(rate*time).range(lowtemp/3000,hightemp/4000);
+
 	//Grating sound
-	sig = Dust.ar(newrate, 0.3);
+	sig = Dust.ar(newrate, 0.20);
 
 	/*grate = Dust.kr(newrate/2, 0.3).range(100,14000); //rate: 5-1000
 	sig = BrownNoise.ar(1);
 	sig = (BPF.ar(sig, grate, 0.1));*/
 
-	//Low-pass filter depending on day/night
-	sig = LPF.ar(sig,SinOsc.kr(rate*time).range(4000,8000));
+	//Select Low-pass filter (depending on day/night)
+	//depending on if the temperature is dynamic or not
+	sig = Select.ar(type,[
+			LPF.ar(sig,SinOsc.kr(rate*time).range(6000,12000));,
+			LPF.ar(sig,12000);]);
+
+	sig = sig + Crackle.ar(2.0,newrate2); //GrayNoise, ClipNoise
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},

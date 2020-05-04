@@ -8,8 +8,8 @@ var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, temp
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4
 ~massEarth =  261.63*mul;//C4
-~massMars =  392.00*mul;//G4
 //~massMars =  440.00*mul;//A4
+~massMars =  392.00*mul;//G4
 
 //C3-C4 blank
 //C2-C3
