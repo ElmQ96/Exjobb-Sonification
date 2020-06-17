@@ -386,7 +386,7 @@
 		\pan, ~orbitNeptune], ~neptuneGrp);
 
 ~neptuneW = Synth.new(\wind, [
-		\amp, 0.9,
+		\amp, 0.6,
 		\type, 1,
 		\rate, 0.5,
 		\gust, 0.5,

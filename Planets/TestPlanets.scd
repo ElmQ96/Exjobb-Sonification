@@ -26,7 +26,7 @@
 ~earthG.set(\gate, 1);
 ~earthW.set(\gate, 1);
 ~earthT.set(\gate, 1);
-~moonP.set(\gate, 1);
+//~moonP.set(\gate, 1);
 
 ~marsGrp.set(\gate, 1);
 ~marsP.set(\gate, 1);

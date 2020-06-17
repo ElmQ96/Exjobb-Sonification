@@ -21,17 +21,17 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 ~poslagTime = 0.5;
 
 SynthDef.new(\reverb, {
-	arg in, out=0, amp = 0.5;
+	arg in, out=0, amp = 0.25;
 	var sig, reverbed;
 	sig = In.ar(in,7);
 	sig = FreeVerb.ar(sig,0.8,1.0,1.0);
 	sig = {AllpassN.ar(sig, 0.2, Rand(0.001,0.6), 0.3)}!7;
-	sig = sig/7 * amp;
+	sig = sig * amp;
 	Out.ar(out,sig);
 }).add;
 
 SynthDef.new(\reroute, {
-	arg sigbus, rebus, sigmix=1.0, remix=0.1, lfemix=0.5;
+	arg sigbus, rebus, sigmix=1.0, remix=0.2, lfemix=0.5;
 	Out.ar(2, (sigmix*In.ar(sigbus, 1))   + (remix*In.ar(rebus, 1)));   //C
 	Out.ar(1, (sigmix*In.ar(sigbus+1, 1)) + (remix*In.ar(rebus+1, 1))); //R
 	Out.ar(5, (sigmix*In.ar(sigbus+2, 1)) + (remix*In.ar(rebus+2, 1))); //RS
@@ -64,9 +64,9 @@ SynthDef(\surroundmod, {
 	sig = RLPF.ar(sig, resfreq,0.5);
 
 	//Phaser sweep if planet has a magnetic field
-	lfo = LinExp.ar(Vibrato.ar(0.5,0.1,1.0,0,0,0.5,0.5), -1, 1, freq*3, 20000/4);
+	lfo = LinLin.ar(Vibrato.ar(0.5,0.04,1.0,0,0,0.2,0.2), 0, 1, 600, 6000);
 	sig = Select.ar(isMagnetic,
-		[sig, sig + HPF.ar(BPF.ar(sig, lfo, 0.1)*2,freq*3)]);
+		[sig, sig + HPF.ar(BPF.ar(sig, lfo, 0.1)*3,freq*3)]);
 
 	sig = (sig + sig2)/2;
 
@@ -90,12 +90,16 @@ SynthDef.new(\gravity, {
 
 	//Physical model of a ball
 	sf = LFPulse.ar(rate,0.0);
-    b = TBall.ar(sf, gravity,0,0.01);
+    b = TBall.ar(sf, gravity,0.01,0.01);
     sig = Ringz.ar(b * 10, freq, 0.6);
+
+	/*if(~autOrbitP == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2)),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2),~panlagTime),1.0,2.5,0);});*/
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2)),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2),~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
