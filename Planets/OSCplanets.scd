@@ -96,7 +96,7 @@ OSCdef.new(\earth,
 		arg msg;
 
 		var ampMoon;
-		var amp = (-5.4e-7*2.0*msg[1]).exp*1.1;
+		var amp = (-5.4e-7*1.1*msg[1]).exp*1.05;
 		//("earthAngle:" + msg[2]).postln;
 
 		~planetaryGrp.set(\time, abs(msg[3]));
@@ -125,12 +125,12 @@ OSCdef.new(\earth,
 
 			if(amp>1.0,
 				{amp = 1.0},
-				{amp = (-5.4e-7*2.0*msg[1]).exp*1.1});
+				{amp = (-5.4e-7*1.1*msg[1]).exp*1.05});
 
 			~earthGrp.set(\amp2, amp);},
 			{~earthGrp.set(\amp2, 0.5);});
 
-		ampMoon = -4*(amp-0.5)**2+1;
+		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~earthGrp.set(\ampMoon, ampMoon);
 
 		~posEarth = -1*(msg[2]/pi);
@@ -145,7 +145,8 @@ OSCdef.new(\earth,
 OSCdef.new(\mars,
 	{
 		arg msg;
-		var amp = -9.5e-6*msg[1] + 1.23;
+		var ampMoon;
+		var amp = (-9.5e-6*0.5*msg[1]).exp*1.1;
 
 		if(~compareGate == 0,
 			{if(msg[4][0]==1,
@@ -173,14 +174,18 @@ OSCdef.new(\mars,
 
 			if(amp>1.0,
 				{amp = 1.0},
-				{amp = -9.5e-6*msg[1] + 1.23});
+				{amp = (-9.5e-6*0.5*msg[1]).exp*1.1});
 
 			if(0>amp,
 				{amp = 0.0},
-				{amp = -9.5e-6*msg[1] + 1.23});
+				{amp = (-9.5e-6*0.5*msg[1]).exp*1.1});
 
 			~marsGrp.set(\amp2, amp);},
 			{~marsGrp.set(\amp2, 0.5);});
+
+		ampMoon = -4*(amp - 0.5).pow(2)+1;
+		~marsGrp.set(\ampMoon, ampMoon);
+		//("Mars moon amp:" + ampMoon).postln;
 
 		~posMars = -1*(msg[2]/pi);
 		~posPhobos = -1*(msg[5]/pi);
@@ -196,7 +201,8 @@ OSCdef.new(\mars,
 OSCdef.new(\jupiter,
 	{
 		arg msg;
-		var amp = -1.2e-7*msg[1] + 1.08;
+		var ampMoon;
+		var amp = (-1.2e-7*0.9*msg[1]).exp*1.05;
 
 		if(~compareGate == 0,
 			{if(msg[4][0]==1,
@@ -228,14 +234,18 @@ OSCdef.new(\jupiter,
 
 			if(amp>1.0,
 				{amp = 1.0},
-				{amp = -1.2e-7*msg[1] + 1.08});
+				{amp = (-1.2e-7*0.9*msg[1]).exp*1.05});
 
 			if(0>amp,
 				{amp = 0.0},
-				{amp = -1.2e-7*msg[1] + 1.08});
+				{amp = (-1.2e-7*0.9*msg[1]).exp*1.05});
 
-			~marsGrp.set(\amp2, amp);},
-			{~marsGrp.set(\amp2, 0.5);});
+			~jupiterGrp.set(\amp2, amp);},
+			{~jupiterGrp.set(\amp2, 0.5);});
+
+		ampMoon = -4*(amp - 0.5).pow(2)+1;
+		~jupiterGrp.set(\ampMoon, ampMoon);
+		//("Jupiter moon amp:" + ampMoon).postln;
 
 		~posJupiter = -1*(msg[2]/pi);
 		~posIo = -1*(msg[5]/pi);
@@ -257,7 +267,8 @@ OSCdef.new(\jupiter,
 OSCdef.new(\saturn,
 	{
 		arg msg;
-		var amp = (~minDist*~diameterSaturn)/msg[1];
+		var ampMoon;
+		var amp = (-1.2e-7*0.9*msg[1]).exp*1.05;
 
 		if(~compareGate == 0,
 			{if(msg[4][0]==1,
@@ -302,10 +313,14 @@ OSCdef.new(\saturn,
 
 			if(amp>1.0,
 				{amp = 1.0},
-				{amp = (~minDist*~diameterSaturn)/msg[1]});
+				{amp = (-1.2e-7*0.9*msg[1]).exp*1.05});
 
 			~saturnGrp.set(\amp2, amp);},
 			{~saturnGrp.set(\amp2, 0.5);});
+
+		ampMoon = -4*(amp - 0.5).pow(2)+1;
+		~saturnGrp.set(\ampMoon, ampMoon);
+		//("Saturn moon amp:" + ampMoon).postln;
 
 		~posSaturn = -1*(msg[2]/pi);
 
@@ -334,7 +349,8 @@ OSCdef.new(\saturn,
 OSCdef.new(\uranus,
 	{
 		arg msg;
-		var amp = (~minDist*~diameterUranus)/msg[1];
+		var ampMoon;
+		var amp = (-6.7e-7*0.7*msg[1]).exp*1.1;
 
 		if(~compareGate == 0,
 			{if(msg[4][0]==1,
@@ -369,10 +385,14 @@ OSCdef.new(\uranus,
 
 			if(amp>1.0,
 				{amp = 1.0},
-				{amp = (~minDist*~diameterUranus)/msg[1]});
+				{amp = (-6.7e-7*0.7*msg[1]).exp*1.1});
 
 			~uranusGrp.set(\amp2, amp);},
 			{~uranusGrp.set(\amp2, 0.5);});
+
+		ampMoon = -4*(amp - 0.5).pow(2)+1;
+		~uranusGrp.set(\ampMoon, ampMoon);
+		//("Uranus moon amp:" + ampMoon).postln;
 
 		~posUranus = -1*(msg[2]/pi);
 		~posAriel = -1*(msg[5]/pi);
@@ -395,7 +415,8 @@ OSCdef.new(\uranus,
 OSCdef.new(\neptune,
 	{
 		arg msg;
-		var amp = (~minDist*~diameterNeptune)/msg[1];
+		var ampMoon;
+		var amp = (-7.7e-7*0.8*msg[1]).exp*1.15;
 
 		if(~compareGate == 0,
 			{if(msg[4][0]==1,
@@ -420,10 +441,14 @@ OSCdef.new(\neptune,
 
 			if(amp>1.0,
 				{amp = 1.0},
-				{amp = (~minDist*~diameterNeptune)/msg[1]});
+				{amp = (-7.7e-7*0.8*msg[1]).exp*1.15});
 
 			~neptuneGrp.set(\amp2, amp);},
 			{~neptuneGrp.set(\amp2, 0.5);});
+
+		ampMoon = -4*(amp - 0.5).pow(2)+1;
+		~neptuneGrp.set(\ampMoon, ampMoon);
+		("Neptune moon amp:" + ampMoon).postln;
 
 		~posNeptune = -1*(msg[2]/pi);
 		~posTriton = -1*(msg[5]/pi);
