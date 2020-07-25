@@ -80,18 +80,26 @@ SynthDef(\surroundmod, {
 }).add;
 
 SynthDef.new(\gravity, {
-	arg gate=0, amp=0.8, amp2=1.0, freq=200, rate=1, pan=0, gravity=1;
-    var sig, globalAmp, env, b, sf;
+	arg gate=0, amp=0.7, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0;
+    var sig, globalAmp, env, b, sf, gFreq;
 
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
 		gate,
 		doneAction:0);
 
+	//if(type == 0,
+		//{gFreq = freq;},
+		//{gFreq = freq;});
+
+	gFreq = Select.kr(type,[
+			freq;,
+			freq*2;]);
+
 	//Physical model of a ball
 	sf = LFPulse.ar(rate,0.0);
     b = TBall.ar(sf, gravity,0.01,0.01);
-    sig = Ringz.ar(b * 10, freq, 0.6);
+    sig = Ringz.ar(b * 20, gFreq, 0.6);
 
 	/*if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2)),1.0,2.5,0);},
@@ -203,8 +211,8 @@ SynthDef(\rings, {
 }).add;
 
 
-SynthDef("percsuspoof", {
-	arg gate=0, amp=0.4, amp2=1.0, freq=400, rate=1, pan=0;
+SynthDef(\percsusMoon, {
+	arg gate=0, amp=0.2, ampMoon=1.0, freq=400, rate=1, pan=0;
 	var sig, sig2, globalAmp, env, env2, t_gate=0;
 
 	if(~autOrbitM == 1,
@@ -221,8 +229,44 @@ SynthDef("percsuspoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq, 0.01) * 5);
-	sig = (BPF.ar(sig, freq*2, 0.01) * 20);
+	sig2 = (BPF.ar(sig, freq*1, 0.01) * 10);
+	sig = (BPF.ar(sig, freq*2, 0.005) * 25);
+
+	if(~autOrbitM == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+
+	globalAmp = ampMoon;
+	//globalAmp = -4*((Lag.kr(amp2, ~poslagTime)-0.5)**2)+1;
+	//globalAmp = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env;
+	sig2 = sig2 * env2;
+	sig = (sig + sig2)/2 * amp * globalAmp;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+SynthDef(\percsusSolar, {
+	arg gate=0, amp=0.2, amp2=1.0, freq=400, rate=1, pan=0;
+	var sig, sig2, globalAmp, env, env2, t_gate=0;
+
+	if(~autOrbitM == 1,
+		{t_gate = gate * LFPulse.kr(rate);},
+		{t_gate = gate * Lag.kr(pan,~panlagTime);});
+
+	env = EnvGen.kr(
+		Env.perc(0.01,0.5),
+		t_gate,
+		doneAction:0);
+	env2 = EnvGen.kr(
+		Env.adsr(0.05,0.5,0.3,0.5),
+		gate,
+		doneAction:0);
+
+	sig = BrownNoise.ar(1);
+	sig2 = (BPF.ar(sig, freq*2, 0.01) * 10);
+	sig = (BPF.ar(sig, freq*4, 0.005) * 30);
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
@@ -238,7 +282,7 @@ SynthDef("percsuspoof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef("percpoof", {
+SynthDef(\percpoof, {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.3, amp2=1.0, gate=0, phase=0, time=1;
 	var sig, globalAmp, env, t_gate=0;
 
@@ -249,7 +293,7 @@ SynthDef("percpoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig = (BPF.ar(sig, freq*2, 0.01) * 20);
+	sig = (BPF.ar(sig, freq*4, 0.005) * 20);
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
@@ -260,7 +304,7 @@ SynthDef("percpoof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef("sinpoof", {
+SynthDef(\sinsuspoof, {
 	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
 	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq;
 
@@ -274,8 +318,8 @@ SynthDef("sinpoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq, 0.005) * 5);
-	sig = (BPF.ar(sig, Vibrato.kr(freq*2,rate,0.01), 0.005) * 40);
+	sig2 = (BPF.ar(sig, freq*2, 0.01) * 5);
+	sig = (BPF.ar(sig, Vibrato.kr(freq*4,rate,0.01), 0.005) * 20);
 
 	sig = 1-SinOsc.kr(rate).range(0,1) * sig;
 
@@ -292,7 +336,7 @@ SynthDef("sinpoof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef("singlepoof", {
+SynthDef(\sinpoof, {
 	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
 	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq;
 
@@ -302,7 +346,7 @@ SynthDef("singlepoof", {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig = (BPF.ar(sig, Vibrato.kr(freq*2,rate,0.01), 0.005) * 30);
+	sig = (BPF.ar(sig, Vibrato.kr(freq*2,rate,0.01), 0.005) * 20);
 
 	sig = 1-SinOsc.kr(rate).range(0,1) * sig;
 
@@ -316,7 +360,7 @@ SynthDef("singlepoof", {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef("suspoof", {
+SynthDef(\suspoof, {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.5, amp2=1.0, gate=0;
 	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2;
 
@@ -331,8 +375,8 @@ SynthDef("suspoof", {
 		doneAction:0);
 
 	sig = PinkNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq/2, 0.01) * 40);
-	sig = (BPF.ar(sig, freq*2, 0.01) * 40);
+	sig2 = (BPF.ar(sig, freq, 0.01) * 40);
+	sig = (BPF.ar(sig, freq*4, 0.01) * 40);
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
@@ -346,4 +390,55 @@ SynthDef("suspoof", {
 	sig = (sig + sig2)/2 * amp * globalAmp;
 	Out.ar(~surroundBus, sig);
 }).add;
+
+
+SynthDef(\lpfpoof, {
+	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
+	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq;
+
+	env = EnvGen.kr(
+		Env.adsr(0.01,0.0,0.3,0.1),
+		gate,
+		doneAction:0);
+
+	sig = BrownNoise.ar(1);
+	sig = (BPF.ar(sig, Vibrato.kr(freq*4,rate,0.01), 0.005) * 20);
+
+	//Sweeping resonant low-pass filter for length of day
+	resfreq = SinOsc.kr(rate) * 200 + 200;
+	sig = RLPF.ar(sig, resfreq,0.5);
+
+	if(~autOrbitM == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+
+	globalAmp = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env;
+	sig = sig  * amp * globalAmp;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+SynthDef(\percmanypoof, {
+	arg freq=400, rate=1, pan=0, out=0, amp=0.3, amp2=1.0, gate=0, phase=0, time=1;
+	var sig, globalAmp, env, t_gate=0;
+
+	t_gate = gate * LFPulse.kr(rate*time,phase);
+	env = EnvGen.kr(
+		Env.perc(0.01,0.5), // 1/rate as release
+		t_gate,
+		doneAction:0);
+
+	sig = BrownNoise.ar(1);
+	sig = (BPF.ar(sig, freq*4, 0.005) * 20);
+
+	if(~autOrbitM == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+
+	globalAmp = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env * amp * globalAmp;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+
 )

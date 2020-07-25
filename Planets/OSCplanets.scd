@@ -95,6 +95,7 @@ OSCdef.new(\earth,
 	{
 		arg msg;
 
+		var ampMoon;
 		var amp = (-5.4e-7*2.0*msg[1]).exp*1.1;
 		//("earthAngle:" + msg[2]).postln;
 
@@ -128,6 +129,9 @@ OSCdef.new(\earth,
 
 			~earthGrp.set(\amp2, amp);},
 			{~earthGrp.set(\amp2, 0.5);});
+
+		ampMoon = -4*(amp-0.5)**2+1;
+		~earthGrp.set(\ampMoon, ampMoon);
 
 		~posEarth = -1*(msg[2]/pi);
 		~posMoon = -1*(msg[5]/pi);
