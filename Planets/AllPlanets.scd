@@ -408,8 +408,8 @@
 
 //SOLAR SYSTEM VIEW
 
-~solarMode = \percsusSolar;
-//~solarMode = \percpoof;
+//~solarMode = \percsusSolar;
+~solarMode = \percpoof;
 
 //~solarMode = \sinsuspoof;
 //~solarMode = \sinpoof;
@@ -418,12 +418,16 @@
 
 //~solarMode = \lpfpoof;
 
-~mercuryPoof = Synth.new(\sinsuspoof, [
+//~solarMode = \sinamppoof;
+
+//~solarMode = \percmanypoof;
+
+~mercuryPoof = Synth.new(\sinamppoof, [
 		\freq, ~massMercury,
 		\rate, ~invrotationMercury,
 		\pan, ~orbitMercury], ~innerSolarGrp);
 
-~venusPoof = Synth.new(\sinsuspoof, [
+~venusPoof = Synth.new(\sinamppoof, [
 		\freq, ~massVenus,
 		\rate, ~invrotationVenus,
 		\pan, ~orbitVenus], ~innerSolarGrp);
@@ -457,4 +461,15 @@
 		\freq, ~massNeptune,
 		\rate, ~invrotationNeptune,
 		\pan, ~orbitNeptune], ~outerSolarGrp);
+)
+
+(
+~chords = Pbind(
+	\instrument, \percpoof,
+	\gate, 1,
+	\dur, 1,
+	\freq, Pexprand(300,900,inf),
+	\amp, 0.8,
+
+).play
 )

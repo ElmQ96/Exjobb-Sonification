@@ -15,7 +15,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 )
 
 (
-~autOrbitP = 0;
+~autOrbitP = 1;
 ~autOrbitM = 1;
 ~panlagTime = 0.5;
 ~poslagTime = 0.5;
@@ -23,6 +23,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 SynthDef.new(\reverb, {
 	arg in, out=0, amp = 0.25;
 	var sig, reverbed;
+
 	sig = In.ar(in,7);
 	sig = FreeVerb.ar(sig,0.8,1.0,1.0);
 	sig = {AllpassN.ar(sig, 0.2, Rand(0.001,0.6), 0.3)}!7;
@@ -248,12 +249,10 @@ SynthDef(\percsusMoon, {
 }).add;
 
 SynthDef(\percsusSolar, {
-	arg gate=0, amp=0.2, amp2=1.0, freq=400, rate=1, pan=0;
+	arg gate=0, amp=0.2, amp2=1.0, freq=400, rate=1, pan=0, time=1;
 	var sig, sig2, globalAmp, env, env2, t_gate=0;
 
-	if(~autOrbitM == 1,
-		{t_gate = gate * LFPulse.kr(rate);},
-		{t_gate = gate * Lag.kr(pan,~panlagTime);});
+	t_gate = gate * LFPulse.kr(rate*time);
 
 	env = EnvGen.kr(
 		Env.perc(0.01,0.5),
@@ -429,7 +428,7 @@ SynthDef(\percmanypoof, {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig = (BPF.ar(sig, freq*4, 0.005) * 20);
+	sig = (BPF.ar(sig, freq, 0.005) * 20);
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
@@ -440,5 +439,39 @@ SynthDef(\percmanypoof, {
 	Out.ar(~surroundBus, sig);
 }).add;
 
+SynthDef(\sinamppoof, {
+	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
+	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq, sinlvl;
 
+	env = EnvGen.kr(
+		Env.adsr(0.01,0.0,0.3,0.1),
+		gate,
+		doneAction:0);
+	env2 = EnvGen.kr(
+		Env.adsr(0.05,0.5,0.3,0.5),
+		gate,
+		doneAction:0);
+
+	sinlvl = SinOsc.kr(rate).range(0,1);
+
+	sig = BrownNoise.ar(1);
+	sig2 = (BPF.ar(sig, freq*2, 0.01) * 5) * (1-sinlvl);
+	sig = (BPF.ar(sig, freq*4, 0.005) * 20)* sinlvl;
+
+
+
+	if(~autOrbitM == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+
+	globalAmp = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env;
+	sig2 = sig2 * env2;
+	sig = (sig + sig2)/2 * amp * globalAmp;
+	Out.ar(~surroundBus, sig);
+}).add;
 )
+
+

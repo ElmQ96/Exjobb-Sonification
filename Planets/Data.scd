@@ -1,6 +1,6 @@
 (
 //Mass (10^24 kg), C2-C5
-var mul = 1, orbitscale= 12.0, gravityscale=2, tempscale=174, tempscale2=2, tempscale3=99;
+var mul = 1, orbitscale= 0.0, gravityscale=2, tempscale=174, tempscale2=2, tempscale3=99;
 
 ~time = 1;
 
