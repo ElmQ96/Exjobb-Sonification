@@ -448,7 +448,7 @@ OSCdef.new(\neptune,
 
 		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~neptuneGrp.set(\ampMoon, ampMoon);
-		("Neptune moon amp:" + ampMoon).postln;
+		//("Neptune moon amp:" + ampMoon).postln;
 
 		~posNeptune = -1*(msg[2]/pi);
 		~posTriton = -1*(msg[5]/pi);

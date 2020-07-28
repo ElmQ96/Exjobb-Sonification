@@ -12,14 +12,12 @@
 ~mercuryP.set(\gate, 1);
 ~mercuryG.set(\gate, 1);
 ~mercuryT.set(\gate, 1);
-~mercuryY.set(\gate, 1);
 
 ~venusGrp.set(\gate, 1);
 ~venusP.set(\gate, 1);
 ~venusG.set(\gate, 1);
 ~venusW.set(\gate, 1);
 ~venusT.set(\gate, 1);
-~venusY.set(\gate, 1);
 
 ~earthGrp.set(\gate, 1);
 ~earthP.set(\gate, 1);

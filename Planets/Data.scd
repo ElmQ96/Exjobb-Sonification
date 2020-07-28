@@ -68,17 +68,6 @@ var mul = 1, orbitscale= 0.0, gravityscale=2, tempscale=174, tempscale2=2, temps
 ~orbitUranus = (1/30589)*orbitscale;
 ~orbitNeptune = (1/59800)*orbitscale;
 
-/*~orbitMercury = 0;
-~orbitVenus = 0;
-~orbitEarth = 0;
-~orbitMars = 0;
-
-~orbitJupiter = 0;
-~orbitSaturn = 0;
-~orbitUranus = 0;
-~orbitNeptune = 0;*/
-
-
 ~orbitMoon = 1/27.3;
 
 ~orbitPhobos = 1/0.31891;

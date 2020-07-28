@@ -15,8 +15,8 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 )
 
 (
-~autOrbitP = 1;
-~autOrbitM = 1;
+~autOrbitP = 0;
+~autOrbitM = 0;
 ~panlagTime = 0.5;
 ~poslagTime = 0.5;
 
@@ -32,7 +32,7 @@ SynthDef.new(\reverb, {
 }).add;
 
 SynthDef.new(\reroute, {
-	arg sigbus, rebus, sigmix=1.0, remix=0.2, lfemix=0.5;
+	arg sigbus, rebus, sigmix=1.0, remix=0.2, lfemix=0.4;
 	Out.ar(2, (sigmix*In.ar(sigbus, 1))   + (remix*In.ar(rebus, 1)));   //C
 	Out.ar(1, (sigmix*In.ar(sigbus+1, 1)) + (remix*In.ar(rebus+1, 1))); //R
 	Out.ar(5, (sigmix*In.ar(sigbus+2, 1)) + (remix*In.ar(rebus+2, 1))); //RS
@@ -42,6 +42,8 @@ SynthDef.new(\reroute, {
 	Out.ar(0, (sigmix*In.ar(sigbus+6, 1)) + (remix*In.ar(rebus+6, 1))); //L
 	Out.ar(3, lfemix*(Mix(In.ar(sigbus, 7)))); //LFE
 }).add;
+
+
 
 SynthDef(\surroundmod, {
 	arg gate=0, amp=0.3, amp2=1.0, freq=200, rate=1, time=1, pan=0, type=0, isMagnetic=0;
@@ -65,7 +67,7 @@ SynthDef(\surroundmod, {
 	sig = RLPF.ar(sig, resfreq,0.5);
 
 	//Phaser sweep if planet has a magnetic field
-	lfo = LinLin.ar(Vibrato.ar(0.5,0.04,1.0,0,0,0.2,0.2), 0, 1, 600, 6000);
+	lfo = LinLin.ar(Vibrato.ar(0.4,0.04,1.0,0,0,0.2,0.2), 0, 1, 600, 5000);
 	sig = Select.ar(isMagnetic,
 		[sig, sig + HPF.ar(BPF.ar(sig, lfo, 0.1)*3,freq*3)]);
 
@@ -80,8 +82,10 @@ SynthDef(\surroundmod, {
 	Out.ar(~surroundBus, sig);
 }).add;
 
+
+
 SynthDef.new(\gravity, {
-	arg gate=0, amp=0.7, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0;
+	arg gate=0, amp=0.4, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0;
     var sig, globalAmp, env, b, sf, gFreq;
 
 	env = EnvGen.kr(
@@ -89,12 +93,8 @@ SynthDef.new(\gravity, {
 		gate,
 		doneAction:0);
 
-	//if(type == 0,
-		//{gFreq = freq;},
-		//{gFreq = freq;});
-
 	gFreq = Select.kr(type,[
-			freq;,
+			freq*2;,
 			freq*2;]);
 
 	//Physical model of a ball
@@ -102,13 +102,13 @@ SynthDef.new(\gravity, {
     b = TBall.ar(sf, gravity,0.01,0.01);
     sig = Ringz.ar(b * 20, gFreq, 0.6);
 
-	/*if(~autOrbitP == 1,
-		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2)),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2),~panlagTime),1.0,2.5,0);});*/
-
 	if(~autOrbitP == 1,
-		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.2,0.2)),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.05,0.05)),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan+LFTri.kr(rate/2,1.0).range(-0.05,0.05),~panlagTime),1.0,2.5,0);});
+
+	/*if(~autOrbitP == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate,0).range(-0.1,0.1)),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});*/
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -116,7 +116,7 @@ SynthDef.new(\gravity, {
 }).add;
 
 SynthDef.new(\wind, {
-	arg gate=0, amp=0.1, amp2=1.0, rate=0.45, pan=0, type=0, gust=1, atmos=60;
+	arg gate=0, amp=0.4, amp2=1.0, rate=0.45, pan=0, type=0, gust=1, atmos=60;
 	var sig, globalAmp, env, lfo;
 
 	env = EnvGen.kr(
@@ -146,7 +146,7 @@ SynthDef.new(\wind, {
 }).add;
 
 SynthDef.new(\fry, {
-	arg gate=0, amp=0.7, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
+	arg gate=0, amp=0.6, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
 	var sig, globalAmp, env, newrate, newrate2, grate;
 
 	env = EnvGen.kr(
@@ -184,7 +184,7 @@ SynthDef.new(\fry, {
 }).add;
 
 SynthDef(\rings, {
-	arg gate=0, amp=0.4, amp2=1.0, freq=400, rate=1, pan=0, type=0, dev=1.04;
+	arg gate=0, amp=0.2, amp2=1.0, freq=400, rate=1, pan=0, type=0, dev=1.04;
 	var sig, globalAmp, temp, env;
 
 	env = EnvGen.kr(
@@ -213,7 +213,7 @@ SynthDef(\rings, {
 
 
 SynthDef(\percsusMoon, {
-	arg gate=0, amp=0.2, ampMoon=1.0, freq=400, rate=1, pan=0;
+	arg gate=0, amp=0.4, ampMoon=1.0, freq=400, rate=1, pan=0;
 	var sig, sig2, globalAmp, env, env2, t_gate=0;
 
 	if(~autOrbitM == 1,
@@ -281,24 +281,48 @@ SynthDef(\percsusSolar, {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef(\percpoof, {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.3, amp2=1.0, gate=0, phase=0, time=1;
+SynthDef(\percSolar, {
+	arg freq=400, rate=1, pan=0, out=0, amp=0.4, amp2=1.0, gate=0, phase=0, time=1;
 	var sig, globalAmp, env, t_gate=0;
 
 	t_gate = gate * LFPulse.kr(rate*time,phase);
 	env = EnvGen.kr(
-		Env.perc(0.01,0.5), // 1/rate as release
+		Env.perc(0.01,1/(rate*time)), // 1/rate as release
 		t_gate,
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig = (BPF.ar(sig, freq*4, 0.005) * 20);
+	sig = (BPF.ar(sig, freq*2, 0.005) * 20);
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
+	sig = sig * env * amp * globalAmp;
+	Out.ar(~surroundBus, sig);
+}).add;
+
+SynthDef(\percMoon, {
+	arg freq=400, rate=1, pan=0, out=0, amp=0.3, ampMoon=1.0, gate=0, phase=0, time=1;
+	var sig, globalAmp, env, t_gate=0;
+
+	t_gate = gate * LFPulse.kr(rate*time,phase);
+	//t_gate = gate * Lag.kr(pan,~panlagTime);
+
+	env = EnvGen.kr(
+		Env.perc(0.01,1/(rate*time)), // 1/rate as release
+		t_gate,
+		doneAction:0);
+
+	sig = BrownNoise.ar(1);
+	sig = (BPF.ar(sig, freq, 0.005) * 20);
+
+	if(~autOrbitM == 1,
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+
+	globalAmp = Lag.kr(ampMoon, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
 	Out.ar(~surroundBus, sig);
 }).add;
@@ -417,7 +441,7 @@ SynthDef(\lpfpoof, {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-SynthDef(\percmanypoof, {
+SynthDef(\percmany, {
 	arg freq=400, rate=1, pan=0, out=0, amp=0.3, amp2=1.0, gate=0, phase=0, time=1;
 	var sig, globalAmp, env, t_gate=0;
 
@@ -440,7 +464,7 @@ SynthDef(\percmanypoof, {
 }).add;
 
 SynthDef(\sinamppoof, {
-	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
+	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0, time=1;
 	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq, sinlvl;
 
 	env = EnvGen.kr(
@@ -452,7 +476,7 @@ SynthDef(\sinamppoof, {
 		gate,
 		doneAction:0);
 
-	sinlvl = SinOsc.kr(rate).range(0,1);
+	sinlvl = SinOsc.kr(rate*time).range(0,1);
 
 	sig = BrownNoise.ar(1);
 	sig2 = (BPF.ar(sig, freq*2, 0.01) * 5) * (1-sinlvl);
