@@ -94,7 +94,7 @@ SynthDef.new(\gravity, {
 		doneAction:0);
 
 	gFreq = Select.kr(type,[
-			freq*2;,
+			freq;,
 			freq*2;]);
 
 	//Physical model of a ball

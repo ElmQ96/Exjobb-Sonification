@@ -3,21 +3,33 @@ NetAddr.localAddr;
 
 //msg[1] = distance (amp)
 //msg[2] = angle (pan)
-//msg[3] = time (days/s)
-//msg[4] = GUI-gate array
-	//msg[4][0] = Size/day-gate
-	//msg[4][1] = Gravity-gate
-	//msg[4][2] = Temperature-gate
-	//msg[4][3] = Atmosphere-gate
-	//msg[4][4] = Moons-gate
-	//msg[4][5] = Rings-gate
-//msg[5] = Pos 1st moon
-//msg[6] = Pos 2nd moon
+//msg[3] = GUI-gate array
+	//msg[3][0] = Size/day-gate
+	//msg[3][1] = Gravity-gate
+	//msg[3][2] = Temperature-gate
+	//msg[3][3] = Atmosphere-gate
+	//msg[3][4] = Moons-gate
+	//msg[3][5] = Rings-gate
+//msg[4] = Pos 1st moon
+//msg[5] = Pos 2nd moon
+
+
 
 (
 ~compareGate = 0;
 ~minDist = 3;
 ~maxDist = 500;
+
+OSCdef.new(\speed,
+	{
+		arg msg;
+
+		("time:" + msg[1]).postln;
+
+		~planetaryGrp.set(\time, abs(msg[1]));
+		~solarGrp.set(\time, abs(msg[1]));
+
+	},'/Time');
 
 OSCdef.new(\mercury,
 	{
@@ -25,19 +37,19 @@ OSCdef.new(\mercury,
 		var amp = (~minDist*~diameterMercury)/msg[1];
 
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~mercuryP.set(\gate, 1);},
 				{~mercuryP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~mercuryG.set(\gate, 1);},
 				{~mercuryG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~mercuryT.set(\gate, 1);},
 				{~mercuryT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~mercuryW.set(\gate, 1);},
 				{~mercuryW.set(\gate, 0);});
 
@@ -61,19 +73,19 @@ OSCdef.new(\venus,
 		var amp = (~minDist*~diameterVenus)/msg[1];
 
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~venusP.set(\gate, 1);},
 				{~venusP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~venusG.set(\gate, 1);},
 				{~venusG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~venusT.set(\gate, 1);},
 				{~venusT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~venusW.set(\gate, 1);},
 				{~venusW.set(\gate, 0);});
 
@@ -99,27 +111,24 @@ OSCdef.new(\earth,
 		var amp = (-5.4e-7*1.1*msg[1]).exp*1.05;
 		//("earthAngle:" + msg[2]).postln;
 
-		~planetaryGrp.set(\time, abs(msg[3]));
-		~solarGrp.set(\time, abs(msg[3]));
-
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~earthP.set(\gate, 1);},
 				{~earthP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~earthG.set(\gate, 1);},
 				{~earthG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~earthT.set(\gate, 1);},
 				{~earthT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~earthW.set(\gate, 1);},
 				{~earthW.set(\gate, 0);});
 
-			if(msg[4][4]==1,
+			if(msg[3][4]==1,
 				{~moonP.set(\gate, 1);},
 				{~moonP.set(\gate, 0);});
 
@@ -134,7 +143,7 @@ OSCdef.new(\earth,
 		~earthGrp.set(\ampMoon, ampMoon);
 
 		~posEarth = -1*(msg[2]/pi);
-		~posMoon = -1*(msg[5]/pi);
+		~posMoon = -1*(msg[4]/pi);
 
 		~earthGrp.set(\pan, ~posEarth);
 		~moonP.set(\pan, ~posMoon);
@@ -149,23 +158,23 @@ OSCdef.new(\mars,
 		var amp = (-9.5e-6*0.5*msg[1]).exp*1.1;
 
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~marsP.set(\gate, 1);},
 				{~marsP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~marsG.set(\gate, 1);},
 				{~marsG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~marsT.set(\gate, 1);},
 				{~marsT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~marsW.set(\gate, 1);},
 				{~marsW.set(\gate, 0);});
 
-			if(msg[4][4]==1,
+			if(msg[3][4]==1,
 				{~phobosP.set(\gate, 1);
 					~deimosP.set(\gate, 1);
 				},
@@ -188,8 +197,8 @@ OSCdef.new(\mars,
 		//("Mars moon amp:" + ampMoon).postln;
 
 		~posMars = -1*(msg[2]/pi);
-		~posPhobos = -1*(msg[5]/pi);
-		~posDeimos = -1*(msg[6]/pi);
+		~posPhobos = -1*(msg[4]/pi);
+		~posDeimos = -1*(msg[5]/pi);
 
 		~marsGrp.set(\pan, ~posMars);
 		~phobosP.set(\pan, ~posPhobos);
@@ -205,23 +214,23 @@ OSCdef.new(\jupiter,
 		var amp = (-1.2e-7*0.9*msg[1]).exp*1.05;
 
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~jupiterP.set(\gate, 1);},
 				{~jupiterP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~jupiterG.set(\gate, 1);},
 				{~jupiterG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~jupiterT.set(\gate, 1);},
 				{~jupiterT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~jupiterW.set(\gate, 1);},
 				{~jupiterW.set(\gate, 0);});
 
-			if(msg[4][4]==1,
+			if(msg[3][4]==1,
 				{~ioP.set(\gate, 1);
 					~europaP.set(\gate, 1);
 					~ganymedeP.set(\gate, 1);
@@ -248,10 +257,10 @@ OSCdef.new(\jupiter,
 		//("Jupiter moon amp:" + ampMoon).postln;
 
 		~posJupiter = -1*(msg[2]/pi);
-		~posIo = -1*(msg[5]/pi);
-		~posEuropa = -1*(msg[6]/pi);
-		~posGanymede = -1*(msg[7]/pi);
-		~posCallisto = -1*(msg[8]/pi);
+		~posIo = -1*(msg[4]/pi);
+		~posEuropa = -1*(msg[5]/pi);
+		~posGanymede = -1*(msg[6]/pi);
+		~posCallisto = -1*(msg[7]/pi);
 
 		~jupiterGrp.set(\pan, ~posJupiter);
 		~ioP.set(\pan, ~posIo);
@@ -271,23 +280,23 @@ OSCdef.new(\saturn,
 		var amp = (-1.2e-7*0.9*msg[1]).exp*1.05;
 
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~saturnP.set(\gate, 1);},
 				{~saturnP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~saturnG.set(\gate, 1);},
 				{~saturnG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~saturnT.set(\gate, 1);},
 				{~saturnT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~saturnW.set(\gate, 1);},
 				{~saturnW.set(\gate, 0);});
 
-			if(msg[4][4]==1,
+			if(msg[3][4]==1,
 				{~mimasP.set(\gate, 1);
 					~enceladusP.set(\gate, 1);
 					~tethysP.set(\gate, 1);
@@ -307,7 +316,7 @@ OSCdef.new(\saturn,
 					~iapetusP.set(\gate, 0);
 			});
 
-			if(msg[4][5]==1,
+			if(msg[3][5]==1,
 				{~saturnR.set(\gate, 1);},
 				{~saturnR.set(\gate, 0);});
 
@@ -324,14 +333,14 @@ OSCdef.new(\saturn,
 
 		~posSaturn = -1*(msg[2]/pi);
 
-		~posDione = -1*(msg[5]/pi);
-		~posEnceladus = -1*(msg[6]/pi);
-		~posHyperion = -1*(msg[7]/pi);
-		~posIapetus = -1*(msg[8]/pi);
-		~posMimas = -1*(msg[9]/pi);
-		~posRhea = -1*(msg[10]/pi);
-		~posTethys = -1*(msg[11]/pi);
-		~posTitan = -1*(msg[12]/pi);
+		~posDione = -1*(msg[4]/pi);
+		~posEnceladus = -1*(msg[5]/pi);
+		~posHyperion = -1*(msg[6]/pi);
+		~posIapetus = -1*(msg[7]/pi);
+		~posMimas = -1*(msg[8]/pi);
+		~posRhea = -1*(msg[9]/pi);
+		~posTethys = -1*(msg[10]/pi);
+		~posTitan = -1*(msg[11]/pi);
 
 		~saturnGrp.set(\pan, ~posSaturn);
 		~mimasP.set(\pan, ~posMimas);
@@ -353,23 +362,23 @@ OSCdef.new(\uranus,
 		var amp = (-6.7e-7*0.7*msg[1]).exp*1.1;
 
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~uranusP.set(\gate, 1);},
 				{~uranusP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~uranusG.set(\gate, 1);},
 				{~uranusG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~uranusT.set(\gate, 1);},
 				{~uranusT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~uranusW.set(\gate, 1);},
 				{~uranusW.set(\gate, 0);});
 
-			if(msg[4][4]==1,
+			if(msg[3][4]==1,
 				{~arielP.set(\gate, 1);
 					~mirandaP.set(\gate, 1);
 					~oberonP.set(\gate, 1);
@@ -395,11 +404,11 @@ OSCdef.new(\uranus,
 		//("Uranus moon amp:" + ampMoon).postln;
 
 		~posUranus = -1*(msg[2]/pi);
-		~posAriel = -1*(msg[5]/pi);
-		~posMiranda = -1*(msg[6]/pi);
-		~posOberon = -1*(msg[7]/pi);
-		~posTitania = -1*(msg[8]/pi);
-		~posUmbriel = -1*(msg[9]/pi);
+		~posAriel = -1*(msg[4]/pi);
+		~posMiranda = -1*(msg[5]/pi);
+		~posOberon = -1*(msg[6]/pi);
+		~posTitania = -1*(msg[7]/pi);
+		~posUmbriel = -1*(msg[8]/pi);
 
 		~uranusGrp.set(\pan, ~posUranus);
 		~arielP.set(\pan, ~posAriel);
@@ -419,23 +428,23 @@ OSCdef.new(\neptune,
 		var amp = (-7.7e-7*0.8*msg[1]).exp*1.15;
 
 		if(~compareGate == 0,
-			{if(msg[4][0]==1,
+			{if(msg[3][0]==1,
 				{~neptuneP.set(\gate, 1);},
 				{~neptuneP.set(\gate, 0);});
 
-			if(msg[4][1]==1,
+			if(msg[3][1]==1,
 				{~neptuneG.set(\gate, 1);},
 				{~neptuneG.set(\gate, 0);});
 
-			if(msg[4][2]==1,
+			if(msg[3][2]==1,
 				{~neptuneT.set(\gate, 1);},
 				{~neptuneT.set(\gate, 0);});
 
-			if(msg[4][3]==1,
+			if(msg[3][3]==1,
 				{~neptuneW.set(\gate, 1);},
 				{~neptuneW.set(\gate, 0);});
 
-			if(msg[4][4]==1,
+			if(msg[3][4]==1,
 				{~tritonP.set(\gate, 1);},
 				{~tritonP.set(\gate, 0);});
 
@@ -451,7 +460,7 @@ OSCdef.new(\neptune,
 		//("Neptune moon amp:" + ampMoon).postln;
 
 		~posNeptune = -1*(msg[2]/pi);
-		~posTriton = -1*(msg[5]/pi);
+		~posTriton = -1*(msg[4]/pi);
 
 		~neptuneGrp.set(\pan, ~posNeptune);
 		~tritonP.set(\pan, ~posTriton);
