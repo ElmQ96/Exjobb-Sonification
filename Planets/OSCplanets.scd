@@ -13,8 +13,6 @@ NetAddr.localAddr;
 //msg[4] = Pos 1st moon
 //msg[5] = Pos 2nd moon
 
-
-
 (
 ~compareGate = 0;
 ~minDist = 3;
@@ -24,7 +22,7 @@ OSCdef.new(\speed,
 	{
 		arg msg;
 
-		("time:" + msg[1]).postln;
+		//("time:" + msg[1]).postln;
 
 		~planetaryGrp.set(\time, abs(msg[1]));
 		~solarGrp.set(\time, abs(msg[1]));

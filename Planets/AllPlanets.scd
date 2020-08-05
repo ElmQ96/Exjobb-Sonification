@@ -22,7 +22,6 @@
 ~reroute = Synth.new(\reroute, [\sigbus,~surroundBus,\rebus,~reverbBus], ~fxGrp);
 ~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus], ~fxGrp);
 
-
 //Planetary View
 
 ~moonMode = \percMoon;

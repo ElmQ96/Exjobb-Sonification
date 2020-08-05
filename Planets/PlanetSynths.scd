@@ -17,8 +17,8 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 (
 ~autOrbitP = 0;
 ~autOrbitM = 0;
-~panlagTime = 0.5;
-~poslagTime = 0.5;
+~panlagTime = 0.1;
+~poslagTime = 0.1;
 
 SynthDef.new(\reverb, {
 	arg in, out=0, amp = 0.25;
@@ -42,8 +42,6 @@ SynthDef.new(\reroute, {
 	Out.ar(0, (sigmix*In.ar(sigbus+6, 1)) + (remix*In.ar(rebus+6, 1))); //L
 	Out.ar(3, lfemix*(Mix(In.ar(sigbus, 7)))); //LFE
 }).add;
-
-
 
 SynthDef(\surroundmod, {
 	arg gate=0, amp=0.3, amp2=1.0, freq=200, rate=1, time=1, pan=0, type=0, isMagnetic=0;
@@ -81,8 +79,6 @@ SynthDef(\surroundmod, {
 	sig = sig * env * amp * globalAmp;
 	Out.ar(~surroundBus, sig);
 }).add;
-
-
 
 SynthDef.new(\gravity, {
 	arg gate=0, amp=0.4, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0;
@@ -414,7 +410,6 @@ SynthDef(\suspoof, {
 	Out.ar(~surroundBus, sig);
 }).add;
 
-
 SynthDef(\lpfpoof, {
 	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0;
 	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq;
@@ -479,10 +474,8 @@ SynthDef(\sinamppoof, {
 	sinlvl = SinOsc.kr(rate*time).range(0,1);
 
 	sig = BrownNoise.ar(1);
-	sig2 = (BPF.ar(sig, freq*2, 0.01) * 5) * (1-sinlvl);
-	sig = (BPF.ar(sig, freq*4, 0.005) * 20)* sinlvl;
-
-
+	sig2 = (BPF.ar(sig, freq*1, 0.01) * 5) * (1-sinlvl);
+	sig = (BPF.ar(sig, freq*2, 0.005) * 20)* sinlvl;
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
