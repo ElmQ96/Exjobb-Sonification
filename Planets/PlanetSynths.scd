@@ -32,7 +32,7 @@ SynthDef.new(\reverb, {
 }).add;
 
 SynthDef.new(\reroute, {
-	arg sigbus, rebus, sigmix=1.0, remix=0.2, lfemix=0.4;
+	arg sigbus, rebus, sigmix=1.0, remix=0.2, lfemix=0.3;
 	Out.ar(2, (sigmix*In.ar(sigbus, 1))   + (remix*In.ar(rebus, 1)));   //C
 	Out.ar(1, (sigmix*In.ar(sigbus+1, 1)) + (remix*In.ar(rebus+1, 1))); //R
 	Out.ar(5, (sigmix*In.ar(sigbus+2, 1)) + (remix*In.ar(rebus+2, 1))); //RS

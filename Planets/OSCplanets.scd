@@ -174,10 +174,10 @@ OSCdef.new(\mars,
 
 			if(msg[3][4]==1,
 				{~phobosP.set(\gate, 1);
-					~deimosP.set(\gate, 1);
+				 ~deimosP.set(\gate, 1);
 				},
 				{~phobosP.set(\gate, 0);
-					~deimosP.set(\gate, 0);});
+				 ~deimosP.set(\gate, 0);});
 
 			if(amp>1.0,
 				{amp = 1.0},
@@ -230,14 +230,14 @@ OSCdef.new(\jupiter,
 
 			if(msg[3][4]==1,
 				{~ioP.set(\gate, 1);
-					~europaP.set(\gate, 1);
-					~ganymedeP.set(\gate, 1);
-					~callistoP.set(\gate, 1);
+				 ~europaP.set(\gate, 1);
+				 ~ganymedeP.set(\gate, 1);
+				 ~callistoP.set(\gate, 1);
 				},
 				{~ioP.set(\gate, 0);
-					~europaP.set(\gate, 0);
-					~ganymedeP.set(\gate, 0);
-					~callistoP.set(\gate, 0);});
+				 ~europaP.set(\gate, 0);
+				 ~ganymedeP.set(\gate, 0);
+				 ~callistoP.set(\gate, 0);});
 
 			if(amp>1.0,
 				{amp = 1.0},
@@ -296,22 +296,22 @@ OSCdef.new(\saturn,
 
 			if(msg[3][4]==1,
 				{~mimasP.set(\gate, 1);
-					~enceladusP.set(\gate, 1);
-					~tethysP.set(\gate, 1);
-					~dioneP.set(\gate, 1);
-					~rheaP.set(\gate, 1);
-					~titanP.set(\gate, 1);
-					~hyperionP.set(\gate, 1);
-					~iapetusP.set(\gate, 1);
+				 ~enceladusP.set(\gate, 1);
+				 ~tethysP.set(\gate, 1);
+				 ~dioneP.set(\gate, 1);
+				 ~rheaP.set(\gate, 1);
+				 ~titanP.set(\gate, 1);
+				 ~hyperionP.set(\gate, 1);
+				 ~iapetusP.set(\gate, 1);
 				},
 				{~mimasP.set(\gate, 0);
-					~enceladusP.set(\gate, 0);
-					~tethysP.set(\gate, 0);
-					~dioneP.set(\gate, 0);
-					~rheaP.set(\gate, 0);
-					~titanP.set(\gate, 0);
-					~hyperionP.set(\gate, 0);
-					~iapetusP.set(\gate, 0);
+				 ~enceladusP.set(\gate, 0);
+				 ~tethysP.set(\gate, 0);
+				 ~dioneP.set(\gate, 0);
+				 ~rheaP.set(\gate, 0);
+				 ~titanP.set(\gate, 0);
+				 ~hyperionP.set(\gate, 0);
+				 ~iapetusP.set(\gate, 0);
 			});
 
 			if(msg[3][5]==1,
@@ -378,16 +378,16 @@ OSCdef.new(\uranus,
 
 			if(msg[3][4]==1,
 				{~arielP.set(\gate, 1);
-					~mirandaP.set(\gate, 1);
-					~oberonP.set(\gate, 1);
-					~titaniaP.set(\gate, 1);
-					~umbrielP.set(\gate, 1);
+				 ~mirandaP.set(\gate, 1);
+				 ~oberonP.set(\gate, 1);
+				 ~titaniaP.set(\gate, 1);
+				 ~umbrielP.set(\gate, 1);
 				},
 				{~arielP.set(\gate, 0);
-					~mirandaP.set(\gate, 0);
-					~oberonP.set(\gate, 0);
-					~titaniaP.set(\gate, 0);
-					~umbrielP.set(\gate, 0);
+				 ~mirandaP.set(\gate, 0);
+				 ~oberonP.set(\gate, 0);
+				 ~titaniaP.set(\gate, 0);
+				 ~umbrielP.set(\gate, 0);
 			});
 
 			if(amp>1.0,
@@ -514,11 +514,20 @@ OSCdef.new(\sun,
 OSCdef.new(\compare,
 	{
 		arg msg;
+		("compare settings:" + msg[3]).postln;
 		//msg[1] = first planet to compare
 		//msg[2] = second planet to compare
+		//msg[3]
+		//msg[3][0] = size/day
+		//msg[3][1] = gravity
+		//msg[3][2] = temperature
+		//msg[3][3] = atmosphere
+		//msg[3][4] = moons
+		//msg[3][5] = rings
 
-		("First: " + msg[1]).postln;
-		("Second: " + msg[2]).postln;
+
+		//("First: " + msg[1]).postln;
+		//("Second: " + msg[2]).postln;
 
 		if(msg[1] != 0 or: msg[2] != 0,
 			{~compareGate=1;},
@@ -526,35 +535,212 @@ OSCdef.new(\compare,
 
 
 		if(msg[1] == 1 or: msg[2] == 1,
-			{~mercuryGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~mercuryP.set(\gate, 1);},
+				{~mercuryP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~mercuryG.set(\gate, 1);},
+				{~mercuryG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~mercuryT.set(\gate, 1);},
+				{~mercuryT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~mercuryW.set(\gate, 1);},
+				{~mercuryW.set(\gate, 0);});},
+
 			{~mercuryGrp.set(\gate, 0);});
 
 		if(msg[1] == 2 or: {msg[2] == 2},
-			{~venusGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~venusP.set(\gate, 1);},
+				{~venusP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~venusG.set(\gate, 1);},
+				{~venusG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~venusT.set(\gate, 1);},
+				{~venusT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~venusW.set(\gate, 1);},
+				{~venusW.set(\gate, 0);});},
+
 			{~venusGrp.set(\gate, 0);});
 
 		if(msg[1] == 3 or: {msg[2] == 3},
-			{~earthGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~earthP.set(\gate, 1);},
+				{~earthP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~earthG.set(\gate, 1);},
+				{~earthG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~earthT.set(\gate, 1);},
+				{~earthT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~earthW.set(\gate, 1);},
+				{~earthW.set(\gate, 0);});
+
+			if(msg[3][4]==1,
+				{~moonP.set(\gate, 1);},
+				{~moonP.set(\gate, 0);});},
+
 			{~earthGrp.set(\gate, 0);});
 
 		if(msg[1] == 4 or: {msg[2] == 4},
-			{~marsGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~marsP.set(\gate, 1);},
+				{~marsP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~marsG.set(\gate, 1);},
+				{~marsG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~marsT.set(\gate, 1);},
+				{~marsT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~marsW.set(\gate, 1);},
+				{~marsW.set(\gate, 0);});
+
+			if(msg[3][4]==1,
+				{~phobosP.set(\gate, 1);
+				 ~deimosP.set(\gate, 1);
+				},
+				{~phobosP.set(\gate, 0);
+				 ~deimosP.set(\gate, 0);});},
+
 			{~marsGrp.set(\gate, 0);});
 
 		if(msg[2] == 5 or: {msg[1] == 5},
-			{~jupiterGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~jupiterP.set(\gate, 1);},
+				{~jupiterP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~jupiterG.set(\gate, 1);},
+				{~jupiterG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~jupiterT.set(\gate, 1);},
+				{~jupiterT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~jupiterW.set(\gate, 1);},
+				{~jupiterW.set(\gate, 0);});
+
+			if(msg[3][4]==1,
+				{~ioP.set(\gate, 1);
+				 ~europaP.set(\gate, 1);
+				 ~ganymedeP.set(\gate, 1);
+				 ~callistoP.set(\gate, 1);
+				},
+				{~ioP.set(\gate, 0);
+				 ~europaP.set(\gate, 0);
+				 ~ganymedeP.set(\gate, 0);
+				 ~callistoP.set(\gate, 0);});},
+
 			{~jupiterGrp.set(\gate, 0);});
 
 		if(msg[1] == 6 or: {msg[2] == 6},
-			{~saturnGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~saturnP.set(\gate, 1);},
+				{~saturnP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~saturnG.set(\gate, 1);},
+				{~saturnG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~saturnT.set(\gate, 1);},
+				{~saturnT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~saturnW.set(\gate, 1);},
+				{~saturnW.set(\gate, 0);});
+
+			if(msg[3][4]==1,
+				{~mimasP.set(\gate, 1);
+				 ~enceladusP.set(\gate, 1);
+				 ~tethysP.set(\gate, 1);
+				 ~dioneP.set(\gate, 1);
+				 ~rheaP.set(\gate, 1);
+				 ~titanP.set(\gate, 1);
+				 ~hyperionP.set(\gate, 1);
+				 ~iapetusP.set(\gate, 1);
+				},
+				{~mimasP.set(\gate, 0);
+				 ~enceladusP.set(\gate, 0);
+				 ~tethysP.set(\gate, 0);
+				 ~dioneP.set(\gate, 0);
+				 ~rheaP.set(\gate, 0);
+				 ~titanP.set(\gate, 0);
+				 ~hyperionP.set(\gate, 0);
+				 ~iapetusP.set(\gate, 0);
+			});},
 			{~saturnGrp.set(\gate, 0);});
 
 		if(msg[1] == 7 or: {msg[2] == 7},
-			{~uranusGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~uranusP.set(\gate, 1);},
+				{~uranusP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~uranusG.set(\gate, 1);},
+				{~uranusG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~uranusT.set(\gate, 1);},
+				{~uranusT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~uranusW.set(\gate, 1);},
+				{~uranusW.set(\gate, 0);});
+
+			if(msg[3][4]==1,
+				{~arielP.set(\gate, 1);
+				 ~mirandaP.set(\gate, 1);
+				 ~oberonP.set(\gate, 1);
+				 ~titaniaP.set(\gate, 1);
+				 ~umbrielP.set(\gate, 1);
+				},
+				{~arielP.set(\gate, 0);
+				 ~mirandaP.set(\gate, 0);
+				 ~oberonP.set(\gate, 0);
+				 ~titaniaP.set(\gate, 0);
+				 ~umbrielP.set(\gate, 0);
+			});},
 			{~uranusGrp.set(\gate, 0);});
 
 		if(msg[1] == 8 or: {msg[2] == 8},
-			{~neptuneGrp.set(\gate, 1);},
+			{if(msg[3][0]==1,
+				{~neptuneP.set(\gate, 1);},
+				{~neptuneP.set(\gate, 0);});
+
+			if(msg[3][1]==1,
+				{~neptuneG.set(\gate, 1);},
+				{~neptuneG.set(\gate, 0);});
+
+			if(msg[3][2]==1,
+				{~neptuneT.set(\gate, 1);},
+				{~neptuneT.set(\gate, 0);});
+
+			if(msg[3][3]==1,
+				{~neptuneW.set(\gate, 1);},
+				{~neptuneW.set(\gate, 0);});
+
+			if(msg[3][4]==1,
+				{~tritonP.set(\gate, 1);},
+				{~tritonP.set(\gate, 0);});},
 			{~neptuneGrp.set(\gate, 0);});
 
 	},'/Compare');
