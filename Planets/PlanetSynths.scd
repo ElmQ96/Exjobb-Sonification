@@ -278,7 +278,7 @@ SynthDef(\percsusSolar, {
 }).add;
 
 SynthDef(\percSolar, {
-	arg freq=400, rate=1, pan=0, out=0, amp=0.4, amp2=1.0, gate=0, phase=0, time=1;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.2, amp2=1.0, gate=0, phase=0, time=1;
 	var sig, globalAmp, env, t_gate=0;
 
 	t_gate = gate * LFPulse.kr(rate*time,phase);
@@ -459,7 +459,7 @@ SynthDef(\percmany, {
 }).add;
 
 SynthDef(\sinamppoof, {
-	arg freq=400, rate=1, pan=0, out=0, amp=1.0, amp2=1.0, gate=0, time=1;
+	arg freq=400, rate=1, pan=0, out=0, amp=0.6, amp2=1.0, gate=0, time=1;
 	var sig, globalAmp, sig2, env, env2, t_gate=0,oscillator1, oscillator2, resfreq, sinlvl;
 
 	env = EnvGen.kr(
