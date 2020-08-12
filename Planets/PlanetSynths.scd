@@ -1,7 +1,7 @@
 (
 o = Server.default.options;
 o.outDevice_("MME : Högtalare (Razer Surround Audio)");
-//o.outDevice_("ASIO : Focusrite (USB Audio)");
+//o.outDevice_("ASIO : Focusrite USB ASIO");
 o.numOutputBusChannels = 8;
 o.numOutputBusChannels;
 s.reboot;

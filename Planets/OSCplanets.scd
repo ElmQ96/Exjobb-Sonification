@@ -56,7 +56,7 @@ OSCdef.new(\mercury,
 				{amp = (~minDist*~diameterMercury)/msg[1]});
 
 			~mercuryGrp.set(\amp2, amp);},
-			{~mercuryGrp.set(\amp2, 0.5);});
+			{~mercuryGrp.set(\amp2, 1.0);});
 
 		~posMercury = -1*(msg[2]/pi);
 
@@ -92,7 +92,7 @@ OSCdef.new(\venus,
 				{amp = (~minDist*~diameterVenus)/msg[1]});
 
 			~venusGrp.set(\amp2, amp);},
-			{~venusGrp.set(\amp2, 0.5);});
+			{~venusGrp.set(\amp2, 1.0);});
 
 		~posVenus = -1*(msg[2]/pi);
 
@@ -135,7 +135,7 @@ OSCdef.new(\earth,
 				{amp = (-5.4e-7*1.1*msg[1]).exp*1.05});
 
 			~earthGrp.set(\amp2, amp);},
-			{~earthGrp.set(\amp2, 0.5);});
+			{~earthGrp.set(\amp2, 1.0);});
 
 		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~earthGrp.set(\ampMoon, ampMoon);
@@ -188,7 +188,7 @@ OSCdef.new(\mars,
 				{amp = (-9.5e-6*0.5*msg[1]).exp*1.1});
 
 			~marsGrp.set(\amp2, amp);},
-			{~marsGrp.set(\amp2, 0.5);});
+			{~marsGrp.set(\amp2, 1.0);});
 
 		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~marsGrp.set(\ampMoon, ampMoon);
@@ -248,7 +248,7 @@ OSCdef.new(\jupiter,
 				{amp = (-1.2e-7*0.9*msg[1]).exp*1.05});
 
 			~jupiterGrp.set(\amp2, amp);},
-			{~jupiterGrp.set(\amp2, 0.5);});
+			{~jupiterGrp.set(\amp2, 1.0);});
 
 		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~jupiterGrp.set(\ampMoon, ampMoon);
@@ -323,7 +323,7 @@ OSCdef.new(\saturn,
 				{amp = (-1.2e-7*0.9*msg[1]).exp*1.05});
 
 			~saturnGrp.set(\amp2, amp);},
-			{~saturnGrp.set(\amp2, 0.5);});
+			{~saturnGrp.set(\amp2, 1.0);});
 
 		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~saturnGrp.set(\ampMoon, ampMoon);
@@ -395,7 +395,7 @@ OSCdef.new(\uranus,
 				{amp = (-6.7e-7*0.7*msg[1]).exp*1.1});
 
 			~uranusGrp.set(\amp2, amp);},
-			{~uranusGrp.set(\amp2, 0.5);});
+			{~uranusGrp.set(\amp2, 1.0);});
 
 		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~uranusGrp.set(\ampMoon, ampMoon);
@@ -451,7 +451,7 @@ OSCdef.new(\neptune,
 				{amp = (-7.7e-7*0.8*msg[1]).exp*1.15});
 
 			~neptuneGrp.set(\amp2, amp);},
-			{~neptuneGrp.set(\amp2, 0.5);});
+			{~neptuneGrp.set(\amp2, 1.0);});
 
 		ampMoon = -4*(amp - 0.5).pow(2)+1;
 		~neptuneGrp.set(\ampMoon, ampMoon);
@@ -526,15 +526,15 @@ OSCdef.new(\compare,
 		//msg[3][5] = rings
 
 
-		//("First: " + msg[1]).postln;
-		//("Second: " + msg[2]).postln;
+		("First: " + msg[1]).postln;
+		("Second: " + msg[2]).postln;
 
 		if(msg[1] != 0 or: msg[2] != 0,
 			{~compareGate=1;},
-			{~compareGate=0});
+			{~compareGate=0;});
 
 
-		if(msg[1] == 1 or: msg[2] == 1,
+		if(msg[1] == 1 or: {msg[2] == 1},
 			{if(msg[3][0]==1,
 				{~mercuryP.set(\gate, 1);},
 				{~mercuryP.set(\gate, 0);});
