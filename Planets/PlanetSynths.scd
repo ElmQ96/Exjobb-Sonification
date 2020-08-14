@@ -54,11 +54,11 @@ SynthDef(\surroundmod, {
 
 	//Select signal depending on planet type
 	sig = Select.ar(type,[
-			LFSaw.ar(Vibrato.kr(freq,rate*time,0.01)),
-			LFPulse.ar(Vibrato.kr(freq,rate*time,0.01),0,0.4)]);
+			LFSaw.ar(Vibrato.kr(freq,rate*time,0.004)),
+			LFPulse.ar(Vibrato.kr(freq,rate*time,0.004),0,0.4)]);
 
 	//Sustained base tone
-	sig2 = SinOsc.ar(freq/2,0,0.5);
+	sig2 = SinOsc.ar(freq/2,0,0.2);
 
 	//Sweeping resonant low-pass filter for length of day
 	resfreq = SinOsc.kr(rate*time) * 200 + 400;
@@ -142,7 +142,7 @@ SynthDef.new(\wind, {
 }).add;
 
 SynthDef.new(\fry, {
-	arg gate=0, amp=0.6, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
+	arg gate=0, amp=0.7, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
 	var sig, globalAmp, env, newrate, newrate2, grate;
 
 	env = EnvGen.kr(

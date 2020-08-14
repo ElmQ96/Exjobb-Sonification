@@ -73,10 +73,10 @@
 		\pan, ~orbitVenus], ~venusGrp);
 
 ~venusW = Synth.new(\wind, [
-		\amp, 0.4,
+		\amp, 0.5,
 		\type, 1,
 		\rate, 0.5,
-		\gust, 1,
+		\gust, 2,
 		\pan, ~orbitVenus], ~venusGrp);
 
 ~venusT = Synth.new(\fry, [
@@ -109,7 +109,7 @@
 ~earthW = Synth.new(\wind, [
 		\amp, 0.7,
 		\type, 0,
-		\rate, 0.2,
+		\rate, 0.3,
 		\gust, 1,
 		\pan, ~orbitEarth], ~earthGrp);
 
@@ -148,11 +148,11 @@
 		\pan, ~orbitMars], ~marsGrp);
 
 ~marsW = Synth.new(\wind, [
-		\amp, 0.4,
+		\amp, 0.6,
 		\type, 0,
-		\rate, 0.5,
-		\gust, 5,
-		\atmos, 200,
+		\rate, 0.2,
+		\gust, 2,
+		\atmos, 400,
 		\pan, ~orbitMars], ~marsGrp);
 
 ~marsT = Synth.new(\fry, [
