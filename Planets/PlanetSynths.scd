@@ -67,7 +67,7 @@ SynthDef(\surroundmod, {
 	//Phaser sweep if planet has a magnetic field
 	lfo = LinLin.ar(Vibrato.ar(0.4,0.04,1.0,0,0,0.2,0.2), 0, 1, 600, 5000);
 	sig = Select.ar(isMagnetic,
-		[sig, sig + HPF.ar(BPF.ar(sig, lfo, 0.1)*3,freq*3)]);
+		[sig, sig + HPF.ar(BPF.ar(sig, lfo, 0.1)*2,freq*3)]);
 
 	sig = (sig + sig2)/2;
 

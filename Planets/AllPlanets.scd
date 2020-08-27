@@ -75,7 +75,7 @@
 ~venusW = Synth.new(\wind, [
 		\amp, 0.5,
 		\type, 1,
-		\rate, 0.5,
+		\rate, 0.6,
 		\gust, 2,
 		\pan, ~orbitVenus], ~venusGrp);
 
@@ -150,7 +150,7 @@
 ~marsW = Synth.new(\wind, [
 		\amp, 0.6,
 		\type, 0,
-		\rate, 0.2,
+		\rate, 0.1,
 		\gust, 2,
 		\atmos, 400,
 		\pan, ~orbitMars], ~marsGrp);
