@@ -62,6 +62,7 @@ SynthDef(\surroundmod, {
 
 	//Sweeping resonant low-pass filter for length of day
 	resfreq = SinOsc.kr(rate*time) * 200 + 400;
+	//resfreq = Vibrato.kr(freq*2,rate*time,0.6,0,0,0,0);
 	sig = RLPF.ar(sig, resfreq,0.5);
 
 	//Phaser sweep if planet has a magnetic field
@@ -82,8 +83,8 @@ SynthDef(\surroundmod, {
 
 	//PanAz
 	if(~autOrbitP == 1,
-		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan)+SinOsc.kr(rate*time,pi/2).range(-0.01,0.01),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1)+SinOsc.kr(rate*time,pi/2).range(-0.01,0.01),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -109,8 +110,8 @@ SynthDef.new(\gravity, {
     sig = Ringz.ar(b * 20, gFreq, 0.6);
 
 	if(~autOrbitP == 1,
-		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.05,0.05)),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan+LFTri.kr(rate/2,1.0).range(-0.05,0.05),~panlagTime, -1, 1),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.02,0.02)),1.0,2.5,0);},
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan+LFTri.kr(rate/2,1.0).range(-0.02,0.02),~panlagTime, -1, 1),1.0,2.5,0);});
 
 	/*if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate,0).range(-0.1,0.1)),1.0,2.5,0);},
@@ -163,7 +164,7 @@ SynthDef.new(\fry, {
 	//Set temperature range and length of day.
 	newrate = SinOsc.kr(rate*time).range(lowtemp,hightemp);
 
-	newrate2 = SinOsc.kr(rate*time).range(lowtemp/3000,hightemp/4000);
+	newrate2 = SinOsc.kr(rate*time).range(lowtemp/4000,hightemp/4000);
 
 	//Grating sound
 	sig = Dust.ar(newrate, 0.20);
@@ -175,7 +176,7 @@ SynthDef.new(\fry, {
 	//Select Low-pass filter (depending on day/night)
 	//depending on if the temperature is dynamic or not
 	sig = Select.ar(type,[
-			LPF.ar(sig,SinOsc.kr(rate*time).range(6000,12000));,
+			LPF.ar(sig,SinOsc.kr(rate*time).range(4000,13000));,
 			LPF.ar(sig,12000);]);
 
 	sig = sig + Crackle.ar(2.0,newrate2); //GrayNoise, ClipNoise
