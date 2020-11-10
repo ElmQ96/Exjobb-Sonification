@@ -71,6 +71,16 @@ SynthDef(\surroundmod, {
 
 	sig = (sig + sig2)/2;
 
+	//VBAP setup
+	/*a = VBAPSpeakerArray.new(2, [0, 45, 90, 135, -135, -90, -45]);
+	a.speakers[1].dump;
+	b = a.loadToBuffer;
+	VBAP.ar(7, sig, b.bufnum, CircleRamp.kr(pan,~panlagTime,-1,1),0,20);
+	if(~autOrbitP == 1,
+		{sig = VBAP.ar(7, sig, b.bufnum, LFSaw.kr(pan).range(-180,180),1,20);},
+		{sig = VBAP.ar(7, sig, b.bufnum, CircleRamp.kr(pan,~panlagTime,-1,1),1,20);});*/
+
+	//PanAz
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
 		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
