@@ -73,7 +73,7 @@ SynthDef(\surroundmod, {
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -100,11 +100,11 @@ SynthDef.new(\gravity, {
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.05,0.05)),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan+LFTri.kr(rate/2,1.0).range(-0.05,0.05),~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan+LFTri.kr(rate/2,1.0).range(-0.05,0.05),~panlagTime, -1, 1),1.0,2.5,0);});
 
 	/*if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate,0).range(-0.1,0.1)),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});*/
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});*/
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -134,7 +134,7 @@ SynthDef.new(\wind, {
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -172,7 +172,7 @@ SynthDef.new(\fry, {
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -214,7 +214,7 @@ SynthDef(\percsusMoon, {
 
 	if(~autOrbitM == 1,
 		{t_gate = gate * LFPulse.kr(rate);},
-		{t_gate = gate * Lag.kr(pan,~panlagTime);});
+		{t_gate = gate * CircleRamp.kr(pan,~panlagTime,-1,1);});
 
 	env = EnvGen.kr(
 		Env.perc(0.01,0.5),
@@ -232,8 +232,8 @@ SynthDef(\percsusMoon, {
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = ampMoon;
 	//globalAmp = -4*((Lag.kr(amp2, ~poslagTime)-0.5)**2)+1;
@@ -266,8 +266,8 @@ SynthDef(\percsusSolar, {
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	//globalAmp = -4*((Lag.kr(amp2, ~poslagTime)-0.5)**2)+1;
 	globalAmp = Lag.kr(amp2, ~poslagTime);
@@ -292,7 +292,7 @@ SynthDef(\percSolar, {
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -304,7 +304,7 @@ SynthDef(\percMoon, {
 	var sig, globalAmp, env, t_gate=0;
 
 	t_gate = gate * LFPulse.kr(rate*time,phase);
-	//t_gate = gate * Lag.kr(pan,~panlagTime);
+	//t_gate = gate * CircleRamp.kr(pan,~panlagTime,-1,1);
 
 	env = EnvGen.kr(
 		Env.perc(0.01,1/(rate*time)), // 1/rate as release
@@ -316,7 +316,7 @@ SynthDef(\percMoon, {
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(ampMoon, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -345,8 +345,8 @@ SynthDef(\sinsuspoof, {
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env;
@@ -371,7 +371,7 @@ SynthDef(\sinpoof, {
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env;
@@ -400,8 +400,8 @@ SynthDef(\suspoof, {
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env;
@@ -428,7 +428,7 @@ SynthDef(\lpfpoof, {
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env;
@@ -451,7 +451,7 @@ SynthDef(\percmany, {
 
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env * amp * globalAmp;
@@ -480,8 +480,8 @@ SynthDef(\sinamppoof, {
 	if(~autOrbitM == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);
 		 sig2 = PanAz.ar(7, sig2, LFSaw.kr(pan),1.0,2.5,0);},
-		{sig = PanAz.ar(7, sig, Lag.kr(pan,~panlagTime),1.0,2.5,0);
-		 sig2 = PanAz.ar(7, sig2, Lag.kr(pan,~panlagTime),1.0,2.5,0);});
+		{sig = PanAz.ar(7, sig, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);
+		 sig2 = PanAz.ar(7, sig2, CircleRamp.kr(pan,~panlagTime,-1,1),1.0,2.5,0);});
 
 	globalAmp = Lag.kr(amp2, ~poslagTime);
 	sig = sig * env;
