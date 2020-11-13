@@ -154,7 +154,7 @@ SynthDef.new(\wind, {
 
 SynthDef.new(\fry, {
 	arg gate=0, amp=0.7, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
-	var sig, globalAmp, env, newrate, newrate2, grate;
+	var sig, globalAmp, env, newrate, newrate2, newrate3, grate;
 
 	env = EnvGen.kr(
 		Env.adsr(5.0,0.0,1.0,5.0),
@@ -164,7 +164,9 @@ SynthDef.new(\fry, {
 	//Set temperature range and length of day.
 	newrate = SinOsc.kr(rate*time).range(lowtemp,hightemp);
 
-	newrate2 = SinOsc.kr(rate*time).range(lowtemp/4000,hightemp/4000);
+	newrate2 = SinOsc.kr(rate*time).range(lowtemp/2000,hightemp/2000);
+
+	newrate3 = SinOsc.kr(rate*time).range((lowtemp*10)+20,(hightemp*10)+20);
 
 	//Grating sound
 	sig = Dust.ar(newrate, 0.20);
@@ -179,7 +181,8 @@ SynthDef.new(\fry, {
 			LPF.ar(sig,SinOsc.kr(rate*time).range(4000,13000));,
 			LPF.ar(sig,12000);]);
 
-	sig = sig + Crackle.ar(2.0,newrate2); //GrayNoise, ClipNoise
+	//sig = sig + Crackle.ar(2.0,newrate2/2); //GrayNoise, ClipNoise
+	sig = sig + BPF.ar(Crackle.ar(2.0),newrate3,3,newrate2);
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan),1.0,2.5,0);},
