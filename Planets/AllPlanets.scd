@@ -39,7 +39,7 @@
 		\amp, 0.3,
 		\type, 0,
 		\freq, ~massMercury,
-		\rate, 1/7,
+		\rate, ~gravityMercury/2,
 		\gravity, ~gravityMercury,
 		\pan, ~orbitMercury], ~mercuryGrp);
 
@@ -68,7 +68,7 @@
 		\amp, 0.4,
 		\type, 0,
 		\freq, ~massVenus,
-		\rate, 1/7,
+		\rate, ~gravityVenus/4,
 		\gravity, ~gravityVenus,
 		\pan, ~orbitVenus], ~venusGrp);
 
@@ -102,7 +102,7 @@
 ~earthG = Synth.new(\gravity, [
 		\type, 0,
 		\freq, ~massEarth,
-		\rate, 1/7,
+		\rate, ~invrotationEarth/4,
 		\gravity, ~gravityEarth,
 		\pan, ~orbitEarth], ~earthGrp);
 
@@ -143,7 +143,7 @@
 		\type, 0,
 		\amp, 0.5,
 		\freq, ~massMars,
-		\rate, 1/7,
+		\rate, ~invrotationMars/4,
 		\gravity, ~gravityMars,
 		\pan, ~orbitMars], ~marsGrp);
 
@@ -190,7 +190,7 @@
 		\amp, 0.5,
 		\type, 1,
 		\freq, ~massJupiter,
-		\rate, 1/7,
+		\rate, ~invrotationJupiter/4,
 		\gravity, ~gravityJupiter,
 		\pan, ~orbitJupiter], ~jupiterGrp);
 
@@ -241,7 +241,7 @@
 		\amp, 0.5,
 		\type, 1,
 		\freq, ~massSaturn,
-		\rate, 1/7,
+		\rate, ~invrotationSaturn/4,
 		\gravity, ~gravitySaturn,
 		\pan, ~orbitSaturn], ~saturnGrp);
 
@@ -325,7 +325,7 @@
 ~uranusG = Synth.new(\gravity, [
 		\type, 1,
 		\freq, ~massUranus,
-		\rate, 1/7,
+		\rate, ~invrotationUranus/4,
 		\gravity, ~gravityUranus,
 		\pan, ~orbitUranus], ~uranusGrp);
 
@@ -385,7 +385,7 @@
 ~neptuneG = Synth.new(\gravity, [
 		\type, 1,
 		\freq, ~massNeptune,
-		\rate, 1/7,
+		\rate, ~invrotationNeptune/4,
 		\gravity, ~gravityNeptune,
 		\pan, ~orbitNeptune], ~neptuneGrp);
 

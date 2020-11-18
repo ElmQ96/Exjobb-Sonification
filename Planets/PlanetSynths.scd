@@ -16,7 +16,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 
 (
 ~autOrbitP = 0;
-~autOrbitM = 0;
+~autOrbitM = 1;
 ~panlagTime = 0.1;
 ~poslagTime = 0.1;
 
@@ -92,7 +92,7 @@ SynthDef(\surroundmod, {
 }).add;
 
 SynthDef.new(\gravity, {
-	arg gate=0, amp=0.4, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0;
+	arg gate=0, amp=0.7, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0;
     var sig, globalAmp, env, b, sf, gFreq;
 
 	env = EnvGen.kr(
@@ -102,12 +102,12 @@ SynthDef.new(\gravity, {
 
 	gFreq = Select.kr(type,[
 			freq;,
-			freq*2;]);
+			freq;]);
 
 	//Physical model of a ball
 	sf = LFPulse.ar(rate,0.0);
-    b = TBall.ar(sf, gravity,0.01,0.01);
-    sig = Ringz.ar(b * 20, gFreq, 0.6);
+    b = TBall.ar(sf, gravity,0.03,0.01);
+    sig = Ringz.ar(b * 20, gFreq, 1.0);
 
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan+LFTri.kr(rate/2,1.0).range(-0.02,0.02)),1.0,2.5,0);},
@@ -434,7 +434,7 @@ SynthDef(\lpfpoof, {
 		doneAction:0);
 
 	sig = BrownNoise.ar(1);
-	sig = (BPF.ar(sig, Vibrato.kr(freq*4,rate,0.01), 0.005) * 20);
+	sig = (BPF.ar(sig, Vibrato.kr(freq*2,rate,0.01), 0.005) * 20);
 
 	//Sweeping resonant low-pass filter for length of day
 	resfreq = SinOsc.kr(rate) * 200 + 200;
