@@ -19,7 +19,9 @@
 ~fxGrp = Group.after(~solarGrp);
 
 //Setup
-~reroute = Synth.new(\reroute, [\sigbus,~surroundBus,\rebus,~reverbBus], ~fxGrp);
+//~reroute = Synth.new(\reroute, [\sigbus,~surroundBus,\rebus,~reverbBus], ~fxGrp);
+~stereoroute = Synth.new(\stereoroute, [\sigbus,~surroundBus,\rebus,~reverbBus], ~fxGrp);
+
 ~reverb = Synth.new(\reverb, [\in,~surroundBus,\out,~reverbBus], ~fxGrp);
 
 //Planetary View
@@ -36,7 +38,7 @@
 		\pan, ~orbitMercury], ~mercuryGrp);
 
 ~mercuryG = Synth.new(\gravity, [
-		\amp, 0.3,
+		\amp, 0.5,
 		\type, 0,
 		\freq, ~massMercury,
 		\rate, ~gravityMercury/2,
@@ -65,8 +67,8 @@
 		\pan, ~orbitVenus], ~venusGrp);
 
 ~venusG = Synth.new(\gravity, [
-		\amp, 0.4,
 		\type, 0,
+		\amp, 0.8,
 		\freq, ~massVenus,
 		\rate, ~gravityVenus/4,
 		\gravity, ~gravityVenus,
@@ -132,7 +134,6 @@
 
 //Mars
 ~marsP = Synth.new(\surroundmod, [
-		\amp, 0.3,
 		\type, 0,
 		\freq, ~massMars,
 		\rate, ~invrotationMars,
@@ -141,7 +142,6 @@
 
 ~marsG = Synth.new(\gravity, [
 		\type, 0,
-		\amp, 0.5,
 		\freq, ~massMars,
 		\rate, ~invrotationMars/4,
 		\gravity, ~gravityMars,
@@ -179,7 +179,7 @@
 
 //Jupiter
 ~jupiterP = Synth.new(\surroundmod, [
-		\amp, 0.4,
+		\amp, 0.5,
 		\type, 1,
 		\freq, ~massJupiter,
 		\rate, ~invrotationJupiter,
@@ -187,7 +187,7 @@
 		\pan, ~orbitJupiter], ~jupiterGrp);
 
 ~jupiterG = Synth.new(\gravity, [
-		\amp, 0.5,
+		\amp, 0.8,
 		\type, 1,
 		\freq, ~massJupiter,
 		\rate, ~invrotationJupiter/4,
@@ -238,7 +238,6 @@
 		\pan, ~orbitSaturn], ~saturnGrp);
 
 ~saturnG = Synth.new(\gravity, [
-		\amp, 0.5,
 		\type, 1,
 		\freq, ~massSaturn,
 		\rate, ~invrotationSaturn/4,
@@ -248,8 +247,8 @@
 ~saturnW = Synth.new(\wind, [
 		\amp, 0.5,
 		\type, 1,
-		\rate, 0.5,
-		\gust, 0.6,
+		\rate, 0.6,
+		\gust, 1.0,
 		\pan, ~orbitSaturn], ~saturnGrp);
 
 ~saturnT = Synth.new(\fry, [
@@ -333,7 +332,7 @@
 		\amp, 0.5,
 		\type, 1,
 		\rate, 0.5,
-		\gust, 0.5,
+		\gust, 0.7,
 		\pan, ~orbitUranus], ~uranusGrp);
 
 ~uranusT = Synth.new(\fry, [
@@ -392,8 +391,8 @@
 ~neptuneW = Synth.new(\wind, [
 		\amp, 0.5,
 		\type, 1,
-		\rate, 0.5,
-		\gust, 0.5,
+		\rate, 0.6,
+		\gust, 2,
 		\pan, ~orbitNeptune], ~neptuneGrp);
 
 ~neptuneT = Synth.new(\fry, [

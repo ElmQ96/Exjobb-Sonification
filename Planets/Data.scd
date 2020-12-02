@@ -4,7 +4,6 @@ var mul = 1, orbitscale= 0.0, gravityscale=2, tempscale=174, tempscale2=2, temps
 
 ~time = 1;
 
-
 //C4-C5
 ~massMercury = 523.25*mul;//C5
 ~massVenus =  329.63*mul;//E4

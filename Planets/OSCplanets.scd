@@ -107,7 +107,7 @@ OSCdef.new(\earth,
 
 		var ampMoon;
 		var amp = (-5.4e-7*1.1*msg[1]).exp*1.05;
-		//("earthAngle:" + msg[2]).postln;
+
 
 		if(~compareGate == 0,
 			{if(msg[3][0]==1,
@@ -142,6 +142,7 @@ OSCdef.new(\earth,
 
 		~posEarth = -1*(msg[2]/pi);
 		~posMoon = -1*(msg[4]/pi);
+		("Angle:" + msg[2]).postln;
 
 		~earthGrp.set(\pan, ~posEarth);
 		~moonP.set(\pan, ~posMoon);

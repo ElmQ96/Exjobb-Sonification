@@ -1,6 +1,6 @@
 (
 o = Server.default.options;
-o.outDevice_("MME : Högtalare (Razer Surround Audio)");
+//o.outDevice_("MME : Högtalare (Razer Surround Audio)");
 //o.outDevice_("ASIO : Focusrite USB ASIO");
 o.numOutputBusChannels = 8;
 o.numOutputBusChannels;
@@ -16,8 +16,8 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 
 (
 ~autOrbitP = 0;
-~autOrbitM = 1;
-~panlagTime = 0.1;
+~autOrbitM = 0;
+~panlagTime = 0.5;
 ~poslagTime = 0.1;
 
 SynthDef.new(\reverb, {
@@ -41,6 +41,12 @@ SynthDef.new(\reroute, {
 	Out.ar(4, (sigmix*In.ar(sigbus+5, 1)) + (remix*In.ar(rebus+5, 1))); //LS
 	Out.ar(0, (sigmix*In.ar(sigbus+6, 1)) + (remix*In.ar(rebus+6, 1))); //L
 	Out.ar(3, lfemix*(Mix(In.ar(sigbus, 7)))); //LFE
+}).add;
+
+SynthDef.new(\stereoroute, {
+	arg sigbus, rebus, sigmix=1.0, remix=0.2, lfemix=0.3;
+	Out.ar(0, (sigmix*In.ar(sigbus+6, 1)+(sigmix*In.ar(sigbus, 1)))/2 + (remix*In.ar(rebus+6, 1)+(remix*In.ar(rebus, 1)))/2); //(L+C)/2
+	Out.ar(1, (sigmix*In.ar(sigbus+1, 1)+(sigmix*In.ar(sigbus, 1)))/2 + (remix*In.ar(rebus+1, 1)+(remix*In.ar(rebus, 1)))/2); //(R+C)/2
 }).add;
 
 SynthDef(\surroundmod, {
@@ -81,6 +87,9 @@ SynthDef(\surroundmod, {
 		{sig = VBAP.ar(7, sig, b.bufnum, LFSaw.kr(pan).range(-180,180),1,20);},
 		{sig = VBAP.ar(7, sig, b.bufnum, CircleRamp.kr(pan,~panlagTime,-1,1),1,20);});*/
 
+	//+SinOsc.kr(rate*time,pi/2).range(-0.01,0.01)
+	//CircleRamp.kr(pan,~panlagTime,-1,1).poll;
+
 	//PanAz
 	if(~autOrbitP == 1,
 		{sig = PanAz.ar(7, sig, LFSaw.kr(pan)+SinOsc.kr(rate*time,pi/2).range(-0.01,0.01),1.0,2.5,0);},
@@ -92,7 +101,7 @@ SynthDef(\surroundmod, {
 }).add;
 
 SynthDef.new(\gravity, {
-	arg gate=0, amp=0.7, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0;
+	arg gate=0, amp=0.65, amp2=1.0, freq=200, rate=1, pan=0, gravity=1, type=0, time=1;
     var sig, globalAmp, env, b, sf, gFreq;
 
 	env = EnvGen.kr(
@@ -105,7 +114,7 @@ SynthDef.new(\gravity, {
 			freq;]);
 
 	//Physical model of a ball
-	sf = LFPulse.ar(rate,0.0);
+	sf = LFPulse.ar(rate*time,0.0);
     b = TBall.ar(sf, gravity,0.03,0.01);
     sig = Ringz.ar(b * 20, gFreq, 1.0);
 
