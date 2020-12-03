@@ -142,7 +142,7 @@ OSCdef.new(\earth,
 
 		~posEarth = -1*(msg[2]/pi);
 		~posMoon = -1*(msg[4]/pi);
-		("Angle:" + msg[2]).postln;
+		//("Angle:" + msg[2]).postln;
 
 		~earthGrp.set(\pan, ~posEarth);
 		~moonP.set(\pan, ~posMoon);
