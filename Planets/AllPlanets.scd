@@ -143,7 +143,7 @@
 ~marsG = Synth.new(\gravity, [
 		\type, 0,
 		\freq, ~massMars,
-		\rate, ~invrotationMars/4,
+		\rate, ~invrotationMars/5,
 		\gravity, ~gravityMars,
 		\pan, ~orbitMars], ~marsGrp);
 

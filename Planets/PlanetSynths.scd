@@ -17,7 +17,7 @@ o.numOutputBusChannels = ~reverbBus.index+8;
 (
 ~autOrbitP = 0;
 ~autOrbitM = 0;
-~panlagTime = 0.5;
+~panlagTime = 0.1;
 ~poslagTime = 0.1;
 
 SynthDef.new(\reverb, {
@@ -162,7 +162,7 @@ SynthDef.new(\wind, {
 }).add;
 
 SynthDef.new(\fry, {
-	arg gate=0, amp=0.85, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
+	arg gate=0, amp=0.8, amp2=1.0, freq=440, rate=1, time=1, pan=0, type=0, lowtemp=20, hightemp=200;
 	var sig, globalAmp, env, newrate, newrate2, newrate3, grate;
 
 	env = EnvGen.kr(
